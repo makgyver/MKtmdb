@@ -1,9 +1,12 @@
 package mk.tmdb.core;
 
 import java.net.MalformedURLException;
+import java.util.Collections;
 import java.util.Date;
-import java.util.Vector;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+import mk.tmdb.exception.ConfigurationNotLoadedException;
 import mk.tmdb.exception.InvalidApiKeyException;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONArray;
@@ -22,39 +25,46 @@ public class Configuration {
 	
 	private static String url;
 	private static String secureUrl;
-	private static Vector<String> posterSizes = new Vector<String>();
-	private static Vector<String> backdropSizes = new Vector<String>();
-	private static Vector<String> profileSizes = new Vector<String>();
-	private static Vector<String> logoSizes = new Vector<String>();
-	private static Vector<String> changeKeys = new Vector<String>();
+	private static Set<String> posterSizes = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private static Set<String> backdropSizes = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private static Set<String> profileSizes = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private static Set<String> logoSizes = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private static Set<String> changeKeys = Collections.synchronizedSet(new LinkedHashSet<String>());
 	private static boolean loaded = false;
 	private static Date loadedTime = null;
 
-	public static String getUrl() {
+	public static String getUrl() throws ConfigurationNotLoadedException {
+		if (!loaded) throw new ConfigurationNotLoadedException();
 		return url;
 	}
 
-	public static String getSecureUrl() {
+	public static String getSecureUrl() throws ConfigurationNotLoadedException {
+		if (!loaded) throw new ConfigurationNotLoadedException();
 		return secureUrl;
 	}
 
-	public static Vector<String> getPosterSizes() {
+	public static Set<String> getPosterSizes() throws ConfigurationNotLoadedException {
+		if (!loaded) throw new ConfigurationNotLoadedException();
 		return posterSizes;
 	}
 
-	public static Vector<String> getBackdropSizes() {
+	public static Set<String> getBackdropSizes() throws ConfigurationNotLoadedException {
+		if (!loaded) throw new ConfigurationNotLoadedException();
 		return backdropSizes;
 	}
 
-	public static Vector<String> getProfileSizes() {
+	public static Set<String> getProfileSizes() throws ConfigurationNotLoadedException {
+		if (!loaded) throw new ConfigurationNotLoadedException();
 		return profileSizes;
 	}
 
-	public static Vector<String> getLogoSizes() {
+	public static Set<String> getLogoSizes() throws ConfigurationNotLoadedException {
+		if (!loaded) throw new ConfigurationNotLoadedException();
 		return logoSizes;
 	}
 
-	public static Vector<String> getChangeKeys() {
+	public static Set<String> getChangeKeys() throws ConfigurationNotLoadedException {
+		if (!loaded) throw new ConfigurationNotLoadedException();
 		return changeKeys;
 	}
 
