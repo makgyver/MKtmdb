@@ -6,10 +6,6 @@ import net.sf.json.JSONObject;
 
 public abstract class Trailer implements IEntity {
 	
-	protected static final String NAME = "name";
-	protected static final String SIZE = "size";
-	protected static final String LINK = "source";
-	
 	protected String name;
 	protected String size;
 	protected URL link;

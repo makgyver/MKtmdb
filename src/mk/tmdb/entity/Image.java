@@ -6,20 +6,13 @@ import java.net.URL;
 import net.sf.json.JSONObject;
 
 import mk.tmdb.core.Configuration;
+import mk.tmdb.core.Constants;
 import mk.tmdb.exception.ConfigurationNotLoadedException;
 import mk.tmdb.exception.ImageSizeNotSupportedException;
 import mk.tmdb.utils.Log;
 
 public abstract class Image implements IEntity {
-	
-	private static final String PATH = "file_path";
-	private static final String WIDTH = "width";
-	private static final String HEIGHT = "height";
-	private static final String ISO = "iso_639_1";
-	private static final String RATIO = "aspect_ratio";
-	private static final String AVERAGE = "vote_average";
-	private static final String COUNT = "vote_count";
-	
+		
 	protected String originJson = "";
 	protected String path;
 	protected int width = 0;
@@ -111,13 +104,13 @@ public abstract class Image implements IEntity {
 	public boolean parseJSON(JSONObject json) {
 		try {
 			
-			setPath(json.getString(PATH));
-			setWidth(json.getInt(WIDTH));
-			setHeight(json.getInt(HEIGHT));
-			setIso639_1(json.getString(ISO));
-			setAspectRatio(json.getDouble(RATIO));
-			setAverage(json.getDouble(AVERAGE));
-			setCount(json.getInt(COUNT));
+			setPath(json.getString(Constants.PATH));
+			setWidth(json.getInt(Constants.WIDTH));
+			setHeight(json.getInt(Constants.HEIGHT));
+			setIso639_1(json.getString(Constants.ISO_6391));
+			setAspectRatio(json.getDouble(Constants.RATIO));
+			setAverage(json.getDouble(Constants.AVERAGE));
+			setCount(json.getInt(Constants.COUNT));
 			
 		} catch (Exception e) {
 			Log.print(e);

@@ -1,12 +1,10 @@
 package mk.tmdb.entity;
 
+import mk.tmdb.core.Constants;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 public class Country implements IEntity {
-
-	private static final String ISO = "iso_3166_1";
-	private static final String NAME = "name";
 	
 	private String iso3166_1;
 	private String name;
@@ -40,8 +38,8 @@ public class Country implements IEntity {
 	public boolean parseJSON(JSONObject json) {
 		try {
 			
-			setIso3166_1(json.getString(ISO));
-			setName(json.getString(NAME));
+			setIso3166_1(json.getString(Constants.ISO_31661));
+			setName(json.getString(Constants.NAME));
 			
 		} catch (Exception e) {
 			Log.print(e);

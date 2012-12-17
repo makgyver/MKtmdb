@@ -13,7 +13,7 @@ public class Test {
 		try {
 			
 			System.out.println(URLCreator.getCastInfoUrl(49051));
-			System.out.println(URLCreator.getMovieChangesUrl(49051));
+			/*System.out.println(URLCreator.getMovieChangesUrl(49051));
 			System.out.println(URLCreator.getMovieImagesUrl(49051));
 			System.out.println(URLCreator.getMovieInfoUrl(49051));
 			System.out.println(URLCreator.getMovieKeywordsUrl(49051));
@@ -22,13 +22,13 @@ public class Test {
 			System.out.println(URLCreator.getMovieTranslationsUrl(49051));
 			System.out.println(URLCreator.getAlternativeMovieTitlesUrl(49051));
 			System.out.println(URLCreator.getInTheatreMoviesUrl());
-			System.out.println(URLCreator.searchCompanyByNameUrl("twisted"));
+			System.out.println(URLCreator.searchCompanyByNameUrl("twisted"));*/
 			System.out.println(URLCreator.searchPeopleByNameUrl("DiCaprio"));
-			System.out.println(URLCreator.searchPeopleByNameUrl("DiCaprio", false));
+			//System.out.println(URLCreator.searchPeopleByNameUrl("DiCaprio", false));
 			System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2010));
-			System.out.println(URLCreator.searchMovieByTitleUrl("inception", true));
+			/*System.out.println(URLCreator.searchMovieByTitleUrl("inception", true));
 			System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2010, false));
-			System.out.println(URLCreator.getPersonInfoUrl(109));
+			System.out.println(URLCreator.getPersonInfoUrl(109));*/
 			System.out.println(WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(49051)));
 			
 			Movie movie = new Movie(WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(49051)));

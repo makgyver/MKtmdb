@@ -1,13 +1,11 @@
 package mk.tmdb.entity;
 
+import mk.tmdb.core.Constants;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 public class Genre implements IEntity{
 
-	private static final String ID = "id";
-	private static final String NAME = "name";
-	
 	private int id;
 	private String name;
 	
@@ -40,8 +38,8 @@ public class Genre implements IEntity{
 	public boolean parseJSON(JSONObject json) {
 		try {
 			
-			setId(json.getInt(ID));
-			setName(json.getString(NAME));
+			setId(json.getInt(Constants.ID));
+			setName(json.getString(Constants.NAME));
 			
 		} catch (Exception e) {
 			Log.print(e);

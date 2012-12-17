@@ -3,15 +3,14 @@ package mk.tmdb.entity;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import mk.tmdb.core.Constants;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 public class QuicktimeTrailer extends Trailer {
-
-	private static final String QUICKTIME = "quicktime";
 	
 	public QuicktimeTrailer(JSONObject json, String name) {
-		super(QUICKTIME);
+		super(Constants.QUICKTIME);
 		setName(name);
 		parseJSON(json);
 	}
@@ -19,10 +18,10 @@ public class QuicktimeTrailer extends Trailer {
 	@Override
 	public boolean parseJSON(JSONObject json) {
 		
-		setSize(json.getString(SIZE));
+		setSize(json.getString(Constants.SIZE));
 		
 		try {
-			setLink(new URL(json.getString(LINK)));
+			setLink(new URL(json.getString(Constants.LINK)));
 		} catch (MalformedURLException e) {
 			Log.print(e);
 		}

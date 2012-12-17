@@ -3,27 +3,27 @@ package mk.tmdb.entity;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import mk.tmdb.core.Constants;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 public class YoutubeTrailer extends Trailer {
 
-	private static final String YOUTUBE_URL = "http://www.youtube.com/watch?v=";
-	private static final String YOUTUBE = "youtube"; 
+	private static final String YOUTUBE_URL = "http://www.youtube.com/watch?v="; 
 	
 	public YoutubeTrailer(JSONObject json) {
-		super(YOUTUBE);
+		super(Constants.YOUTUBE);
 		parseJSON(json);
 	}
 	
 	@Override
 	public boolean parseJSON(JSONObject json) {
 		
-		setName(json.getString(NAME));
-		setSize(json.getString(SIZE));
+		setName(json.getString(Constants.NAME));
+		setSize(json.getString(Constants.SIZE));
 		
 		try {
-			setLink(new URL(YOUTUBE_URL + json.getString(LINK)));
+			setLink(new URL(YOUTUBE_URL + json.getString(Constants.LINK)));
 		} catch (MalformedURLException e) {
 			Log.print(e);
 		}

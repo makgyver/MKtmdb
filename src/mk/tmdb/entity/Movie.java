@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import mk.tmdb.core.Constants;
 import mk.tmdb.core.URLCreator;
 import mk.tmdb.core.WebRequest;
 import mk.tmdb.exception.InvalidApiKeyException;
@@ -20,40 +21,7 @@ import net.sf.json.JSONSerializer;
 
 public class Movie implements IEntity {
 	
-	//region Static fields
-	
 	private static final int JSON_SIZE = 23;
-	private static final String ADULT = "adult";
-	private static final String BACKDROP_PATH = "backdrop_path";
-	private static final String BACKDROPS = "backdrops";
-	private static final String BUDGET = "budget";
-	private static final String GENRES = "genres";
-	private static final String HOMEPAGE = "homepage";
-	private static final String ID = "id";
-	private static final String IMDB = "imdb_id";
-	private static final String ORIGINAL_TITLE = "original_title";
-	private static final String OVERVIEW = "overview";
-	private static final String POPULARITY = "popularity";
-	private static final String POSTER_PATH = "poster_path";
-	private static final String POSTERS = "posters";
-	private static final String COMPANIES = "production_companies";
-	private static final String COUNTRIES = "production_countries";
-	private static final String RELEASE_DATE = "release_date";
-	private static final String REVENUE = "revenue";
-	private static final String RUNTIME = "runtime";
-	private static final String LANGUAGES = "spoken_languages";
-	private static final String STATUS = "status";
-	private static final String TAGLINE = "tagline";
-	private static final String TITLE = "title";
-	private static final String AVERAGE = "vote_average";
-	private static final String COUNT = "vote_count";
-	private static final String KEYWORDS = "keywords";
-	private static final String TRANSLATIONS = "translations";
-	private static final String YOUTUBE = "youtube";
-	private static final String QUICKTIME = "quicktime";
-	private static final String RESULT = "results";
-	
-	//endregion
 	
 	//region Private fields
 
@@ -324,61 +292,61 @@ public class Movie implements IEntity {
 	public boolean parseJSON(JSONObject json) {
 		try {
 			
-			setAdult(json.getBoolean(ADULT));
-			setBackdrop(json.getString(BACKDROP_PATH));
-			setId(json.getInt(ID));
-			setOriginalTitle(json.getString(ORIGINAL_TITLE));
-			setPopularity(json.getDouble(POPULARITY));
-			setPoster(json.getString(POSTER_PATH));
-			setReleaseDate(json.getString(RELEASE_DATE));
-			setTitle(json.getString(TITLE));
-			setVoteAverage(json.getDouble(AVERAGE));
-			setVoteCount(json.getInt(COUNT));
+			setAdult(json.getBoolean(Constants.ADULT));
+			setBackdrop(json.getString(Constants.BACKDROP_PATH));
+			setId(json.getInt(Constants.ID));
+			setOriginalTitle(json.getString(Constants.ORIGINAL_TITLE));
+			setPopularity(json.getDouble(Constants.POPULARITY));
+			setPoster(json.getString(Constants.POSTER_PATH));
+			setReleaseDate(json.getString(Constants.RELEASE_DATE));
+			setTitle(json.getString(Constants.TITLE));
+			setVoteAverage(json.getDouble(Constants.AVERAGE));
+			setVoteCount(json.getInt(Constants.COUNT));
 			
 			// -- Reduced version
 			
 			setReduced(json.size() < JSON_SIZE); 
 			
-			if (json.has(BUDGET)) setBudget(json.getInt(BUDGET));
-			if (json.has(IMDB)) setImdbID(json.getString(IMDB));
-			if (json.has(OVERVIEW))setOverview(json.getString(OVERVIEW));
-			if (json.has(REVENUE)) setRevenue(json.getInt(REVENUE));
-			if (json.has(RUNTIME)) setRuntime(json.getInt(RUNTIME));
-			if (json.has(STATUS)) setStatus(json.getString(STATUS));
-			if (json.has(TAGLINE)) setTagline(json.getString(TAGLINE));
+			if (json.has(Constants.BUDGET)) setBudget(json.getInt(Constants.BUDGET));
+			if (json.has(Constants.IMDB)) setImdbID(json.getString(Constants.IMDB));
+			if (json.has(Constants.OVERVIEW))setOverview(json.getString(Constants.OVERVIEW));
+			if (json.has(Constants.REVENUE)) setRevenue(json.getInt(Constants.REVENUE));
+			if (json.has(Constants.RUNTIME)) setRuntime(json.getInt(Constants.RUNTIME));
+			if (json.has(Constants.STATUS)) setStatus(json.getString(Constants.STATUS));
+			if (json.has(Constants.TAGLINE)) setTagline(json.getString(Constants.TAGLINE));
 			
-			if (json.has(HOMEPAGE)) {
+			if (json.has(Constants.HOMEPAGE)) {
 				try {
-					setHomepage(new URL(json.getString(HOMEPAGE)));
+					setHomepage(new URL(json.getString(Constants.HOMEPAGE)));
 				}
 				catch (MalformedURLException e) {
 					Log.print(e);
 				}
 			}
 			
-			if (json.has(GENRES)) {
-				JSONArray genresList = json.getJSONArray(GENRES);
+			if (json.has(Constants.GENRES)) {
+				JSONArray genresList = json.getJSONArray(Constants.GENRES);
 				for (Object obj : genresList) {
 				    genres.add(new Genre((JSONObject) obj));
 				}
 			}
 			
-			if (json.has(COMPANIES)) {
-				JSONArray companiesList = json.getJSONArray(COMPANIES);
+			if (json.has(Constants.COMPANIES)) {
+				JSONArray companiesList = json.getJSONArray(Constants.COMPANIES);
 				for (Object obj : companiesList) {
 				    companies.add(new Company((JSONObject) obj));
 				}
 			}
 			
-			if (json.has(COUNTRIES)) {
-				JSONArray countriesList = json.getJSONArray(COUNTRIES);
+			if (json.has(Constants.COUNTRIES)) {
+				JSONArray countriesList = json.getJSONArray(Constants.COUNTRIES);
 				for (Object obj : countriesList) {
 				    countries.add(new Country((JSONObject) obj));
 				}
 			}
 			
-			if (json.has(LANGUAGES)) {
-				JSONArray langsList = json.getJSONArray(LANGUAGES);
+			if (json.has(Constants.LANGUAGES)) {
+				JSONArray langsList = json.getJSONArray(Constants.LANGUAGES);
 				for (Object obj : langsList) {
 				    languages.add(new Language((JSONObject) obj));
 				}
@@ -387,42 +355,42 @@ public class Movie implements IEntity {
 			if (!reduced) {
 				JSONObject images = WebRequest.getHttpJSON(URLCreator.getMovieImagesUrl(id)); 
 				
-				JSONArray allPosters = images.getJSONArray(POSTERS);
+				JSONArray allPosters = images.getJSONArray(Constants.POSTERS);
 				for (Object obj : allPosters) {
 				    posters.add(new Poster((JSONObject) obj));
 				}
 				
-				JSONArray allBackdrops = images.getJSONArray(BACKDROPS);
+				JSONArray allBackdrops = images.getJSONArray(Constants.BACKDROPS);
 				for (Object obj : allBackdrops) {
 				    posters.add(new Poster((JSONObject) obj));
 				}
 				
 				JSONObject words = WebRequest.getHttpJSON(URLCreator.getMovieKeywordsUrl(id));
 				
-				JSONArray allkeys = words.getJSONArray(KEYWORDS);
+				JSONArray allkeys = words.getJSONArray(Constants.KEYWORDS);
 				for (Object obj : allkeys) {
 				    keywords.add(new Keyword((JSONObject) obj));
 				}
 				
 				JSONObject trans = WebRequest.getHttpJSON(URLCreator.getMovieTranslationsUrl(id));
 				
-				JSONArray allTrans = trans.getJSONArray(TRANSLATIONS);
+				JSONArray allTrans = trans.getJSONArray(Constants.TRANSLATIONS);
 				for (Object obj : allTrans) {
 				    translations.add(new Language((JSONObject) obj));
 				}
 				
 				JSONObject videos = WebRequest.getHttpJSON(URLCreator.getMovieTrailersUrl(id));
 				
-				JSONArray utube = videos.getJSONArray(YOUTUBE); 
+				JSONArray utube = videos.getJSONArray(Constants.YOUTUBE); 
 				for (Object obj : utube) {
 				    trailers.add(new YoutubeTrailer((JSONObject) obj));
 				}
 				
-				JSONArray quick = videos.getJSONArray(QUICKTIME);
+				JSONArray quick = videos.getJSONArray(Constants.QUICKTIME);
 				
 				for (Object obj : quick) {
-					String name = ((JSONObject) obj).getString("name");
-					JSONArray quicks = ((JSONObject) obj).getJSONArray("sources");
+					String name = ((JSONObject) obj).getString(Constants.NAME);
+					JSONArray quicks = ((JSONObject) obj).getJSONArray(Constants.SOURCES);
 					
 					for (Object jobj : quicks) {
 						trailers.add(new QuicktimeTrailer((JSONObject) jobj, name));
@@ -448,7 +416,7 @@ public class Movie implements IEntity {
 		Set<Movie> upcoming = new LinkedHashSet<Movie>();
 
 		JSONObject result = WebRequest.getHttpJSON(URLCreator.getUpcomingMoviesListUrl(page));
-		JSONArray array = result.getJSONArray(RESULT); 
+		JSONArray array = result.getJSONArray(Constants.RESULT); 
 		for (Object obj : array) {
 			upcoming.add(new Movie((JSONObject) obj));
 		}
@@ -471,7 +439,7 @@ public class Movie implements IEntity {
 		Set<Movie> inTheatre = new LinkedHashSet<Movie>();
 
 		JSONObject result = WebRequest.getHttpJSON(URLCreator.getInTheatreMoviesUrl(page));
-		JSONArray array = result.getJSONArray(RESULT); 
+		JSONArray array = result.getJSONArray(Constants.RESULT); 
 		for (Object obj : array) {
 			inTheatre.add(new Movie((JSONObject) obj));
 		}
@@ -489,7 +457,7 @@ public class Movie implements IEntity {
 		Set<Movie> popular = new LinkedHashSet<Movie>();
 
 		JSONObject result = WebRequest.getHttpJSON(URLCreator.getPopularMoviesUrl(page));
-		JSONArray array = result.getJSONArray(RESULT); 
+		JSONArray array = result.getJSONArray(Constants.RESULT); 
 		for (Object obj : array) {
 			popular.add(new Movie((JSONObject) obj));
 		}
@@ -507,7 +475,7 @@ public class Movie implements IEntity {
 		Set<Movie> top = new LinkedHashSet<Movie>();
 
 		JSONObject result = WebRequest.getHttpJSON(URLCreator.getTopRatedMoviesUrl(page));
-		JSONArray array = result.getJSONArray(RESULT); 
+		JSONArray array = result.getJSONArray(Constants.RESULT); 
 		for (Object obj : array) {
 			top.add(new Movie((JSONObject) obj));
 		}
