@@ -55,4 +55,5 @@ public class Genre implements IEntity{
 	public String getOriginJSON() {
 		return originJson;
 	}
+	
 }

@@ -520,4 +520,5 @@ public class Movie implements IEntity {
 																								 InvalidApiKeyException {
 		WebRequest.getHttpJSON(URLCreator.setMovieRateUrl(sessionID, movieID, value, guest));
 	}
+	
 }

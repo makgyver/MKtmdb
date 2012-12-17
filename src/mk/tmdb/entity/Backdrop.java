@@ -40,4 +40,5 @@ public class Backdrop extends Image {
 			throw new ConfigurationNotLoadedException();
 		}
 	}
+	
 }

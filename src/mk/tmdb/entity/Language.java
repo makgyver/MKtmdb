@@ -72,4 +72,5 @@ public class Language implements IEntity {
 	public String getOriginJSON() {
 		return originJson;
 	}
+	
 }

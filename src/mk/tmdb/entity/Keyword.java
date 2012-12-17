@@ -55,4 +55,5 @@ public class Keyword implements IEntity {
 	public String getOriginJSON() {
 		return originJson;
 	}
+	
 }

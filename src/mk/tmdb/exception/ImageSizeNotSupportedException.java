@@ -19,4 +19,5 @@ public class ImageSizeNotSupportedException extends Exception {
 	public String getError() {
 		return mistake;
 	}
+	
 }

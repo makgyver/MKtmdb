@@ -109,4 +109,5 @@ public final class Log {
 	public static void setActive(boolean active) {
 		Log.active = active;
 	}
+	
 }

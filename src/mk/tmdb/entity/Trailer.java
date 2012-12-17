@@ -58,4 +58,5 @@ public abstract class Trailer implements IEntity {
 	public String getOriginJSON() {
 		return originJson;
 	}
+	
 }

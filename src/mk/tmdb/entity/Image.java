@@ -120,4 +120,5 @@ public abstract class Image implements IEntity {
 	public String getOriginJSON() {
 		return originJson;
 	}
+	
 }

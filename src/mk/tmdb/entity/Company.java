@@ -54,4 +54,5 @@ public class Company implements IEntity{
 	public String getOriginJSON() {
 		return originJson;
 	}
+	
 }

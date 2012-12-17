@@ -158,4 +158,5 @@ public class Person implements IEntity {
 	public String getOriginJSON() {
 		return originJson;
 	}
+	
 }

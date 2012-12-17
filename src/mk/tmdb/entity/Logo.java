@@ -40,4 +40,5 @@ public class Logo extends Image {
 			throw new ConfigurationNotLoadedException();
 		}
 	}
+	
 }

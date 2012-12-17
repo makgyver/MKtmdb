@@ -19,4 +19,5 @@ public class ConfigurationNotLoadedException extends Exception {
 	public String getError() {
 		return mistake;
 	}
+	
 }

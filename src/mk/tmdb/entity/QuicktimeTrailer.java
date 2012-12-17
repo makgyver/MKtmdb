@@ -28,4 +28,5 @@ public class QuicktimeTrailer extends Trailer {
 		
 		return true;
 	}
+	
 }
