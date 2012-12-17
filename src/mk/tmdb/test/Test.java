@@ -20,6 +20,7 @@ public class Test {
 			System.out.println(URLCreator.getMovieReleasesDateUrl(49051));
 			System.out.println(URLCreator.getMovieTrailersUrl(49051));
 			System.out.println(URLCreator.getMovieTranslationsUrl(49051));
+			System.out.println(URLCreator.getAlternativeMovieTitlesUrl(49051));
 			System.out.println(URLCreator.getInTheatreMoviesUrl());
 			System.out.println(URLCreator.searchCompanyByNameUrl("twisted"));
 			System.out.println(URLCreator.searchPeopleByNameUrl("DiCaprio"));

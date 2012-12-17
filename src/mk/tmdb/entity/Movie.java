@@ -12,6 +12,7 @@ import java.util.Set;
 
 import mk.tmdb.core.URLCreator;
 import mk.tmdb.core.WebRequest;
+import mk.tmdb.exception.InvalidApiKeyException;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -50,6 +51,8 @@ public class Movie implements IEntity {
 	private static final String TRANSLATIONS = "translations";
 	private static final String YOUTUBE = "youtube";
 	private static final String QUICKTIME = "quicktime";
+	private static final String RESULT = "results";
+	
 	//endregion
 	
 	//region Private fields
@@ -435,5 +438,85 @@ public class Movie implements IEntity {
 		return true;
 	}
 	
-	
+	public static Set<Movie> getUpcomingMovies() throws MalformedURLException, 
+														InvalidApiKeyException {
+		return getUpcomingMovies(1);
+	}
+
+	public static Set<Movie> getUpcomingMovies(int page) throws MalformedURLException, 
+																InvalidApiKeyException {
+		Set<Movie> upcoming = new LinkedHashSet<Movie>();
+
+		JSONObject result = WebRequest.getHttpJSON(URLCreator.getUpcomingMoviesListUrl(page));
+		JSONArray array = result.getJSONArray(RESULT); 
+		for (Object obj : array) {
+			upcoming.add(new Movie((JSONObject) obj));
+		}
+
+		return upcoming;
+	}
+
+	public static Movie getLatestMovie() throws MalformedURLException, 
+												InvalidApiKeyException {
+		return new Movie(WebRequest.getHttpJSON(URLCreator.getLatestMovieUrl()));
+	}
+
+	public static Set<Movie> getInTheatreMovies() throws MalformedURLException, 
+														 InvalidApiKeyException {
+		return getInTheatreMovies(1);
+	}
+
+	public static Set<Movie> getInTheatreMovies(int page) throws MalformedURLException, 
+																 InvalidApiKeyException {
+		Set<Movie> inTheatre = new LinkedHashSet<Movie>();
+
+		JSONObject result = WebRequest.getHttpJSON(URLCreator.getInTheatreMoviesUrl(page));
+		JSONArray array = result.getJSONArray(RESULT); 
+		for (Object obj : array) {
+			inTheatre.add(new Movie((JSONObject) obj));
+		}
+
+		return inTheatre;
+	}
+
+	public static Set<Movie> getPopularMovies() throws MalformedURLException,
+													   InvalidApiKeyException {
+		return getPopularMovies(1);
+	}
+
+	public static Set<Movie> getPopularMovies(int page) throws MalformedURLException, 
+															   InvalidApiKeyException {
+		Set<Movie> popular = new LinkedHashSet<Movie>();
+
+		JSONObject result = WebRequest.getHttpJSON(URLCreator.getPopularMoviesUrl(page));
+		JSONArray array = result.getJSONArray(RESULT); 
+		for (Object obj : array) {
+			popular.add(new Movie((JSONObject) obj));
+		}
+
+		return popular;
+	}
+
+	public static Set<Movie> getTopRatedMovies() throws MalformedURLException,
+														InvalidApiKeyException {
+		return getTopRatedMovies(1);
+	}
+
+	public static Set<Movie> getTopRatedMovies(int page) throws MalformedURLException, 
+																InvalidApiKeyException {
+		Set<Movie> top = new LinkedHashSet<Movie>();
+
+		JSONObject result = WebRequest.getHttpJSON(URLCreator.getTopRatedMoviesUrl(page));
+		JSONArray array = result.getJSONArray(RESULT); 
+		for (Object obj : array) {
+			top.add(new Movie((JSONObject) obj));
+		}
+
+		return top;
+	}
+
+	public static void rateMovie(String sessionID, boolean guest, int movieID, int value) throws MalformedURLException, 
+																								 InvalidApiKeyException {
+		WebRequest.getHttpJSON(URLCreator.setMovieRateUrl(sessionID, movieID, value, guest));
+	}
 }
