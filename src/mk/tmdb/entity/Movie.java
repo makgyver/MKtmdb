@@ -67,10 +67,6 @@ public class Movie implements IEntity {
 		parseJSON(json);
 	}
 	
-	public String getOriginJson() {
-		return originJson;
-	}
-	
 	public boolean isAdult() {
 		return adult;
 	}
@@ -404,6 +400,11 @@ public class Movie implements IEntity {
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public String getOriginJSON() {
+		return originJson;
 	}
 	
 	public static Set<Movie> getUpcomingMovies() throws MalformedURLException, 

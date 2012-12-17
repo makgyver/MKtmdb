@@ -30,10 +30,6 @@ public abstract class Image implements IEntity {
 		this.originJson = json.toString();
 		parseJSON(json);
 	}
-	
-	public String getOriginJson() {
-		return originJson;
-	}
 
 	public String getPath() {
 		return path;
@@ -118,5 +114,10 @@ public abstract class Image implements IEntity {
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public String getOriginJSON() {
+		return originJson;
 	}
 }

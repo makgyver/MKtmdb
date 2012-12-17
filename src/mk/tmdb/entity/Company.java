@@ -6,6 +6,7 @@ import net.sf.json.JSONObject;
 
 public class Company implements IEntity{
 	
+	private String originJson = "";
 	private int id;
 	private String name;
 	
@@ -15,6 +16,7 @@ public class Company implements IEntity{
 	}
 	
 	public Company(JSONObject json) {
+		this.originJson = json.toString();
 		parseJSON(json);
 	}
 	
@@ -47,4 +49,9 @@ public class Company implements IEntity{
 		}
 		
 		return true;	}
+
+	@Override
+	public String getOriginJSON() {
+		return originJson;
+	}
 }

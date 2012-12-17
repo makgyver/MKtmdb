@@ -6,6 +6,7 @@ import net.sf.json.JSONObject;
 
 public class Keyword implements IEntity {
 
+	private String originJson = "";
 	private int id;
 	private String name;
 	
@@ -15,6 +16,7 @@ public class Keyword implements IEntity {
 	}
 	
 	public Keyword(JSONObject json) {
+		this.originJson = json.toString();
 		parseJSON(json);
 	}
 	
@@ -49,4 +51,8 @@ public class Keyword implements IEntity {
 		return true;
 	}
 
+	@Override
+	public String getOriginJSON() {
+		return originJson;
+	}
 }

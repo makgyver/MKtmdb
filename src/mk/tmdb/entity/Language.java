@@ -6,6 +6,7 @@ import net.sf.json.JSONObject;
 
 public class Language implements IEntity {
 	
+	private String originJson = "";
 	private String iso639_1;
 	private String name;
 	private String englishName = "";
@@ -22,6 +23,7 @@ public class Language implements IEntity {
 	}
 	
 	public Language(JSONObject json) {
+		this.originJson = json.toString();
 		parseJSON(json);
 	}
 	
@@ -64,5 +66,10 @@ public class Language implements IEntity {
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public String getOriginJSON() {
+		return originJson;
 	}
 }

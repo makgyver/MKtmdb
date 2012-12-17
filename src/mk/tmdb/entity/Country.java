@@ -6,6 +6,7 @@ import net.sf.json.JSONObject;
 
 public class Country implements IEntity {
 	
+	private String originJson = "";
 	private String iso3166_1;
 	private String name;
 	
@@ -15,6 +16,7 @@ public class Country implements IEntity {
 	}
 	
 	public Country(JSONObject json) {
+		this.originJson = json.toString();
 		parseJSON(json);
 	}
 	
@@ -47,6 +49,11 @@ public class Country implements IEntity {
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public String getOriginJSON() {
+		return originJson;
 	}
 
 }

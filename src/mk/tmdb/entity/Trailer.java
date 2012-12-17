@@ -6,12 +6,14 @@ import net.sf.json.JSONObject;
 
 public abstract class Trailer implements IEntity {
 	
+	protected String originJson = "";
 	protected String name;
 	protected String size;
 	protected URL link;
 	protected String source;
 	
-	public Trailer(String source) {
+	public Trailer(JSONObject json, String source) {
+		this.originJson = json.toString();
 		this.source = source;
 	}
 	
@@ -50,5 +52,10 @@ public abstract class Trailer implements IEntity {
 	@Override
 	public boolean parseJSON(JSONObject json) {
 		return false;
+	}
+	
+	@Override
+	public String getOriginJSON() {
+		return originJson;
 	}
 }

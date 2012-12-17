@@ -6,6 +6,7 @@ import net.sf.json.JSONObject;
 
 public class Genre implements IEntity{
 
+	private String originJson;
 	private int id;
 	private String name;
 	
@@ -15,6 +16,7 @@ public class Genre implements IEntity{
 	}
 	
 	public Genre(JSONObject json) {
+		this.originJson = json.toString();
 		parseJSON(json);
 	}
 	
@@ -47,5 +49,10 @@ public class Genre implements IEntity{
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public String getOriginJSON() {
+		return originJson;
 	}
 }

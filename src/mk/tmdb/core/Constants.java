@@ -1,18 +1,27 @@
 package mk.tmdb.core;
 
+/**
+ * Class that contains a series of constants used by other classes in this library.
+ * 
+ * @author Mirko Polato
+ *
+ */
 public final class Constants {
 	
 	public static final String ACCOUNT = "account/";
 	public static final String ADULT = "adult";
 	public static final String ALT_TITLES = "alternative_titles";
+	public static final String API_BASE_URL = "http://api.themoviedb.org/";
 	public static final String API_KEY = "?api_key";
 	public static final String AUTHENTICATION = "authentication/";
 	public static final String AVERAGE = "vote_average";
 	public static final String BACKDROP_PATH = "backdrop_path";
+	public static final String BACKDROP_SIZES = "backdrop_sizes";
 	public static final String BACKDROPS = "backdrops";
-	public static final String BASE_URL = "http://api.themoviedb.org/";
+	public static final String BASE_URL = "base_url";
 	public static final String BUDGET = "budget";
 	public static final String CASTS = "casts";
+	public static final String CHANGE_KEYS = "change_keys";
 	public static final String CHANGES = "changes";	
 	public static final String COMPANIES = "production_companies";
 	public static final String COMPANY = "company";
@@ -43,6 +52,7 @@ public final class Constants {
 	public static final String LATEST = "movie/latest";
 	public static final String LINK = "source";
 	public static final String LISTS = "lists";
+	public static final String LOGO_SIZES = "logo_sizes";
 	public static final String MOVIE = "movie";
 	public static final String MOVIE_ID = "movie_id";
 	public static final String MOVIES = "movies";
@@ -57,7 +67,9 @@ public final class Constants {
 	public static final String POPULAR_MOVIES = "movie/popular";
 	public static final String POPULARITY = "popularity";
 	public static final String POSTER_PATH = "poster_path";
+	public static final String POSTER_SIZES = "poster_sizes";
 	public static final String POSTERS = "posters";
+	public static final String PROFILE_SIZES = "profile_sizes";
 	public static final String QUERY = "query";
 	public static final String QUICKTIME = "quicktime";
 	public static final String RATED_MOVIES = "rated_movies";
@@ -69,6 +81,7 @@ public final class Constants {
 	public static final String REVENUE = "revenue";
 	public static final String RUNTIME = "runtime";
 	public static final String SEARCH = "search/";
+	public static final String SECURE_URL = "secure_base_url";
 	public static final String SESSION_ID = "session_id";
 	public static final String SIMILAR = "similar_movies";
 	public static final String SIZE = "size";
@@ -86,6 +99,5 @@ public final class Constants {
 	public static final String WATCHLIST = "movie_watchlist";
 	public static final String WIDTH = "width";
 	public static final String YEAR = "year";
-	public static final String YOUTUBE = "youtube";
-	
+	public static final String YOUTUBE = "youtube";	
 }

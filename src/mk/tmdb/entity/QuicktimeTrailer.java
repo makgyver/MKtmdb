@@ -10,7 +10,7 @@ import net.sf.json.JSONObject;
 public class QuicktimeTrailer extends Trailer {
 	
 	public QuicktimeTrailer(JSONObject json, String name) {
-		super(Constants.QUICKTIME);
+		super(json, Constants.QUICKTIME);
 		setName(name);
 		parseJSON(json);
 	}

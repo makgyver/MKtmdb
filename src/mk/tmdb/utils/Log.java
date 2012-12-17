@@ -4,10 +4,23 @@ import java.io.PrintStream;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class Log {
+/**
+ * This class provides static methods to print to the log.
+ * 
+ * @author Mirko Polato
+ *
+ */
+public final class Log {
 
+	/**
+	 * Default stream, initially sets to the system console.
+	 */
 	private static PrintStream defaultStream = System.out;
 	
+	/**
+	 * Prints the log string header
+	 * @return
+	 */
 	private static String header() {
 		Date d = new Date();
 		return DateFormat.getDateInstance(DateFormat.SHORT).format(d)

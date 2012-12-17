@@ -12,7 +12,7 @@ public class YoutubeTrailer extends Trailer {
 	private static final String YOUTUBE_URL = "http://www.youtube.com/watch?v="; 
 	
 	public YoutubeTrailer(JSONObject json) {
-		super(Constants.YOUTUBE);
+		super(json, Constants.YOUTUBE);
 		parseJSON(json);
 	}
 	
