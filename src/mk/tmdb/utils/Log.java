@@ -6,6 +6,9 @@ import java.util.Date;
 
 /**
  * This class provides static methods to print to the log.
+ * To deactivate the log call the setActive method with false as parameter.
+ * In the same way you can reactivate the log, it's enough calling 
+ * the setActive method with true as parameter
  * 
  * @author Mirko Polato
  *
@@ -16,6 +19,11 @@ public final class Log {
 	 * Default stream, initially sets to the system console.
 	 */
 	private static PrintStream defaultStream = System.out;
+	
+	/**
+	 * Whether the logger is active or not.
+	 */
+	private static boolean active = true;
 	
 	/**
 	 * Prints the log header. Each log line start with this header that has the form
@@ -46,7 +54,8 @@ public final class Log {
 	 * @param stream The stream where to print
 	 */
 	public static synchronized void print(String text, PrintStream stream) {
-		stream.println(header() + text);
+		if (active)
+			stream.println(header() + text);
 	}
 
 	/**
@@ -63,8 +72,10 @@ public final class Log {
 	 * @param stream The stream where to print
 	 */
 	public static synchronized void print(Throwable throwable, PrintStream stream) {
-		stream.print(header());
-		throwable.printStackTrace(stream);
+		if (active) {
+			stream.print(header());
+			throwable.printStackTrace(stream);
+		}
 	}
 	
 	/**
@@ -81,5 +92,21 @@ public final class Log {
 	 */
 	public static void setDefaultStream(PrintStream stream) {
 		defaultStream = stream;
+	}
+
+	/**
+	 * Gets whether the logger is active or not.
+	 * @return Whether the logger is active or not.
+	 */
+	public static boolean isActive() {
+		return active;
+	}
+
+	/**
+	 * Sets the activation status
+	 * @param active Whether the logger is active or not.
+	 */
+	public static void setActive(boolean active) {
+		Log.active = active;
 	}
 }

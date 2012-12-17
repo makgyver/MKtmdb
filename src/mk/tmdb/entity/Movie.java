@@ -32,27 +32,29 @@ public class Movie implements IEntity {
 	private int id;
 	private String imdbID;
 	private int budget;
-	private Set<Genre> genres = Collections.synchronizedSet(new LinkedHashSet<Genre>());
 	private URL homepage;
 	private String overview;
 	private double popularity;
 	private String originalTitle;
-	private Set<Company> companies = Collections.synchronizedSet(new LinkedHashSet<Company>());
-	private Set<Country> countries = Collections.synchronizedSet(new LinkedHashSet<Country>());
 	private Date releaseDate;
 	private int runtime;
-	private Set<Language> languages = Collections.synchronizedSet(new LinkedHashSet<Language>());
 	private String status;
 	private String tagline;
 	private String title;
 	private double voteAverage;
 	private int voteCount;
 	private int revenue;
+	private Set<Genre> genres = Collections.synchronizedSet(new LinkedHashSet<Genre>());
+	private Set<Company> companies = Collections.synchronizedSet(new LinkedHashSet<Company>());
+	private Set<Country> countries = Collections.synchronizedSet(new LinkedHashSet<Country>());
+	private Set<Language> languages = Collections.synchronizedSet(new LinkedHashSet<Language>());
 	private Set<Backdrop> backdrops = Collections.synchronizedSet(new LinkedHashSet<Backdrop>());
 	private Set<Poster> posters = Collections.synchronizedSet(new LinkedHashSet<Poster>());
 	private Set<Keyword> keywords = Collections.synchronizedSet(new LinkedHashSet<Keyword>());
 	private Set<Language> translations = Collections.synchronizedSet(new LinkedHashSet<Language>());
 	private Set<Trailer> trailers = Collections.synchronizedSet(new LinkedHashSet<Trailer>());
+	private Set<Actor> cast = Collections.synchronizedSet(new LinkedHashSet<Actor>());
+	private Set<CrewMember> crew = Collections.synchronizedSet(new LinkedHashSet<CrewMember>());
 	private boolean reduced = false;
 	
 	//endregion
@@ -284,6 +286,22 @@ public class Movie implements IEntity {
 		this.translations = translations;
 	}
 
+	public Set<Actor> getCast() {
+		return cast;
+	}
+
+	public void setCast(Set<Actor> cast) {
+		this.cast = cast;
+	}
+
+	public Set<CrewMember> getCrew() {
+		return crew;
+	}
+
+	public void setCrew(Set<CrewMember> crew) {
+		this.crew = crew;
+	}
+	
 	@Override
 	public boolean parseJSON(JSONObject json) {
 		try {
@@ -347,52 +365,6 @@ public class Movie implements IEntity {
 				    languages.add(new Language((JSONObject) obj));
 				}
 			}
-			
-			if (!reduced) {
-				JSONObject images = WebRequest.getHttpJSON(URLCreator.getMovieImagesUrl(id)); 
-				
-				JSONArray allPosters = images.getJSONArray(Constants.POSTERS);
-				for (Object obj : allPosters) {
-				    posters.add(new Poster((JSONObject) obj));
-				}
-				
-				JSONArray allBackdrops = images.getJSONArray(Constants.BACKDROPS);
-				for (Object obj : allBackdrops) {
-				    posters.add(new Poster((JSONObject) obj));
-				}
-				
-				JSONObject words = WebRequest.getHttpJSON(URLCreator.getMovieKeywordsUrl(id));
-				
-				JSONArray allkeys = words.getJSONArray(Constants.KEYWORDS);
-				for (Object obj : allkeys) {
-				    keywords.add(new Keyword((JSONObject) obj));
-				}
-				
-				JSONObject trans = WebRequest.getHttpJSON(URLCreator.getMovieTranslationsUrl(id));
-				
-				JSONArray allTrans = trans.getJSONArray(Constants.TRANSLATIONS);
-				for (Object obj : allTrans) {
-				    translations.add(new Language((JSONObject) obj));
-				}
-				
-				JSONObject videos = WebRequest.getHttpJSON(URLCreator.getMovieTrailersUrl(id));
-				
-				JSONArray utube = videos.getJSONArray(Constants.YOUTUBE); 
-				for (Object obj : utube) {
-				    trailers.add(new YoutubeTrailer((JSONObject) obj));
-				}
-				
-				JSONArray quick = videos.getJSONArray(Constants.QUICKTIME);
-				
-				for (Object obj : quick) {
-					String name = ((JSONObject) obj).getString(Constants.NAME);
-					JSONArray quicks = ((JSONObject) obj).getJSONArray(Constants.SOURCES);
-					
-					for (Object jobj : quicks) {
-						trailers.add(new QuicktimeTrailer((JSONObject) jobj, name));
-					}
-				}
-			}
 		
 		} catch (Exception e) {
 			Log.print(e);
@@ -400,6 +372,66 @@ public class Movie implements IEntity {
 		}
 		
 		return true;
+	}
+	
+	public void getFullVersion() throws MalformedURLException, 
+										InvalidApiKeyException {
+		
+		JSONObject images = WebRequest.getHttpJSON(URLCreator.getMovieImagesUrl(id)); 
+		
+		JSONArray allPosters = images.getJSONArray(Constants.POSTERS);
+		for (Object obj : allPosters) {
+		    posters.add(new Poster((JSONObject) obj));
+		}
+		
+		JSONArray allBackdrops = images.getJSONArray(Constants.BACKDROPS);
+		for (Object obj : allBackdrops) {
+		    posters.add(new Poster((JSONObject) obj));
+		}
+		
+		JSONObject words = WebRequest.getHttpJSON(URLCreator.getMovieKeywordsUrl(id));
+		
+		JSONArray allkeys = words.getJSONArray(Constants.KEYWORDS);
+		for (Object obj : allkeys) {
+		    keywords.add(new Keyword((JSONObject) obj));
+		}
+		
+		JSONObject trans = WebRequest.getHttpJSON(URLCreator.getMovieTranslationsUrl(id));
+		
+		JSONArray allTrans = trans.getJSONArray(Constants.TRANSLATIONS);
+		for (Object obj : allTrans) {
+		    translations.add(new Language((JSONObject) obj));
+		}
+		
+		JSONObject videos = WebRequest.getHttpJSON(URLCreator.getMovieTrailersUrl(id));
+		
+		JSONArray utube = videos.getJSONArray(Constants.YOUTUBE); 
+		for (Object obj : utube) {
+		    trailers.add(new YoutubeTrailer((JSONObject) obj));
+		}
+		
+		JSONArray quick = videos.getJSONArray(Constants.QUICKTIME);
+		
+		for (Object obj : quick) {
+			String name = ((JSONObject) obj).getString(Constants.NAME);
+			JSONArray quicks = ((JSONObject) obj).getJSONArray(Constants.SOURCES);
+			
+			for (Object jobj : quicks) {
+				trailers.add(new QuicktimeTrailer((JSONObject) jobj, name));
+			}
+		}	
+		
+		JSONObject castCrew = WebRequest.getHttpJSON(URLCreator.getCastInfoUrl(id));
+		
+		JSONArray castArray = castCrew.getJSONArray(Constants.CAST);
+		for (Object obj : castArray) {
+			cast.add(new Actor((JSONObject) obj));
+		}
+		
+		JSONArray crewArray = castCrew.getJSONArray(Constants.CREW);
+		for (Object obj : crewArray) {
+			crew.add(new CrewMember((JSONObject) obj));
+		}
 	}
 	
 	@Override

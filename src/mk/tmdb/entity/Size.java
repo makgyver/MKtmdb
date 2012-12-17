@@ -1,5 +1,11 @@
 package mk.tmdb.entity;
 
+/**
+ * Enumeration with the possible sizes of all images.
+ * 
+ * @author mirkopolato
+ *
+ */
 public enum Size {
 	
 	W_45 {
