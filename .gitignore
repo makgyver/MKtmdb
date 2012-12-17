@@ -1,2 +1,10 @@
 
 *.class
+
+src/mk/.DS_Store
+
+src/.DS_Store
+
+bin/.DS_Store
+
+src/mk/tmdb/.DS_Store
