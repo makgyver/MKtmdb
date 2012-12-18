@@ -8,6 +8,7 @@ import net.sf.json.JSONObject;
 import mk.tmdb.core.Configuration;
 import mk.tmdb.exception.ConfigurationNotLoadedException;
 import mk.tmdb.exception.ImageSizeNotSupportedException;
+import mk.tmdb.utils.Size;
 
 public class Poster extends Image {
 

@@ -100,10 +100,14 @@ public final class Constants {
 	public static final String SIZE = "size";
 	public static final String SLASH = "/";
 	public static final String SOURCES = "sources";
-	public static final String STATUS = "status";	
+	public static final String STATUS = "status";
+	public static final String STATUS_CODE = "status_code";
+	public static final String STATUS_MESSAGE = "status_message";
 	public static final String TAGLINE = "tagline";
 	public static final String TITLE = "title";
 	public static final String TOPRATED_MOVIES = "movie/popular";
+	public static final String TOTAL_PAGES = "total_pages";
+	public static final String TOTAL_RESULTS = "total_results";
 	public static final String TRAILERS = "trailers";
 	public static final String TRANSLATIONS = "translations";
 	public static final String TRUE = "true";

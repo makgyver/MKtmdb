@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 
 import mk.tmdb.core.*;
 import mk.tmdb.entity.Movie;
-import mk.tmdb.exception.InvalidApiKeyException;
 import mk.tmdb.utils.Log;
 
 public class Test {
@@ -30,16 +29,17 @@ public class Test {
 			System.out.println(URLCreator.searchMovieByTitleUrl("inception", true));
 			System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2010, false));*/
 			
-			//System.out.println(URLCreator.getPersonInfoUrl(109));
-			
+			System.out.println(URLCreator.getMovieTrailersUrl(49051));
+			System.out.println(URLCreator.getPersonInfoUrl(109));
+			System.out.println(URLCreator.getInTheatreMoviesUrl());
 			//System.out.println(WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(49051)));
 			
-			Movie movie = new Movie(WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(49051)));
+			System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2013));
+			
+			//Movie movie = new Movie(WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(49051)));
 			//System.out.println(movie.getReleaseDate());
 
 		} catch (MalformedURLException e) {
-			Log.print(e);
-		} catch (InvalidApiKeyException e) {
 			Log.print(e);
 		}
 	}

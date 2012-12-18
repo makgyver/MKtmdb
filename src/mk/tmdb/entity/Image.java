@@ -10,10 +10,10 @@ import mk.tmdb.core.Constants;
 import mk.tmdb.exception.ConfigurationNotLoadedException;
 import mk.tmdb.exception.ImageSizeNotSupportedException;
 import mk.tmdb.utils.Log;
+import mk.tmdb.utils.Size;
 
-public abstract class Image implements IEntity {
+public abstract class Image extends Entity {
 		
-	protected String originJson = "";
 	protected String path;
 	protected int width = 0;
 	protected int height = 0;
@@ -97,7 +97,7 @@ public abstract class Image implements IEntity {
 	}
 	
 	@Override
-	public boolean parseJSON(JSONObject json) {
+	protected boolean parseJSON(JSONObject json) {
 		try {
 			
 			setPath(json.getString(Constants.PATH));
@@ -114,11 +114,6 @@ public abstract class Image implements IEntity {
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public String getOriginJSON() {
-		return originJson;
 	}
 	
 }

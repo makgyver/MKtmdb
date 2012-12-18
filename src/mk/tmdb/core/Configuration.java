@@ -7,7 +7,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.exception.ConfigurationNotLoadedException;
-import mk.tmdb.exception.InvalidApiKeyException;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -199,8 +198,6 @@ public class Configuration {
 			loadedTime = new Date();
 			
 		} catch (MalformedURLException e) {
-			Log.print(e);
-		} catch (InvalidApiKeyException e) {
 			Log.print(e);
 		}
 	}

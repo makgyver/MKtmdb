@@ -4,9 +4,8 @@ import mk.tmdb.core.Constants;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
-public class Genre implements IEntity{
+public class Genre extends Entity{
 
-	private String originJson;
 	private int id;
 	private String name;
 	
@@ -37,7 +36,7 @@ public class Genre implements IEntity{
 	}
 	
 	@Override
-	public boolean parseJSON(JSONObject json) {
+	protected boolean parseJSON(JSONObject json) {
 		try {
 			
 			setId(json.getInt(Constants.ID));
@@ -49,11 +48,6 @@ public class Genre implements IEntity{
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public String getOriginJSON() {
-		return originJson;
 	}
 	
 }

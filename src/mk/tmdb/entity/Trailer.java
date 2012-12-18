@@ -4,9 +4,8 @@ import java.net.URL;
 
 import net.sf.json.JSONObject;
 
-public abstract class Trailer implements IEntity {
+public abstract class Trailer extends Entity {
 	
-	protected String originJson = "";
 	protected String name;
 	protected String size;
 	protected URL link;
@@ -50,13 +49,8 @@ public abstract class Trailer implements IEntity {
 	}
 
 	@Override
-	public boolean parseJSON(JSONObject json) {
+	protected boolean parseJSON(JSONObject json) {
 		return false;
-	}
-	
-	@Override
-	public String getOriginJSON() {
-		return originJson;
 	}
 	
 }

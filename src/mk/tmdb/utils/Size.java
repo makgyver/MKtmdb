@@ -1,9 +1,9 @@
-package mk.tmdb.entity;
+package mk.tmdb.utils;
 
 /**
  * Enumeration with the possible sizes of all images.
  * 
- * @author mirkopolato
+ * @author Mirko Polato
  *
  */
 public enum Size {

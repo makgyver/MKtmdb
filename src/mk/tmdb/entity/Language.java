@@ -4,9 +4,8 @@ import mk.tmdb.core.Constants;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
-public class Language implements IEntity {
+public class Language extends Entity {
 	
-	private String originJson = "";
 	private String iso639_1;
 	private String name;
 	private String englishName = "";
@@ -52,7 +51,7 @@ public class Language implements IEntity {
 	}
 	
 	@Override
-	public boolean parseJSON(JSONObject json) {
+	protected boolean parseJSON(JSONObject json) {
 		try {
 			
 			setIso639_1(json.getString(Constants.ISO_6391));
@@ -66,11 +65,6 @@ public class Language implements IEntity {
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public String getOriginJSON() {
-		return originJson;
 	}
 	
 }

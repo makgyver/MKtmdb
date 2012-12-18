@@ -15,9 +15,8 @@ import mk.tmdb.utils.Log;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class Person implements IEntity {
+public class Person extends Entity {
 
-	private String originJson;
 	private int id;
 	private String name;
 	private boolean adult;
@@ -125,7 +124,7 @@ public class Person implements IEntity {
 	}
 
 	@Override
-	public boolean parseJSON(JSONObject json) {
+	protected boolean parseJSON(JSONObject json) {
 		
 		setName(json.getString(Constants.NAME));
 		setId(json.getInt(Constants.ID));
@@ -152,11 +151,6 @@ public class Person implements IEntity {
 		}
 		
 		return true;
-	}
-
-	@Override
-	public String getOriginJSON() {
-		return originJson;
 	}
 	
 }

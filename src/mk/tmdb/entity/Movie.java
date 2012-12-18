@@ -19,13 +19,19 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
-public class Movie implements IEntity {
+public class Movie extends Entity {
 	
-	private static final int JSON_SIZE = 23;
+	public enum Version {
+		
+		REDUCED,
+		NORMAL,
+		FULL
+	}
+	
+	private static final int MOVIE_JSON_SIZE = 23;
 	
 	//region Private fields
 
-	private String originJson;
 	private boolean adult;
 	private Backdrop backdrop;
 	private Poster poster;
@@ -55,7 +61,7 @@ public class Movie implements IEntity {
 	private Set<Trailer> trailers = Collections.synchronizedSet(new LinkedHashSet<Trailer>());
 	private Set<Actor> cast = Collections.synchronizedSet(new LinkedHashSet<Actor>());
 	private Set<CrewMember> crew = Collections.synchronizedSet(new LinkedHashSet<CrewMember>());
-	private boolean reduced = false;
+	private Version version;
 	
 	//endregion
 	
@@ -270,12 +276,8 @@ public class Movie implements IEntity {
 		this.posters = posters;
 	}
 	
-	public boolean isReduced() {
-		return reduced;
-	}
-	
-	public void setReduced(boolean reduced) {
-		this.reduced = reduced;
+	public Version getVersion() {
+		return version;
 	}
 
 	public Set<Language> getTranslations() {
@@ -303,8 +305,10 @@ public class Movie implements IEntity {
 	}
 	
 	@Override
-	public boolean parseJSON(JSONObject json) {
+	protected boolean parseJSON(JSONObject json) {
 		try {
+			
+			// -- Reduced version
 			
 			setAdult(json.getBoolean(Constants.ADULT));
 			setBackdrop(json.getString(Constants.BACKDROP_PATH));
@@ -317,13 +321,17 @@ public class Movie implements IEntity {
 			setVoteAverage(json.getDouble(Constants.AVERAGE));
 			setVoteCount(json.getInt(Constants.COUNT));
 			
-			// -- Reduced version
+			if (json.size() < MOVIE_JSON_SIZE) {
+				version = Version.REDUCED;
+			} else {
+				version = Version.NORMAL;
+			}
 			
-			setReduced(json.size() < JSON_SIZE); 
+			// -- Normal Version
 			
 			if (json.has(Constants.BUDGET)) setBudget(json.getInt(Constants.BUDGET));
 			if (json.has(Constants.IMDB)) setImdbID(json.getString(Constants.IMDB));
-			if (json.has(Constants.OVERVIEW))setOverview(json.getString(Constants.OVERVIEW));
+			if (json.has(Constants.OVERVIEW)) setOverview(json.getString(Constants.OVERVIEW));
 			if (json.has(Constants.REVENUE)) setRevenue(json.getInt(Constants.REVENUE));
 			if (json.has(Constants.RUNTIME)) setRuntime(json.getInt(Constants.RUNTIME));
 			if (json.has(Constants.STATUS)) setStatus(json.getString(Constants.STATUS));
@@ -374,24 +382,75 @@ public class Movie implements IEntity {
 		return true;
 	}
 	
-	public void getFullVersion() throws MalformedURLException, 
-										InvalidApiKeyException {
+	public void getNormalVersion() throws MalformedURLException {
+		
+		if (version != Version.REDUCED) return;
+		version = Version.NORMAL;
+		
+		JSONObject json = WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(id));
+		
+		originJson = json.toString();
+		
+		setBudget(json.getInt(Constants.BUDGET));
+		setImdbID(json.getString(Constants.IMDB));
+		setOverview(json.getString(Constants.OVERVIEW));
+		setRevenue(json.getInt(Constants.REVENUE));
+		setRuntime(json.getInt(Constants.RUNTIME));
+		setStatus(json.getString(Constants.STATUS));
+		setTagline(json.getString(Constants.TAGLINE));
+		
+		try {
+			setHomepage(new URL(json.getString(Constants.HOMEPAGE)));
+		}
+		catch (MalformedURLException e) {
+			Log.print(e);
+		}
+	
+		JSONArray genresList = json.getJSONArray(Constants.GENRES);
+		for (Object obj : genresList) {
+		    genres.add(new Genre((JSONObject) obj));
+		}
+	
+		JSONArray companiesList = json.getJSONArray(Constants.COMPANIES);
+		for (Object obj : companiesList) {
+		    companies.add(new Company((JSONObject) obj));
+		}
+	
+		JSONArray countriesList = json.getJSONArray(Constants.COUNTRIES);
+		for (Object obj : countriesList) {
+		    countries.add(new Country((JSONObject) obj));
+		}
+	
+		JSONArray langsList = json.getJSONArray(Constants.LANGUAGES);
+		for (Object obj : langsList) {
+		    languages.add(new Language((JSONObject) obj));
+		}
+	}
+	
+	public void getFullVersion() throws MalformedURLException {
+		
+		if (version != Version.NORMAL) return;
+		
+		version = Version.FULL;
 		
 		JSONObject images = WebRequest.getHttpJSON(URLCreator.getMovieImagesUrl(id)); 
 		
 		JSONArray allPosters = images.getJSONArray(Constants.POSTERS);
+		posters.clear();
 		for (Object obj : allPosters) {
 		    posters.add(new Poster((JSONObject) obj));
 		}
 		
 		JSONArray allBackdrops = images.getJSONArray(Constants.BACKDROPS);
+		backdrops.clear();
 		for (Object obj : allBackdrops) {
-		    posters.add(new Poster((JSONObject) obj));
+		    backdrops.add(new Backdrop((JSONObject) obj));
 		}
 		
 		JSONObject words = WebRequest.getHttpJSON(URLCreator.getMovieKeywordsUrl(id));
 		
 		JSONArray allkeys = words.getJSONArray(Constants.KEYWORDS);
+		keywords.clear();
 		for (Object obj : allkeys) {
 		    keywords.add(new Keyword((JSONObject) obj));
 		}
@@ -399,13 +458,15 @@ public class Movie implements IEntity {
 		JSONObject trans = WebRequest.getHttpJSON(URLCreator.getMovieTranslationsUrl(id));
 		
 		JSONArray allTrans = trans.getJSONArray(Constants.TRANSLATIONS);
+		translations.clear();
 		for (Object obj : allTrans) {
 		    translations.add(new Language((JSONObject) obj));
 		}
 		
 		JSONObject videos = WebRequest.getHttpJSON(URLCreator.getMovieTrailersUrl(id));
 		
-		JSONArray utube = videos.getJSONArray(Constants.YOUTUBE); 
+		JSONArray utube = videos.getJSONArray(Constants.YOUTUBE);
+		trailers.clear();
 		for (Object obj : utube) {
 		    trailers.add(new YoutubeTrailer((JSONObject) obj));
 		}
@@ -424,19 +485,16 @@ public class Movie implements IEntity {
 		JSONObject castCrew = WebRequest.getHttpJSON(URLCreator.getCastInfoUrl(id));
 		
 		JSONArray castArray = castCrew.getJSONArray(Constants.CAST);
+		cast.clear();
 		for (Object obj : castArray) {
 			cast.add(new Actor((JSONObject) obj));
 		}
 		
 		JSONArray crewArray = castCrew.getJSONArray(Constants.CREW);
+		crew.clear();
 		for (Object obj : crewArray) {
 			crew.add(new CrewMember((JSONObject) obj));
 		}
-	}
-	
-	@Override
-	public String getOriginJSON() {
-		return originJson;
 	}
 	
 	public static Set<Movie> getUpcomingMovies() throws MalformedURLException, 
