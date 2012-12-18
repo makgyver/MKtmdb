@@ -1,17 +1,18 @@
 package mk.tmdb.core;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 import mk.tmdb.entity.Account;
 import mk.tmdb.entity.Token;
 import mk.tmdb.utils.Log;
+import mk.tmdb.utils.ResponseArray;
 import mk.tmdb.utils.ResponseObject;
 import mk.tmdb.utils.Status;
 import net.sf.json.JSONObject;
@@ -28,6 +29,11 @@ import net.sf.json.JSONSerializer;
 public final class TMDBAPI {
 
 	/**
+	 * Timeout in milliseconds.
+	 */
+	public static int TIMEOUT = 20000; // 20 seconds
+	
+	/**
 	 * Makes an HTTP request (GET) and gets back the result as a string.
 	 * @param url The query URL
 	 * @return The result string
@@ -37,14 +43,30 @@ public final class TMDBAPI {
 		try {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
+			conn.setReadTimeout(TIMEOUT);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			for (String line = null; (line = reader.readLine()) != null;) {
 			    result.append(line).append("\n");
 			}
 			reader.close();
 			
+		} catch (SocketTimeoutException ste) {
+			Log.print(ste);
+			
+			JSONObject json = new JSONObject();
+			json.put(Constants.STATUS_CODE, Status.TIMEOUT);
+			
+			result.setLength(0);
+			result.append(json.toString());
+			
 		} catch (Exception e) {
 			Log.print(e);
+			
+			JSONObject json = new JSONObject();
+			json.put(Constants.STATUS_CODE, Status.UNKNOWN_ERROR);
+			
+			result.setLength(0);
+			result.append(json.toString());
 		}
 		
 		return result.toString();
@@ -62,6 +84,7 @@ public final class TMDBAPI {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestProperty("Content-Type", "application/json");
 			conn.setDoOutput(true);
+			conn.setReadTimeout(TIMEOUT);
 			
 			OutputStream out = conn.getOutputStream();
 			OutputStreamWriter wr = new OutputStreamWriter(out);
@@ -75,8 +98,23 @@ public final class TMDBAPI {
 			}
 			reader.close();
 			
+		} catch (SocketTimeoutException ste) {
+			Log.print(ste);
+			
+			JSONObject jsonErr = new JSONObject();
+			jsonErr.put(Constants.STATUS_CODE, Status.TIMEOUT);
+			
+			result.setLength(0);
+			result.append(jsonErr.toString());
+			
 		} catch (Exception e) {
 			Log.print(e);
+			
+			JSONObject jsonErr = new JSONObject();
+			jsonErr.put(Constants.STATUS_CODE, Status.UNKNOWN_ERROR);
+			
+			result.setLength(0);
+			result.append(jsonErr.toString());
 		}
 		
 		return result.toString();
@@ -100,7 +138,7 @@ public final class TMDBAPI {
 		} catch (MalformedURLException e) {
 			Log.print(e);
 			
-			return new ResponseObject(Status.UNKNOWN_ERROR);
+			return new ResponseObject(Status.MALFORMED_URL);
 		}
 	}
 	
@@ -112,7 +150,7 @@ public final class TMDBAPI {
 		} catch (MalformedURLException e) {
 			Log.print(e);
 			
-			return new ResponseObject(Status.UNKNOWN_ERROR);
+			return new ResponseObject(Status.MALFORMED_URL);
 		}
 	}
 	
@@ -124,7 +162,7 @@ public final class TMDBAPI {
 		} catch (MalformedURLException e) {
 			Log.print(e);
 			
-			return new ResponseObject(Status.UNKNOWN_ERROR);
+			return new ResponseObject(Status.MALFORMED_URL);
 		}
 	}
 	
@@ -136,7 +174,7 @@ public final class TMDBAPI {
 		} catch (MalformedURLException e) {
 			Log.print(e);
 			
-			return new ResponseObject(Status.UNKNOWN_ERROR);
+			return new ResponseObject(Status.MALFORMED_URL);
 		}
 	}
 	
@@ -148,19 +186,121 @@ public final class TMDBAPI {
 		} catch (MalformedURLException e) {
 			Log.print(e);
 			
-			return new ResponseObject(Status.UNKNOWN_ERROR);
+			return new ResponseObject(Status.MALFORMED_URL);
 		}
 	}
 	
-	public static ResponseObject getAccountInformation(Account account, String sessionID) {
+	public static ResponseArray getFavoritesLists(Account account, String sessionID) {
 		try {
 			
-			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
 			
-			return new ResponseObject(Status.UNKNOWN_ERROR);
+			return new ResponseArray(Status.MALFORMED_URL);
 		}
 	}
+	
+	public static ResponseArray getFavoritesMovies(Account account, String sessionID) {
+		try {
+			
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), sessionID))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseObject addMovieToFavorites(Account account, String sessionID, int movieID) {
+		try {
+			
+			JSONObject json = new JSONObject();
+			json.put(Constants.MOVIE_ID, movieID);
+			json.put(Constants.FAVORITE, true);
+			
+			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.addMovieToFavsUrl(account.getId(), sessionID), json)));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseObject removeMovieFromFavorites(Account account, String sessionID, int movieID) {
+		try {
+			
+			JSONObject json = new JSONObject();
+			json.put(Constants.MOVIE_ID, movieID);
+			json.put(Constants.FAVORITE, false);
+			
+			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.addMovieToFavsUrl(account.getId(), sessionID), json)));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseArray getRatedMovies(Account account, String sessionID) {
+		try {
+			
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getRatedMoviesUrl(account.getId(), sessionID))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseArray getMovieWatchList(Account account, String sessionID) {
+		try {
+			
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getWatchlistUrl(account.getId(), sessionID))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseObject addMovieToWatchlist(Account account, String sessionID, int movieID) {
+		try {
+			
+			JSONObject json = new JSONObject();
+			json.put(Constants.MOVIE_ID, movieID);
+			json.put(Constants.WATCHLIST, true);
+			
+			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.addMovieToWatchlistUrl(account.getId(), sessionID), json)));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseObject removeMovieFromWatchlist(Account account, String sessionID, int movieID) {
+		try {
+			
+			JSONObject json = new JSONObject();
+			json.put(Constants.MOVIE_ID, movieID);
+			json.put(Constants.WATCHLIST, false);
+			
+			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.addMovieToWatchlistUrl(account.getId(), sessionID), json)));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	
 }

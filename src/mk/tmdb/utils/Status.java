@@ -50,7 +50,11 @@ public enum Status {
 	
 	INVALID_HEADER(19, "Invalid accept header"),
 	
-	UNKNOWN_ERROR(99, "Unknown error.");
+	MALFORMED_URL(98, "Malformed url."),
+	
+	TIMEOUT(99, "Request Timeout error."),
+	
+	UNKNOWN_ERROR(100, "Unknown error.");
 	
 	/**
 	 * Status message
