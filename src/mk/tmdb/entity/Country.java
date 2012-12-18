@@ -15,7 +15,7 @@ public class Country extends Entity {
 	}
 	
 	public Country(JSONObject json) {
-		this.originJson = json.toString();
+		super(json);
 		parseJSON(json);
 	}
 	

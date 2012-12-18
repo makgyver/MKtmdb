@@ -12,8 +12,7 @@ import java.util.Set;
 
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.URLCreator;
-import mk.tmdb.core.WebRequest;
-import mk.tmdb.exception.InvalidApiKeyException;
+import mk.tmdb.core.TMDBAPI;
 import mk.tmdb.utils.Log;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -71,7 +70,7 @@ public class Movie extends Entity {
 	}
 	
 	public Movie(JSONObject json) {
-		this.originJson= json.toString(); 
+		super(json);
 		parseJSON(json);
 	}
 	
@@ -381,13 +380,13 @@ public class Movie extends Entity {
 		
 		return true;
 	}
-	
+	/*
 	public void getNormalVersion() throws MalformedURLException {
 		
 		if (version != Version.REDUCED) return;
 		version = Version.NORMAL;
 		
-		JSONObject json = WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(id));
+		JSONObject json = TMDBAPI.getHttpJSON(URLCreator.getMovieInfoUrl(id));
 		
 		originJson = json.toString();
 		
@@ -433,7 +432,7 @@ public class Movie extends Entity {
 		
 		version = Version.FULL;
 		
-		JSONObject images = WebRequest.getHttpJSON(URLCreator.getMovieImagesUrl(id)); 
+		JSONObject images = TMDBAPI.getHttpJSON(URLCreator.getMovieImagesUrl(id)); 
 		
 		JSONArray allPosters = images.getJSONArray(Constants.POSTERS);
 		posters.clear();
@@ -447,7 +446,7 @@ public class Movie extends Entity {
 		    backdrops.add(new Backdrop((JSONObject) obj));
 		}
 		
-		JSONObject words = WebRequest.getHttpJSON(URLCreator.getMovieKeywordsUrl(id));
+		JSONObject words = TMDBAPI.getHttpJSON(URLCreator.getMovieKeywordsUrl(id));
 		
 		JSONArray allkeys = words.getJSONArray(Constants.KEYWORDS);
 		keywords.clear();
@@ -455,7 +454,7 @@ public class Movie extends Entity {
 		    keywords.add(new Keyword((JSONObject) obj));
 		}
 		
-		JSONObject trans = WebRequest.getHttpJSON(URLCreator.getMovieTranslationsUrl(id));
+		JSONObject trans = TMDBAPI.getHttpJSON(URLCreator.getMovieTranslationsUrl(id));
 		
 		JSONArray allTrans = trans.getJSONArray(Constants.TRANSLATIONS);
 		translations.clear();
@@ -463,7 +462,7 @@ public class Movie extends Entity {
 		    translations.add(new Language((JSONObject) obj));
 		}
 		
-		JSONObject videos = WebRequest.getHttpJSON(URLCreator.getMovieTrailersUrl(id));
+		JSONObject videos = TMDBAPI.getHttpJSON(URLCreator.getMovieTrailersUrl(id));
 		
 		JSONArray utube = videos.getJSONArray(Constants.YOUTUBE);
 		trailers.clear();
@@ -482,7 +481,7 @@ public class Movie extends Entity {
 			}
 		}	
 		
-		JSONObject castCrew = WebRequest.getHttpJSON(URLCreator.getCastInfoUrl(id));
+		JSONObject castCrew = TMDBAPI.getHttpJSON(URLCreator.getCastInfoUrl(id));
 		
 		JSONArray castArray = castCrew.getJSONArray(Constants.CAST);
 		cast.clear();
@@ -506,7 +505,7 @@ public class Movie extends Entity {
 																InvalidApiKeyException {
 		Set<Movie> upcoming = new LinkedHashSet<Movie>();
 
-		JSONObject result = WebRequest.getHttpJSON(URLCreator.getUpcomingMoviesListUrl(page));
+		JSONObject result = TMDBAPI.getHttpJSON(URLCreator.getUpcomingMoviesListUrl(page));
 		JSONArray array = result.getJSONArray(Constants.RESULT); 
 		for (Object obj : array) {
 			upcoming.add(new Movie((JSONObject) obj));
@@ -517,7 +516,7 @@ public class Movie extends Entity {
 
 	public static Movie getLatestMovie() throws MalformedURLException, 
 												InvalidApiKeyException {
-		return new Movie(WebRequest.getHttpJSON(URLCreator.getLatestMovieUrl()));
+		return new Movie(TMDBAPI.getHttpJSON(URLCreator.getLatestMovieUrl()));
 	}
 
 	public static Set<Movie> getInTheatreMovies() throws MalformedURLException, 
@@ -529,7 +528,7 @@ public class Movie extends Entity {
 																 InvalidApiKeyException {
 		Set<Movie> inTheatre = new LinkedHashSet<Movie>();
 
-		JSONObject result = WebRequest.getHttpJSON(URLCreator.getInTheatreMoviesUrl(page));
+		JSONObject result = TMDBAPI.getHttpJSON(URLCreator.getInTheatreMoviesUrl(page));
 		JSONArray array = result.getJSONArray(Constants.RESULT); 
 		for (Object obj : array) {
 			inTheatre.add(new Movie((JSONObject) obj));
@@ -547,7 +546,7 @@ public class Movie extends Entity {
 															   InvalidApiKeyException {
 		Set<Movie> popular = new LinkedHashSet<Movie>();
 
-		JSONObject result = WebRequest.getHttpJSON(URLCreator.getPopularMoviesUrl(page));
+		JSONObject result = TMDBAPI.getHttpJSON(URLCreator.getPopularMoviesUrl(page));
 		JSONArray array = result.getJSONArray(Constants.RESULT); 
 		for (Object obj : array) {
 			popular.add(new Movie((JSONObject) obj));
@@ -565,7 +564,7 @@ public class Movie extends Entity {
 																InvalidApiKeyException {
 		Set<Movie> top = new LinkedHashSet<Movie>();
 
-		JSONObject result = WebRequest.getHttpJSON(URLCreator.getTopRatedMoviesUrl(page));
+		JSONObject result = TMDBAPI.getHttpJSON(URLCreator.getTopRatedMoviesUrl(page));
 		JSONArray array = result.getJSONArray(Constants.RESULT); 
 		for (Object obj : array) {
 			top.add(new Movie((JSONObject) obj));
@@ -576,7 +575,7 @@ public class Movie extends Entity {
 
 	public static void rateMovie(String sessionID, boolean guest, int movieID, int value) throws MalformedURLException, 
 																								 InvalidApiKeyException {
-		WebRequest.getHttpJSON(URLCreator.setMovieRateUrl(sessionID, movieID, value, guest));
+		TMDBAPI.getHttpJSON(URLCreator.setMovieRateUrl(sessionID, movieID, value, guest));
 	}
-	
+	*/
 }

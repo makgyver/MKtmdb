@@ -8,7 +8,7 @@ package mk.tmdb.core;
  */
 public final class Constants {
 	
-	public static final String ACCOUNT = "account/";
+	public static final String ACCOUNT = "account";
 	public static final String ADULT = "adult";
 	public static final String AKA = "also_known_as";
 	public static final String ALT_TITLES = "alternative_titles";
@@ -39,6 +39,7 @@ public final class Constants {
 	public static final String DEATHDAY = "deathday";
 	public static final String DEPARTMENT = "department";
 	public static final String ENGLISH_NAME = "english_name";
+	public static final String EXPIRATION = "expires_at";
 	public static final String FALSE = "false";
 	public static final String FAVORITE = "favorite";	
 	public static final String FAVORITE_MOVIES = "favorite_movies";
@@ -105,12 +106,14 @@ public final class Constants {
 	public static final String STATUS_MESSAGE = "status_message";
 	public static final String TAGLINE = "tagline";
 	public static final String TITLE = "title";
+	public static final String TOKEN = "request_token";
 	public static final String TOPRATED_MOVIES = "movie/popular";
 	public static final String TOTAL_PAGES = "total_pages";
 	public static final String TOTAL_RESULTS = "total_results";
 	public static final String TRAILERS = "trailers";
 	public static final String TRANSLATIONS = "translations";
 	public static final String TRUE = "true";
+	public static final String USERNAME = "username";
 	public static final String VALUE = "value";
 	public static final String VERSION = "3/";
 	public static final String WATCHLIST = "movie_watchlist";

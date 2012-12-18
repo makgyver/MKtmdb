@@ -15,7 +15,7 @@ public class Keyword extends Entity {
 	}
 	
 	public Keyword(JSONObject json) {
-		this.originJson = json.toString();
+		super(json);
 		parseJSON(json);
 	}
 	

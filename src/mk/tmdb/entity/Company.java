@@ -15,7 +15,7 @@ public class Company extends Entity {
 	}
 	
 	public Company(JSONObject json) {
-		this.originJson = json.toString();
+		super(json);
 		parseJSON(json);
 	}
 	

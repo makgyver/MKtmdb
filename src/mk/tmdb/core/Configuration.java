@@ -1,13 +1,13 @@
 package mk.tmdb.core;
 
-import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.exception.ConfigurationNotLoadedException;
-import mk.tmdb.utils.Log;
+import mk.tmdb.exception.ResponseException;
+import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -156,56 +156,59 @@ public class Configuration {
 
 	/**
 	 * Loads the configuration information.
+	 * @throws ResponseException Throws if the API call is failed for some reason.
 	 */
-	public static void load() {
-		try {
+	public static void load() throws ResponseException {
 			
-			if (loaded) return;
-			
-			JSONObject json = WebRequest.getHttpJSON(URLCreator.getConfigurationUrl());
-			
-			url = json.getString(Constants.BASE_URL);
-			secureUrl = json.getString(Constants.SECURE_URL);
-			
-			JSONObject jimages = json.getJSONObject(Constants.IMAGES);
-			
-			JSONArray posters = jimages.getJSONArray(Constants.POSTER_SIZES);
-			for (Object obj : posters) {
-				posterSizes.add((String) obj);
-			}
-			
-			JSONArray backdrops = jimages.getJSONArray(Constants.BACKDROP_SIZES);
-			for (Object obj : backdrops) {
-				backdropSizes.add((String) obj);
-			}
-			
-			JSONArray profiles = jimages.getJSONArray(Constants.PROFILE_SIZES);
-			for (Object obj : profiles) {
-				profileSizes.add((String) obj);
-			}
-			
-			JSONArray logos = jimages.getJSONArray(Constants.LOGO_SIZES);
-			for (Object obj : logos) {
-				logoSizes.add((String) obj);
-			}
-			
-			JSONArray keys = json.getJSONArray(Constants.CHANGE_KEYS);
-			for (Object obj : keys) {
-				changeKeys.add((String) obj);
-			}
-			
-			loaded = true;
-			loadedTime = new Date();
-			
-		} catch (MalformedURLException e) {
-			Log.print(e);
+		if (loaded) return;
+		
+		ResponseObject response = TMDBAPI.getConfiguration(); 
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
 		}
+		
+		JSONObject json = response.getData();
+		
+		url = json.getString(Constants.BASE_URL);
+		secureUrl = json.getString(Constants.SECURE_URL);
+		
+		JSONObject jimages = json.getJSONObject(Constants.IMAGES);
+		
+		JSONArray posters = jimages.getJSONArray(Constants.POSTER_SIZES);
+		for (Object obj : posters) {
+			posterSizes.add((String) obj);
+		}
+		
+		JSONArray backdrops = jimages.getJSONArray(Constants.BACKDROP_SIZES);
+		for (Object obj : backdrops) {
+			backdropSizes.add((String) obj);
+		}
+		
+		JSONArray profiles = jimages.getJSONArray(Constants.PROFILE_SIZES);
+		for (Object obj : profiles) {
+			profileSizes.add((String) obj);
+		}
+		
+		JSONArray logos = jimages.getJSONArray(Constants.LOGO_SIZES);
+		for (Object obj : logos) {
+			logoSizes.add((String) obj);
+		}
+		
+		JSONArray keys = json.getJSONArray(Constants.CHANGE_KEYS);
+		for (Object obj : keys) {
+			changeKeys.add((String) obj);
+		}
+		
+		loaded = true;
+		loadedTime = new Date();
 	}
 	
 	/**
 	 * Forces the loading of the configuration information.
+	 * @throws ResponseException Throws if the API call is failed for some reason.
 	 */
-	public void forceLoad() {
+	public void forceLoad() throws ResponseException {
 		loaded = false;
 		load();
 	}

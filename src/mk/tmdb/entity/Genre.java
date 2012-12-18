@@ -15,7 +15,7 @@ public class Genre extends Entity{
 	}
 	
 	public Genre(JSONObject json) {
-		this.originJson = json.toString();
+		super(json);
 		parseJSON(json);
 	}
 	

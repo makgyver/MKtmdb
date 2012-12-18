@@ -29,7 +29,7 @@ public class Person extends Entity {
 	private String profilePath;
 	
 	public Person(JSONObject json) {
-		this.originJson = json.toString();
+		super(json);
 		parseJSON(json);
 	}
 	

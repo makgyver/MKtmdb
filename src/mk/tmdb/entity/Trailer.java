@@ -12,7 +12,7 @@ public abstract class Trailer extends Entity {
 	protected String source;
 	
 	public Trailer(JSONObject json, String source) {
-		this.originJson = json.toString();
+		super(json);
 		this.source = source;
 	}
 	

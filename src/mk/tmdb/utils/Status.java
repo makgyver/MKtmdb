@@ -48,7 +48,9 @@ public enum Status {
 	
 	VALIDATION_FAILED(18, "Validation failed."),
 	
-	INVALID_HEADER(19, "Invalid accept header");
+	INVALID_HEADER(19, "Invalid accept header"),
+	
+	UNKNOWN_ERROR(99, "Unknown error.");
 	
 	/**
 	 * Status message

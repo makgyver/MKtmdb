@@ -27,7 +27,7 @@ public abstract class Image extends Entity {
 	}
 
 	public Image(JSONObject json) {
-		this.originJson = json.toString();
+		super(json);
 		parseJSON(json);
 	}
 
