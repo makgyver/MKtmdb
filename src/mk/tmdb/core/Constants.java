@@ -29,6 +29,7 @@ public final class Constants {
 	public static final String CHANGE_KEYS = "change_keys";
 	public static final String CHANGES = "changes";	
 	public static final String CHARACTER = "character";
+	public static final String COLLECTION = "collection";
 	public static final String COMPANIES = "production_companies";
 	public static final String COMPANY = "company";
 	public static final String CONFIGURATION = "configuration";
@@ -38,6 +39,7 @@ public final class Constants {
 	public static final String CREW = "crew";
 	public static final String DEATHDAY = "deathday";
 	public static final String DEPARTMENT = "department";
+	public static final String END_DATE = "end_date";
 	public static final String ENGLISH_NAME = "english_name";
 	public static final String EXPIRATION = "expires_at";
 	public static final String FALSE = "false";
@@ -102,6 +104,7 @@ public final class Constants {
 	public static final String SIZE = "size";
 	public static final String SLASH = "/";
 	public static final String SOURCES = "sources";
+	public static final String START_DATE = "start_date";
 	public static final String STATUS = "status";
 	public static final String STATUS_CODE = "status_code";
 	public static final String STATUS_MESSAGE = "status_message";
