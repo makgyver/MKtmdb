@@ -40,6 +40,10 @@ public class ResponseArray extends Response {
 			data.add((JSONObject) obj);
 		}
 	}
+	
+	public void addData(JSONObject json) {
+		data.add(json);
+	}
 
 	public int getResults() {
 		return results;

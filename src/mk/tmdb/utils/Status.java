@@ -54,7 +54,7 @@ public enum Status {
 	
 	TIMEOUT(99, "Request Timeout error."),
 	
-	UNKNOWN_ERROR(100, "Unknown error.");
+	UNKNOWN_ERROR(100, "Unknown error. See the log for more information.");
 	
 	/**
 	 * Status message
@@ -106,8 +106,8 @@ public enum Status {
     static { 
     	for(Status s:EnumSet.allOf(Status.class)) { 
     		val[s.getCode()]=s; 
-    		}
-    	}
+   		}
+    }
 	
     /**
 	 * Gets the status identified by the given code.

@@ -1,5 +1,7 @@
 package mk.tmdb.test;
 
+import java.net.URL;
+
 import net.sf.json.JSONObject;
 
 import mk.tmdb.utils.Log;
@@ -38,9 +40,11 @@ public class Test {
 			//System.out.println(WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(49051)));
 			
 			
-			JSONObject j = new JSONObject();
-			j.put("movie_id", 49051);
-			j.put("favorite", true);
+			//JSONObject j = new JSONObject();
+			//j.put("movie_id", 49051);
+			//j.put("favorite", true);
+			
+			//URL e = new URL("kjvfv fdv sdfvj sdfjvsdfvo");
 			
 			//System.out.println(TMDBAPI.ma(new URL("http://api.themoviedb.org/3/account/2296309/favorite?api_key=6827f4afdbf8291669e04ca338ab087c&session_id=69713017689af29008212bb1c96ba772dcb6a05d"), j));
 
