@@ -4,6 +4,7 @@ import java.net.URL;
 
 import net.sf.json.JSONObject;
 
+import mk.tmdb.core.URLCreator;
 import mk.tmdb.utils.Log;
 
 public class Test {
@@ -12,22 +13,22 @@ public class Test {
 		try {
 			
 			//System.out.println(URLCreator.getCastInfoUrl(49051));
-			/*System.out.println(URLCreator.getMovieInfoUrl(49051));
+			System.out.println(URLCreator.getMovieInfoUrl(49051));
 			System.out.println(URLCreator.getMovieChangesUrl(49051));
 			System.out.println(URLCreator.getMovieImagesUrl(49051));
 			System.out.println(URLCreator.getMovieInfoUrl(49051));
 			System.out.println(URLCreator.getMovieKeywordsUrl(49051));
-			System.out.println(URLCreator.getMovieReleasesDateUrl(49051));
+			System.out.println(URLCreator.getMovieReleasesDatesUrl(49051));
 			System.out.println(URLCreator.getMovieTrailersUrl(49051));
 			System.out.println(URLCreator.getMovieTranslationsUrl(49051));
 			System.out.println(URLCreator.getAlternativeMovieTitlesUrl(49051));
-			System.out.println(URLCreator.getInTheatreMoviesUrl());
+			System.out.println(URLCreator.getInTheatresMoviesUrl());
 			System.out.println(URLCreator.searchCompanyByNameUrl("twisted"));
 			System.out.println(URLCreator.searchPeopleByNameUrl("DiCaprio"));
 			System.out.println(URLCreator.searchPeopleByNameUrl("DiCaprio", false));
 			System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2010));
 			System.out.println(URLCreator.searchMovieByTitleUrl("inception", true));
-			System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2010, false));*/
+			System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2010, false));
 			
 			
 			//ce0176326843ee3106195ef8a1e1eec7ebea1f23

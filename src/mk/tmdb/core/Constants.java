@@ -62,6 +62,7 @@ public final class Constants {
 	public static final String LANGUAGES = "spoken_languages";
 	public static final String LATEST = "movie/latest";
 	public static final String LINK = "source";
+	public static final String LIST = "list";
 	public static final String LISTS = "lists";
 	public static final String LOGO_SIZES = "logo_sizes";
 	public static final String MOVIE = "movie";
