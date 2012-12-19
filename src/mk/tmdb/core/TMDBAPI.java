@@ -708,7 +708,7 @@ public final class TMDBAPI {
 	
 	public static ResponseArray searchMovieByTitle(String movieTitle, int year) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, year))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleAndYearUrl(movieTitle, year))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
