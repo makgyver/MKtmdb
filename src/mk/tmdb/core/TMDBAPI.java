@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.Date;
 
 import mk.tmdb.entity.Account;
 import mk.tmdb.entity.Token;
@@ -29,6 +30,8 @@ import net.sf.json.JSONSerializer;
  */
 public final class TMDBAPI {
 
+	//region Timeout
+	
 	/**
 	 * Timeout in milliseconds.
 	 */
@@ -42,6 +45,10 @@ public final class TMDBAPI {
 		if (limit < 0) limit = 0;
 		timeout = limit;
 	}
+	
+	//endregion
+	
+	//region API Calls
 	
 	/**
 	 * Makes an HTTP request (GET) and gets back the result as a string.
@@ -138,7 +145,10 @@ public final class TMDBAPI {
 	private static JSONObject toJSON(String strJson) {
 		return (JSONObject) JSONSerializer.toJSON(strJson);
 	}
+	
+	//endregion
 
+	//region Configuration
 	
 	public static ResponseObject getConfiguration() {
 		try {
@@ -151,6 +161,10 @@ public final class TMDBAPI {
 			return new ResponseObject(Status.MALFORMED_URL);
 		}
 	}
+	
+	//endregion
+	
+	//region Authentication
 	
 	public static ResponseObject getAuthenticationToken() {
 		try {
@@ -188,6 +202,10 @@ public final class TMDBAPI {
 		}
 	}
 	
+	//endregion
+	
+	//region Account
+	
 	public static ResponseObject getAccountInformation(String sessionID) {
 		try {
 			
@@ -201,9 +219,13 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray getFavoritesLists(Account account, String sessionID) {
+		return getFavoritesLists(account, sessionID, 1);
+	}
+	
+	public static ResponseArray getFavoritesLists(Account account, String sessionID, int page) {
 		try {
 			
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -213,9 +235,13 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray getFavoritesMovies(Account account, String sessionID) {
+		return getFavoritesMovies(account, sessionID, 1);
+	}
+	
+	public static ResponseArray getFavoritesMovies(Account account, String sessionID, int page) {
 		try {
 			
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), sessionID))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), sessionID, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -257,9 +283,13 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray getRatedMovies(Account account, String sessionID) {
+		return getRatedMovies(account, sessionID, 1);
+	}
+	
+	public static ResponseArray getRatedMovies(Account account, String sessionID, int page) {
 		try {
 			
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getRatedMoviesUrl(account.getId(), sessionID))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getRatedMoviesUrl(account.getId(), sessionID, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -269,9 +299,13 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray getMovieWatchList(Account account, String sessionID) {
+		return getMovieWatchList(account, sessionID, 1);
+	}
+	
+	public static ResponseArray getMovieWatchList(Account account, String sessionID, int page) {
 		try {
 			
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getWatchlistUrl(account.getId(), sessionID))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getWatchlistUrl(account.getId(), sessionID, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -311,6 +345,10 @@ public final class TMDBAPI {
 			return new ResponseObject(Status.MALFORMED_URL);
 		}
 	}
+	
+	//endregion
+	
+	//region Movie
 	
 	public static ResponseObject getMovieInformation(int movieID) {
 		try {
@@ -401,8 +439,12 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseObject getSimilarMovies(int movieID) {
+		return getSimilarMovies(movieID, 1);
+	}
+	
+	public static ResponseObject getSimilarMovies(int movieID, int page) {
 		try {
-			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getSimilarMoviesUrl(movieID))));
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getSimilarMoviesUrl(movieID, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -419,6 +461,21 @@ public final class TMDBAPI {
 			Log.print(e);
 			
 			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseArray getListsBelongsToMovie(int movieID) {
+		return getListsBelongsToMovie(movieID, 1);
+	}
+	
+	public static ResponseArray getListsBelongsToMovie(int movieID, int page) {
+		try {
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getListsBelongsToMovieUrl(movieID, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
 		}
 	}
 	
@@ -595,6 +652,10 @@ public final class TMDBAPI {
 		}
 	}
 	
+	//endregion
+	
+	//region People
+	
 	public static ResponseObject getPersonInformation(int personID) {
 		try {
 			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getPersonInfoUrl(personID))));
@@ -651,6 +712,51 @@ public final class TMDBAPI {
 		}
 	}
 	
+	//endregion
+	
+	//region Collections
+	
+	public static ResponseObject getCollectionInformation(int collectionID) {
+		try {
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getCollectionInfoUrl(collectionID))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseObject getCollectionImages(int collectionID) {
+		try {
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getCollectionInfoUrl(collectionID))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	//endregion
+	
+	//region Lists
+	
+	public static ResponseObject getList(int listID) {
+		try {
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getListUrl(listID))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	//endregion
+	
+	//region Company
+	
 	public static ResponseObject getCompanyInformation(int companyID) {
 		try {
 			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getCompanyInfoUrl(companyID))));
@@ -663,8 +769,12 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray getMoviesListByCompany(int companyID) {
+		return getMoviesListByCompany(companyID, 1);
+	}
+	
+	public static ResponseArray getMoviesListByCompany(int companyID, int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByCompanyUrl(companyID))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByCompanyUrl(companyID, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -672,6 +782,10 @@ public final class TMDBAPI {
 			return new ResponseArray(Status.MALFORMED_URL);
 		}
 	}
+	
+	//endregion
+	
+	//region Genre
 	
 	public static ResponseObject getGenresList() {
 		try {
@@ -685,8 +799,12 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray getMoviesListByGenre(int genreID) {
+		return getMoviesListByGenre(genreID, 1);
+	}
+	
+	public static ResponseArray getMoviesListByGenre(int genreID, int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByGenreUrl(genreID))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByGenreUrl(genreID, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -694,10 +812,18 @@ public final class TMDBAPI {
 			return new ResponseArray(Status.MALFORMED_URL);
 		}
 	}
+	
+	//endregion
+	
+	//region Search
 	
 	public static ResponseArray searchMovieByTitle(String movieTitle) {
+		return searchMovieByTitle(movieTitle, 1);
+	}
+	
+	public static ResponseArray searchMovieByTitle(String movieTitle, int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -706,9 +832,13 @@ public final class TMDBAPI {
 		}
 	}
 	
-	public static ResponseArray searchMovieByTitle(String movieTitle, int year) {
+	public static ResponseArray searchMovieByTitleAndYear(String movieTitle, int year) {
+		return searchMovieByTitleAndYear(movieTitle, year, 1);
+	}
+	
+	public static ResponseArray searchMovieByTitleAndYear(String movieTitle, int year, int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleAndYearUrl(movieTitle, year))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleAndYearUrl(movieTitle, year, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -718,8 +848,12 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray searchMovieByTitle(String movieTitle, boolean adult) {
+		return searchMovieByTitle(movieTitle, adult, 1);
+	}
+	
+	public static ResponseArray searchMovieByTitle(String movieTitle, boolean adult, int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, adult))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, adult, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -729,8 +863,12 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray searchMovieByTitle(String movieTitle, int year, boolean adult) {
+		return searchMovieByTitle(movieTitle, year, adult, 1);
+	}
+	
+	public static ResponseArray searchMovieByTitle(String movieTitle, int year, boolean adult, int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, year, adult))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, year, adult, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -740,8 +878,12 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray searchPersonByName(String name) {
+		return searchPersonByName(name, 1);
+	}
+	
+	public static ResponseArray searchPersonByName(String name, int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchPeopleByNameUrl(name))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchPeopleByNameUrl(name, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -751,8 +893,12 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray searchPersonByName(String name, boolean adult) {
+		return searchPersonByName(name, adult, 1);
+	}
+	
+	public static ResponseArray searchPersonByName(String name, boolean adult, int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchPeopleByNameUrl(name, adult))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchPeopleByNameUrl(name, adult, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -762,8 +908,12 @@ public final class TMDBAPI {
 	}
 	
 	public static ResponseArray searchCompanyByName(String name) {
+		return searchCompanyByName(name, 1);
+	}
+	
+	public static ResponseArray searchCompanyByName(String name, int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchCompanyByNameUrl(name))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchCompanyByNameUrl(name, page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -772,20 +922,21 @@ public final class TMDBAPI {
 		}
 	}
 	
+	//endregion
+	
+	//region Changes
+	
 	public static ResponseArray getChangedMovies() {
-		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl())));
-			
-		} catch (MalformedURLException e) {
-			Log.print(e);
-			
-			return new ResponseArray(Status.MALFORMED_URL);
-		}
+		return getChangedMovies(1);
 	}
 	
 	public static ResponseArray getChangedPersons() {
+		return getChangedPersons(1);
+	}
+	
+	public static ResponseArray getChangedMovies(int page) {
 		try {
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl())));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl(page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -793,4 +944,79 @@ public final class TMDBAPI {
 			return new ResponseArray(Status.MALFORMED_URL);
 		}
 	}
+	
+	public static ResponseArray getChangedPersons(int page) {
+		try {
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl(page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseArray getChangedMovies(Date start, Date end) {
+		return getChangedMovies(start, end, 1);
+	}
+	
+	public static ResponseArray getChangedPersons(Date start, Date end) {
+		return getChangedPersons(start, end, 1);
+	}
+	
+	public static ResponseArray getChangedMovies(Date start, Date end, int page) {
+		try {
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl(start, end, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseArray getChangedPersons(Date start, Date end, int page) {
+		try {
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl(start, end, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	
+	public static ResponseArray getChangedMovies(String start, String end) {
+		return getChangedMovies(start, end, 1);
+	}
+	
+	public static ResponseArray getChangedPersons(String start, String end) {
+		return getChangedPersons(start, end, 1);
+	}
+	
+	public static ResponseArray getChangedMovies(String start, String end, int page) {
+		try {
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl(start, end, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseArray getChangedPersons(String start, String end, int page) {
+		try {
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl(start, end, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	//endregion
+	
 }
