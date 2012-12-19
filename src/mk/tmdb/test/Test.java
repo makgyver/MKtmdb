@@ -4,6 +4,7 @@ import java.net.URL;
 
 import net.sf.json.JSONObject;
 
+import mk.tmdb.core.TMDBAPI;
 import mk.tmdb.core.URLCreator;
 import mk.tmdb.utils.Log;
 
@@ -38,7 +39,7 @@ public class Test {
 			//System.out.println(URLCreator.getAccountFavsMoviesUrl("ad1b1fd3fdfa6a07cda5d3b924caf5d6f19d06c5"));
 			//System.out.println(URLCreator.addMovieToFavsUrl("2296309", "ad1b1fd3fdfa6a07cda5d3b924caf5d6f19d06c5", 49051));
 			//System.out.println(URLCreator.getInTheatreMoviesUrl());
-			//System.out.println(WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(49051)));
+			System.out.println(TMDBAPI.getMovieInformation(49051).getData().toString());
 			
 			
 			//JSONObject j = new JSONObject();

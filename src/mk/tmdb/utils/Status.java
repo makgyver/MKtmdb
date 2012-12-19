@@ -1,7 +1,5 @@
 package mk.tmdb.utils;
 
-import java.util.EnumSet;
-
 /**
  * Enumeration with the possible response status codes.
  * 
@@ -92,29 +90,17 @@ public enum Status {
 		return message;
 	}
 	
-	/**
-	 * Number of status.
-	 */
-	private static final int amount = EnumSet.allOf(Status.class).size();
-    
-	/**
-	 * Map between status and codes.
-	 */
-	private static Status[] val = new Status[amount];
-    
-	// Static initializazion
-    static { 
-    	for(Status s:EnumSet.allOf(Status.class)) { 
-    		val[s.getCode()]=s; 
-   		}
-    }
-	
     /**
 	 * Gets the status identified by the given code.
 	 * @param code The status code.
 	 * @return The status
 	 */
-    public static Status getStatusByCode(int code) { 
-    	return val[code]; 
+    public static Status getStatusByCode(int code) {
+    	
+    	for (Status s : values()) {
+    		if (s.getCode() == code) return s;
+    	}
+    	
+    	return Status.UNKNOWN_ERROR;
     }
 }
