@@ -70,6 +70,7 @@ public class Configuration {
 	
 	/**
 	 * Gets the base URL.
+	 * 
 	 * @return The base URL
 	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
@@ -79,7 +80,8 @@ public class Configuration {
 	}
 
 	/**
-	 * Gets the secure base URL.
+	 * Gets the secure (https) base URL.
+	 * 
 	 * @return The secure base URL
 	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
@@ -90,6 +92,7 @@ public class Configuration {
 
 	/**
 	 * Gets the poster sizes.
+	 * 
 	 * @return The poster sisez
 	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
@@ -100,6 +103,7 @@ public class Configuration {
 
 	/**
 	 * Gets the backdrop sizes.
+	 * 
 	 * @return The backdrop sizes
 	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
@@ -110,6 +114,7 @@ public class Configuration {
 
 	/**
 	 * Gets the profile sizes.
+	 * 
 	 * @return The profile sizes.
 	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
@@ -120,6 +125,7 @@ public class Configuration {
 
 	/**
 	 * Gets the logo sizes.
+	 * 
 	 * @return The logo sizes
 	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
@@ -130,6 +136,7 @@ public class Configuration {
 
 	/**
 	 * Gets the change keys.
+	 * 
 	 * @return The change keys
 	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
@@ -140,7 +147,8 @@ public class Configuration {
 
 	/**
 	 * Gets whether the configuration information has been loaded.
-	 * @return whether the configuration information has been loaded.
+	 * 
+	 * @return Whether the configuration information has been loaded.
 	 */
 	public static boolean isLoaded() {
 		return loaded;
@@ -148,6 +156,7 @@ public class Configuration {
 
 	/**
 	 * Gets the last time that the configuration information has been loaded.
+	 * 
 	 * @return The last time that the configuration information has been loaded.
 	 */
 	public static Date getLoadedTime() {
@@ -156,6 +165,7 @@ public class Configuration {
 
 	/**
 	 * Loads the configuration information.
+	 * 
 	 * @throws ResponseException Throws if the API call is failed for some reason.
 	 */
 	public static void load() throws ResponseException {
@@ -206,6 +216,7 @@ public class Configuration {
 	
 	/**
 	 * Forces the loading of the configuration information.
+	 * 
 	 * @throws ResponseException Throws if the API call fail for some reason.
 	 */
 	public void forceLoad() throws ResponseException {

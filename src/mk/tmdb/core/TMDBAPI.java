@@ -50,6 +50,7 @@ public final class TMDBAPI {
 	
 	/**
 	 * Makes an HTTP request (GET) and gets back the result as a string.
+	 * 
 	 * @param url The query URL
 	 * @return The result string
 	 */
@@ -89,6 +90,7 @@ public final class TMDBAPI {
 	
 	/**
 	 * Makes an HTTP request (POST) and gets back the result as a string.
+	 * 
 	 * @param url The query URL
 	 * @param json The Json object to post
 	 * @return The result string
@@ -136,7 +138,8 @@ public final class TMDBAPI {
 	}
 	
 	/**
-	 * Converts a string to a JSONObject
+	 * Converts a string to a JSONObject.
+	 * 
 	 * @param strJson The Json string
 	 * @return The JSONObject
 	 */
@@ -260,25 +263,23 @@ public final class TMDBAPI {
 	 * Gets the lists that you have created and marked as a favorite.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getFavoritesLists(Account account, String sessionID) {
-		return getFavoritesLists(account, sessionID, 1);
+	public static ResponseArray getFavoriteLists(Account account) {
+		return getFavoriteLists(account, 1);
 	}
 	
 	/**
 	 * Gets the lists that you have created and marked as a favorite.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getFavoritesLists(Account account, String sessionID, int page) {
+	public static ResponseArray getFavoriteLists(Account account, int page) {
 		try {
 			
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID, page))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), account.getSessionID(), page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -291,16 +292,15 @@ public final class TMDBAPI {
 	 * Gets all the lists that you have created and marked as a favorite.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getAllFavoritesLists(Account account, String sessionID) {
+	public static ResponseArray getAllFavoriteLists(Account account) {
 		try {
 			
-			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID))));
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), account.getSessionID()))));
 			
 			for (int p = 2; p <= result.getPages(); p++) {
-                ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID, p))));
+                ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), account.getSessionID(), p))));
                 for (Object obj : page.getData()) {
                     result.addData((JSONObject) obj);
                 }
@@ -319,25 +319,23 @@ public final class TMDBAPI {
 	 * Gets the list of favorite movies for an account.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @return The TMDB Api response array.
 	 */
-	public static ResponseArray getFavoritesMovies(Account account, String sessionID) {
-		return getFavoritesMovies(account, sessionID, 1);
+	public static ResponseArray getFavoriteMovies(Account account) {
+		return getFavoriteMovies(account, 1);
 	}
 	
 	/**
 	 * Gets the list of favorite movies for an account.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array.
 	 */
-	public static ResponseArray getFavoritesMovies(Account account, String sessionID, int page) {
+	public static ResponseArray getFavoriteMovies(Account account, int page) {
 		try {
 			
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), sessionID, page))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), account.getSessionID(), page))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -350,16 +348,15 @@ public final class TMDBAPI {
 	 * Gets all the list of all favorite movies for an account.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getAllFavoritesMovies(Account account, String sessionID) {
+	public static ResponseArray getAllFavoriteMovies(Account account) {
 		try {
 			
-			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), sessionID))));
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), account.getSessionID()))));
 			
 			for (int p = 2; p <= result.getPages(); p++) {
-                ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), sessionID, p))));
+                ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), account.getSessionID(), p))));
                 for (Object obj : page.getData()) {
                     result.addData((JSONObject) obj);
                 }
@@ -378,18 +375,17 @@ public final class TMDBAPI {
 	 * Adds a movie to an accounts favorite list.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @param movieID The movie ID
 	 * @return The TMDB Api response object
 	 */
-	public static ResponseObject addMovieToFavorites(Account account, String sessionID, int movieID) {
+	public static ResponseObject addMovieToFavorites(Account account, int movieID) {
 		try {
 			
 			JSONObject json = new JSONObject();
 			json.put(Constants.MOVIE_ID, movieID);
 			json.put(Constants.FAVORITE, true);
 			
-			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.addMovieToFavsUrl(account.getId(), sessionID), json)));
+			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.addMovieToFavsUrl(account.getId(), account.getSessionID()), json)));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -402,18 +398,17 @@ public final class TMDBAPI {
 	 * Removes a movie to an accounts favorite list.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @param movieID The movie ID
 	 * @return The TMDB Api response object
 	 */
-	public static ResponseObject removeMovieFromFavorites(Account account, String sessionID, int movieID) {
+	public static ResponseObject removeMovieFromFavorites(Account account, int movieID) {
 		try {
 			
 			JSONObject json = new JSONObject();
 			json.put(Constants.MOVIE_ID, movieID);
 			json.put(Constants.FAVORITE, false);
 			
-			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.removeMovieFromFavsUrl(account.getId(), sessionID), json)));
+			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.removeMovieFromFavsUrl(account.getId(), account.getSessionID()), json)));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);

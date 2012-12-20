@@ -28,7 +28,8 @@ public final class Log {
 	/**
 	 * Prints the log header. Each log line starts with this header that has the form
 	 * "dd/mm/yy MM:HH:SS THREAD: Thread_Name :". 
-	 * @return
+	 * 
+	 * @return The header string
 	 */
 	private static String header() {
 		Date d = new Date();
@@ -42,6 +43,7 @@ public final class Log {
 
 	/**
 	 * Prints the given text appended to the header to the default stream.
+	 * 
 	 * @param text The text to print.
 	 */
 	public static synchronized void print(String text) {
@@ -50,6 +52,7 @@ public final class Log {
 
 	/**
 	 * Prints the given text appended to the header to the specified stream.
+	 * 
 	 * @param text The text to print
 	 * @param stream The stream where to print
 	 */
@@ -60,6 +63,7 @@ public final class Log {
 
 	/**
 	 * Prints the given throwable object information to the default stream.
+	 * 
 	 * @param throwable The throwable object
 	 */
 	public static synchronized void print(Throwable throwable) {
@@ -68,6 +72,7 @@ public final class Log {
 
 	/**
 	 * Prints the given throwable object information to the given stream.
+	 * 
 	 * @param throwable The throwable object
 	 * @param stream The stream where to print
 	 */
@@ -80,6 +85,7 @@ public final class Log {
 	
 	/**
 	 * Gets the default stream.
+	 * 
 	 * @return the default stream
 	 */
 	public static PrintStream getDefaultStream() {
@@ -88,6 +94,7 @@ public final class Log {
 	
 	/**
 	 * Sets the default stream.
+	 * 
 	 * @param stream The new stream
 	 */
 	public static void setDefaultStream(PrintStream stream) {
@@ -96,6 +103,7 @@ public final class Log {
 
 	/**
 	 * Gets whether the logger is active or not.
+	 * 
 	 * @return Whether the logger is active or not.
 	 */
 	public static boolean isActive() {
@@ -104,6 +112,7 @@ public final class Log {
 
 	/**
 	 * Sets the activation status
+	 * 
 	 * @param active Whether the logger is active or not.
 	 */
 	public static void setActive(boolean active) {
