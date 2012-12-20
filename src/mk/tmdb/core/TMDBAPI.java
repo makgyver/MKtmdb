@@ -53,7 +53,7 @@ public final class TMDBAPI {
 	 * @param url The query URL
 	 * @return The result string
 	 */
-	private static String makeApiCallGet(URL url) {
+	public static String makeApiCallGet(URL url) {
 		StringBuilder result = new StringBuilder();
 		try {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -93,7 +93,7 @@ public final class TMDBAPI {
 	 * @param json The Json object to post
 	 * @return The result string
 	 */
-	private static String makeApiCallPost(URL url, JSONObject json) {
+	public static String makeApiCallPost(URL url, JSONObject json) {
 		StringBuilder result = new StringBuilder();
 		try {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -268,7 +268,6 @@ public final class TMDBAPI {
 	}
 	
 	/**
-	 * /**
 	 * Gets the lists that you have created and marked as a favorite.
 	 * 
 	 * @param account The account information
@@ -276,7 +275,7 @@ public final class TMDBAPI {
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
 	 */
-	 public static ResponseArray getFavoritesLists(Account account, String sessionID, int page) {
+	public static ResponseArray getFavoritesLists(Account account, String sessionID, int page) {
 		try {
 			
 			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID, page))));
@@ -287,30 +286,86 @@ public final class TMDBAPI {
 			return new ResponseArray(Status.MALFORMED_URL);
 		}
 	}
+	 
+	/**
+	 * Gets all the lists that you have created and marked as a favorite.
+	 * 
+	 * @param account The account information
+	 * @param sessionID The session ID
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllFavoritesLists(Account account, String sessionID) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+                ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsListsUrl(account.getId(), sessionID, p))));
+                for (Object obj : page.getData()) {
+                    result.addData((JSONObject) obj);
+                }
+            }
+            
+            return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
 	
-	 /**
-	  * Gets the list of favorite movies for an account.
-	  * 
-	  * @param account The account information
-	  * @param sessionID The session ID
-	  * @return The TMDB Api response array.
-	  */
+	/**
+	 * Gets the list of favorite movies for an account.
+	 * 
+	 * @param account The account information
+	 * @param sessionID The session ID
+	 * @return The TMDB Api response array.
+	 */
 	public static ResponseArray getFavoritesMovies(Account account, String sessionID) {
 		return getFavoritesMovies(account, sessionID, 1);
 	}
 	
-	 /**
-	  * Gets the list of favorite movies for an account.
-	  * 
-	  * @param account The account information
-	  * @param sessionID The session ID
-	  * @param page The page number to retrieve
-	  * @return The TMDB Api response array.
-	  */
+	/**
+	 * Gets the list of favorite movies for an account.
+	 * 
+	 * @param account The account information
+	 * @param sessionID The session ID
+	 * @param page The page number to retrieve
+	 * @return The TMDB Api response array.
+	 */
 	public static ResponseArray getFavoritesMovies(Account account, String sessionID, int page) {
 		try {
 			
 			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), sessionID, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets all the list of all favorite movies for an account.
+	 * 
+	 * @param account The account information
+	 * @param sessionID The session ID
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllFavoritesMovies(Account account, String sessionID) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), sessionID))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+                ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getAccountFavsMoviesUrl(account.getId(), sessionID, p))));
+                for (Object obj : page.getData()) {
+                    result.addData((JSONObject) obj);
+                }
+            }
+            
+            return result;
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -665,7 +720,49 @@ public final class TMDBAPI {
 		}
 	}
 	
-	//TODO: dates!!!
+	/**
+	 * Get the changes for a specific movie id. Changes are grouped by key, 
+	 * and ordered by date in descending order. By default, only the last 24 hours of changes are returned. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * The language is present on fields that are translatable.
+	 * 
+	 * @param movieID The movie ID
+	 * @param start The date where the search starts 
+	 * @param end The date where the search ends 
+	 * @return The TMDB Api response object
+	 */
+	public static ResponseObject getMovieChanges(int movieID, Date start, Date end) {
+		try {
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getMovieChangesUrl(movieID, start, end))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Get the changes for a specific movie id. Changes are grouped by key, 
+	 * and ordered by date in descending order. By default, only the last 24 hours of changes are returned. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * The language is present on fields that are translatable.
+	 * 
+	 * @param movieID The movie ID
+	 * @param start The date where the search starts 
+	 * @param end The date where the search ends 
+	 * @return The TMDB Api response object
+	 */
+	public static ResponseObject getMovieChanges(int movieID, String start, String end) {
+		try {
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getMovieChangesUrl(movieID, start, end))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
 	
 	/**
 	 * Gets the lists that the movie belongs to.
@@ -1031,7 +1128,51 @@ public final class TMDBAPI {
 		}
 	}
 	
-	//TODO: dates!!!
+	/**
+	 * Gets the changes for a specific person id. 
+	 * Changes are grouped by key, and ordered by date in descending order. 
+	 * By default, only the last 24 hours of changes are returned. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * The language is present on fields that are translatable.
+	 * 
+	 * @param personID The person ID
+	 * @param start The date where the search starts 
+	 * @param end The date where the search ends 
+	 * @return The TMDB Api response object
+	 */
+	public static ResponseObject getPersonChanges(int personID, Date start, Date end) {
+		try {
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getPersonChangesUrl(personID, start, end))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets the changes for a specific person id. 
+	 * Changes are grouped by key, and ordered by date in descending order. 
+	 * By default, only the last 24 hours of changes are returned. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * The language is present on fields that are translatable.
+	 * 
+	 * @param personID The person ID
+	 * @param start The date where the search starts 
+	 * @param end The date where the search ends 
+	 * @return The TMDB Api response object
+	 */
+	public static ResponseObject getPersonChanges(int personID, String start, String end) {
+		try {
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getPersonChangesUrl(personID, start, end))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
 	
 	/**
 	 * Gets the latest person id.
@@ -1138,8 +1279,8 @@ public final class TMDBAPI {
 	 * @param companyID The company ID
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getMoviesListByCompany(int companyID) {
-		return getMoviesListByCompany(companyID, 1);
+	public static ResponseArray getMoviesByCompany(int companyID) {
+		return getMoviesByCompany(companyID, 1);
 	}
 	
 	/**
@@ -1149,9 +1290,36 @@ public final class TMDBAPI {
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getMoviesListByCompany(int companyID, int page) {
+	public static ResponseArray getMoviesByCompany(int companyID, int page) {
 		try {
 			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByCompanyUrl(companyID, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets the list of all movies associated with a particular company.
+	 * 
+	 * @param companyID The company ID
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllMoviesByCompany(int companyID) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByCompanyUrl(companyID))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByCompanyUrl(companyID, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -1187,8 +1355,8 @@ public final class TMDBAPI {
 	 * @param genreID The genre ID
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getMoviesListByGenre(int genreID) {
-		return getMoviesListByGenre(genreID, 1);
+	public static ResponseArray getMoviesByGenre(int genreID) {
+		return getMoviesByGenre(genreID, 1);
 	}
 	
 	/**
@@ -1199,9 +1367,37 @@ public final class TMDBAPI {
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getMoviesListByGenre(int genreID, int page) {
+	public static ResponseArray getMoviesByGenre(int genreID, int page) {
 		try {
 			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByGenreUrl(genreID, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets the list of all movies for a particular genre by id. 
+	 * By default, only movies with 10 or more votes are included.
+	 * 
+	 * @param genreID The genre ID
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllMoviesByGenre(int genreID) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByGenreUrl(genreID))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByGenreUrl(genreID, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
