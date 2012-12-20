@@ -421,25 +421,31 @@ public final class TMDBAPI {
 	 * Gets the list of rated movies for an account.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getRatedMovies(Account account, String sessionID) {
-		return getRatedMovies(account, sessionID, 1);
+	public static ResponseArray getRatedMovies(Account account) {
+		return getRatedMovies(account, 1);
 	}
 	
 	/**
 	 * Gets the list of rated movies for an account.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
-	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getRatedMovies(Account account, String sessionID, int page) {
+	public static ResponseArray getAllRatedMovies(Account account) {
 		try {
 			
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getRatedMoviesUrl(account.getId(), sessionID, page))));
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getRatedMoviesUrl(account.getId(), account.getSessionID()))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+                ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getRatedMoviesUrl(account.getId(), account.getSessionID(), p))));
+                for (Object obj : page.getData()) {
+                    result.addData((JSONObject) obj);
+                }
+            }
+            
+            return result;
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -449,28 +455,72 @@ public final class TMDBAPI {
 	}
 	
 	/**
-	 * Gets the list of movies on an accounts watchlist.
+	 * Gets the list of all rated movies for an account.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
-	 * @return The TMDB Api response array
-	 */
-	public static ResponseArray getMovieWatchList(Account account, String sessionID) {
-		return getMovieWatchList(account, sessionID, 1);
-	}
-	
-	/**
-	 * Gets the list of movies on an accounts watchlist.
-	 * 
-	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray getMovieWatchList(Account account, String sessionID, int page) {
+	public static ResponseArray getRatedMovies(Account account, int page) {
 		try {
 			
-			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getWatchlistUrl(account.getId(), sessionID, page))));
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getRatedMoviesUrl(account.getId(), account.getSessionID(), page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets the list of movies on an accounts watch list.
+	 * 
+	 * @param account The account information
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getMovieWatchList(Account account) {
+		return getMovieWatchList(account, 1);
+	}
+	
+	/**
+	 * Gets the list of movies on an accounts watch list.
+	 * 
+	 * @param account The account information
+	 * @param page The page number to retrieve
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getMovieWatchList(Account account, int page) {
+		try {
+			
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getWatchlistUrl(account.getId(), account.getSessionID(), page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets the list of all movies on an accounts watch list.
+	 * 
+	 * @param account The account information
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllMovieWatchList(Account account) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getWatchlistUrl(account.getId(), account.getSessionID()))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+                ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getWatchlistUrl(account.getId(), account.getSessionID(), p))));
+                for (Object obj : page.getData()) {
+                    result.addData((JSONObject) obj);
+                }
+            }
+            
+            return result;
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -483,18 +533,17 @@ public final class TMDBAPI {
 	 * Adds a movie to an accounts watch list.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @param movieID The movie ID
 	 * @return The TMDB Api response object
 	 */
-	public static ResponseObject addMovieToWatchlist(Account account, String sessionID, int movieID) {
+	public static ResponseObject addMovieToWatchlist(Account account, int movieID) {
 		try {
 			
 			JSONObject json = new JSONObject();
 			json.put(Constants.MOVIE_ID, movieID);
 			json.put(Constants.WATCHLIST, true);
 			
-			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.addMovieToWatchlistUrl(account.getId(), sessionID), json)));
+			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.addMovieToWatchlistUrl(account.getId(), account.getSessionID()), json)));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -507,18 +556,17 @@ public final class TMDBAPI {
 	 * Removes a movie to an accounts watch list.
 	 * 
 	 * @param account The account information
-	 * @param sessionID The session ID
 	 * @param movieID The movie ID
 	 * @return The TMDB Api response object
 	 */
-	public static ResponseObject removeMovieFromWatchlist(Account account, String sessionID, int movieID) {
+	public static ResponseObject removeMovieFromWatchlist(Account account, int movieID) {
 		try {
 			
 			JSONObject json = new JSONObject();
 			json.put(Constants.MOVIE_ID, movieID);
 			json.put(Constants.WATCHLIST, false);
 			
-			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.removeMovieFromWatchlistUrl(account.getId(), sessionID), json)));
+			return new ResponseObject(toJSON(makeApiCallPost(URLCreator.removeMovieFromWatchlistUrl(account.getId(), account.getSessionID()), json)));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);

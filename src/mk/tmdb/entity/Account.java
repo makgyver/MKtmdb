@@ -13,6 +13,8 @@ import net.sf.json.JSONObject;
 
 public class Account extends Entity {
 
+	//region Fields
+	
 	private int id;
 	private String iso639_1;
 	private String iso3166_1;
@@ -22,10 +24,14 @@ public class Account extends Entity {
 	
 	private String sessionID;
 	
+	//endregion
+	
 	public Account(JSONObject json) {
 		super(json);
 		parseJSON(json);
 	}
+	
+	//region Getters/Setters
 	
 	public int getId() {
 		return id;
@@ -83,6 +89,8 @@ public class Account extends Entity {
 		this.sessionID = sessionID;
 	}
 	
+	//endregion
+	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		
@@ -106,6 +114,8 @@ public class Account extends Entity {
 			return new Account(response.getData());
 		}
 	}
+	
+	//region Favorite Movies
 	
 	public List<Movie> getFavoriteMovies() throws ResponseException {
 		return getFavoriteMovies(1);
@@ -148,6 +158,10 @@ public class Account extends Entity {
 		}
 	}
 	
+	//endregion
+	
+	//region Favorite Lists
+	
 	public List<MovieList> getFavoriteLists() throws ResponseException {
 		return getFavoriteLists(1);
 	}
@@ -188,4 +202,117 @@ public class Account extends Entity {
 			return lists;
 		}
 	}
+	
+	public boolean addMovieToFavorites(int movieID) {
+		ResponseObject response = TMDBAPI.addMovieToFavorites(this, movieID);
+		return response.hasError();
+	}
+	
+	public boolean removeMovieFromFavorites(int movieID) {
+		ResponseObject response = TMDBAPI.removeMovieFromFavorites(this, movieID);
+		return response.hasError();
+	}
+	
+	//endregion
+	
+	//region Top Rated
+	
+	public List<Movie> getRatedMovies() throws ResponseException {
+		return getRatedMovies(1);
+	}
+	
+	public List<Movie> getRatedMovies(int page) throws ResponseException {
+		
+		ResponseArray response = TMDBAPI.getRatedMovies(this, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			List<Movie> movies = new LinkedList<Movie>();
+			Set<JSONObject> data = response.getData();
+			
+			for (JSONObject json : data) {
+				movies.add(new Movie(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public List<Movie> getAllRatedMovies() throws ResponseException {
+		ResponseArray response = TMDBAPI.getAllRatedMovies(this);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			List<Movie> movies = new LinkedList<Movie>();
+			Set<JSONObject> data = response.getData();
+			
+			for (JSONObject json : data) {
+				movies.add(new Movie(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	//endregion
+	
+	//region Watch list
+	
+	public List<Movie> getMovieWatchlist() throws ResponseException {
+		return getMovieWatchlist(1);
+	}
+	
+	public List<Movie> getMovieWatchlist(int page) throws ResponseException {
+		
+		ResponseArray response = TMDBAPI.getMovieWatchList(this, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			List<Movie> movies = new LinkedList<Movie>();
+			Set<JSONObject> data = response.getData();
+			
+			for (JSONObject json : data) {
+				movies.add(new Movie(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public List<Movie> getAllMovieWatchlist() throws ResponseException {
+		ResponseArray response = TMDBAPI.getAllMovieWatchList(this);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			List<Movie> movies = new LinkedList<Movie>();
+			Set<JSONObject> data = response.getData();
+			
+			for (JSONObject json : data) {
+				movies.add(new Movie(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public boolean addMovieToWatchlist(int movieID) {
+		ResponseObject response = TMDBAPI.addMovieToWatchlist(this, movieID);
+		return response.hasError();
+	}
+	
+	public boolean removeMovieToWatchlist(int movieID) {
+		ResponseObject response = TMDBAPI.removeMovieFromWatchlist(this, movieID);
+		return response.hasError();
+	}
+	
+	//endregion
+	
 }
