@@ -50,7 +50,7 @@ public enum Status {
 	
 	MALFORMED_URL(98, "Malformed url."),
 	
-	TIMEOUT(99, "Request Timeout error."),
+	TIMEOUT(99, "Request Timeout. Retry in a few minutes."),
 	
 	UNKNOWN_ERROR(100, "Unknown error. See the log for more information.");
 	

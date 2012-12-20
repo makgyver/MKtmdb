@@ -665,6 +665,8 @@ public final class TMDBAPI {
 		}
 	}
 	
+	//TODO: dates!!!
+	
 	/**
 	 * Gets the lists that the movie belongs to.
 	 * 
@@ -1215,7 +1217,7 @@ public final class TMDBAPI {
 	/**
 	 * Searches for movies by title.
 	 * 
-	 * @param movieTitle The movie title
+	 * @param movieTitle The movie's title
 	 * @return The TMDB Api response array
 	 */
 	public static ResponseArray searchMovieByTitle(String movieTitle) {
@@ -1225,7 +1227,7 @@ public final class TMDBAPI {
 	/**
 	 * Searches for movies by title.
 	 * 
-	 * @param movieTitle The movie title
+	 * @param movieTitle The movie's title
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
 	 */
@@ -1241,10 +1243,37 @@ public final class TMDBAPI {
 	}
 	
 	/**
-	 * Searches for movies by title and yer.
+	 * Searches for movies by title. Gets all the results.
 	 * 
-	 * @param movieTitle The movie title
-	 * @param year The movie year
+	 * @param movieTitle The movie's title
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchMovieByTitle(String movieTitle) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Searches for movies by title and year.
+	 * 
+	 * @param movieTitle The movie's title
+	 * @param year The year of the movie
 	 * @return The TMDB Api response array
 	 */
 	public static ResponseArray searchMovieByTitleAndYear(String movieTitle, int year) {
@@ -1254,8 +1283,8 @@ public final class TMDBAPI {
 	/**
 	 * Searches for movies by title and year.
 	 * 
-	 * @param movieTitle The movie title
-	 * @param year The movie year
+	 * @param movieTitle The movie's title
+	 * @param year The year of the movie
 	 * @param page the page number to retrieve
 	 * @return The TMDB Api response array
 	 */
@@ -1271,9 +1300,37 @@ public final class TMDBAPI {
 	}
 	
 	/**
+	 * Searches for movies by title and year. Gets all the results.
+	 * 
+	 * @param movieTitle The movie's title
+	 * @param year The year of the movie
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchMovieByTitle(String movieTitle, int year) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleAndYearUrl(movieTitle, year))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleAndYearUrl(movieTitle, year, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
 	 * Searches for movies by title.
 	 * 
-	 * @param movieTitle The movie title
+	 * @param movieTitle The movie's title
 	 * @param adult Whether the movie audience is adult only
 	 * @return The TMDB Api response array
 	 */
@@ -1284,7 +1341,7 @@ public final class TMDBAPI {
 	/**
 	 * Searches for movies by title.
 	 * 
-	 * @param movieTitle The movie title
+	 * @param movieTitle The movie's title
 	 * @param adult Whether the movie audience is adult only
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
@@ -1301,10 +1358,38 @@ public final class TMDBAPI {
 	}
 	
 	/**
+	 * Searches for movies by title. Gets all the results.
+	 * 
+	 * @param movieTitle The movie's title
+	 * @param adult Whether the movie audience is adult only
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchMovieByTitle(String movieTitle, boolean adult) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, adult))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, adult, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
 	 * Searches for movies by title.
 	 * 
-	 * @param movieTitle The movie title
-	 * @param year The movie year
+	 * @param movieTitle The movie's title
+	 * @param year The year of the movie
 	 * @param adult Whether the movie audience is adult only
 	 * @return The TMDB Api response array
 	 */
@@ -1315,8 +1400,8 @@ public final class TMDBAPI {
 	/**
 	 * Searches for movies by title.
 	 * 
-	 * @param movieTitle The movie title
-	 * @param year The movie year
+	 * @param movieTitle The movie's title
+	 * @param year The year of the movie
 	 * @param adult Whether the movie audience is adult only
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
@@ -1324,6 +1409,35 @@ public final class TMDBAPI {
 	public static ResponseArray searchMovieByTitle(String movieTitle, int year, boolean adult, int page) {
 		try {
 			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, year, adult, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Searches for movies by title. Gets all the results.
+	 * 
+	 * @param movieTitle The movie's title
+	 * @param year The year of the movie
+	 * @param adult Whether the movie audience is adult only
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchMovieByTitle(String movieTitle, int year, boolean adult) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, year, adult))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, year, adult, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -1495,6 +1609,66 @@ public final class TMDBAPI {
 	}
 	
 	/**
+	 * Gets a list of all movie ids that have been edited. 
+	 * By default we show the last 24 hours and only 100 items per page. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * You can then use the {@link #getMovieChanges(int) getMovieChanges} method to get the actual data that has been changed.
+	 * Please note that the change log system to support this was changed on 
+	 * October 5, 2012 and will only show movies that have been edited since.
+	 * 
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllChangedMovies() {
+		try {
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl())));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl(p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets a list of all people ids that have been edited. 
+	 * By default we show the last 24 hours and only 100 items per page. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * You can then use the {@link #getPersonChanges(int) getPersonChanges} method to get the actual data that has been changed. 
+	 * Please note that the change log system to support this was changed on 
+	 * October 5, 2012 and will only show people that have been edited since.
+	 * 
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllChangedPersons() {
+		try {
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl())));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl(p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
 	 * Gets a list of movie ids that have been edited. 
 	 * By default we show the last 24 hours and only 100 items per page. 
 	 * The maximum number of days that can be returned in a single request is 14. 
@@ -1575,6 +1749,70 @@ public final class TMDBAPI {
 	}
 	
 	/**
+	 * Gets a list of all movie ids that have been edited. 
+	 * By default we show the last 24 hours and only 100 items per page. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * You can then use the {@link #getMovieChanges(int) getMovieChanges} method to get the actual data that has been changed.
+	 * Please note that the change log system to support this was changed on 
+	 * October 5, 2012 and will only show movies that have been edited since.
+	 * 
+	 * @param start The date where the search starts 
+	 * @param end The date where the search ends
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllChangedMovies(Date start, Date end) {
+		try {
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl(start, end))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl(start, end, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets a list of all people ids that have been edited. 
+	 * By default we show the last 24 hours and only 100 items per page. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * You can then use the {@link #getPersonChanges(int) getPersonChanges} method to get the actual data that has been changed. 
+	 * Please note that the change log system to support this was changed on 
+	 * October 5, 2012 and will only show people that have been edited since.
+	 * 
+	 * @param start The date where the search starts 
+	 * @param end The date where the search ends
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllChangedPersons(Date start, Date end) {
+		try {
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl(start, end))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl(start, end, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
 	 * Gets a list of movie ids that have been edited. 
 	 * By default we show the last 24 hours and only 100 items per page. 
 	 * The maximum number of days that can be returned in a single request is 14. 
@@ -1646,6 +1884,70 @@ public final class TMDBAPI {
 	public static ResponseArray getChangedPersons(String start, String end, int page) {
 		try {
 			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl(start, end, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets a list of all movie ids that have been edited. 
+	 * By default we show the last 24 hours and only 100 items per page. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * You can then use the {@link #getMovieChanges(int) getMovieChanges} method to get the actual data that has been changed.
+	 * Please note that the change log system to support this was changed on 
+	 * October 5, 2012 and will only show movies that have been edited since.
+	 * 
+	 * @param start The date where the search starts 
+	 * @param end The date where the search ends
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllChangedMovies(String start, String end) {
+		try {
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl(start, end))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedMoviesUrl(start, end, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets a list of all people ids that have been edited. 
+	 * By default we show the last 24 hours and only 100 items per page. 
+	 * The maximum number of days that can be returned in a single request is 14. 
+	 * You can then use the {@link #getPersonChanges(int) getPersonChanges} method to get the actual data that has been changed. 
+	 * Please note that the change log system to support this was changed on 
+	 * October 5, 2012 and will only show people that have been edited since.
+	 * 
+	 * @param start The date where the search starts 
+	 * @param end The date where the search ends
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllChangedPersons(String start, String end) {
+		try {
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl(start, end))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getChangedPersonsUrl(start, end, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);

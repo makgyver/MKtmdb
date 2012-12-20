@@ -13,9 +13,9 @@ import net.sf.json.JSONObject;
 
 /**
  * Class that contains the configuration information. 
- * First of all is necessary to load these information calling load method.
+ * First of all is necessary to {@link #load() load} these information calling load method.
  * Then if you want to be sure that the configuration is up to date call the 
- * forceLoad method.
+ * {@link #forceLoad() forceLoad} method.
  * 
  * @author mirkopolato
  *
@@ -206,7 +206,7 @@ public class Configuration {
 	
 	/**
 	 * Forces the loading of the configuration information.
-	 * @throws ResponseException Throws if the API call is failed for some reason.
+	 * @throws ResponseException Throws if the API call fail for some reason.
 	 */
 	public void forceLoad() throws ResponseException {
 		loaded = false;

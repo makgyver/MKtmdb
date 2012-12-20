@@ -26,7 +26,7 @@ public final class Log {
 	private static boolean active = true;
 	
 	/**
-	 * Prints the log header. Each log line start with this header that has the form
+	 * Prints the log header. Each log line starts with this header that has the form
 	 * "dd/mm/yy MM:HH:SS THREAD: Thread_Name :". 
 	 * @return
 	 */
