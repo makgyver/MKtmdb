@@ -12,10 +12,17 @@ import net.sf.json.JSONObject;
 
 public class PersonThumbnail extends Entity {
 
-	protected int id;
+	protected Integer id;
 	protected String name;
 	protected String profilePath;
 	protected Set<Role> roles = Collections.synchronizedSet(new LinkedHashSet<Role>());
+	
+	public PersonThumbnail(JSONObject json) {
+		super(json);
+		parseJSON(json);
+	}
+	
+	//region Getters/Setters
 	
 	public int getId() {
 		return id;
@@ -54,10 +61,7 @@ public class PersonThumbnail extends Entity {
 		roles.add(role);
 	}
 	
-	public PersonThumbnail(JSONObject json) {
-		super(json);
-		parseJSON(json);
-	}
+	//endregion
 	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
@@ -69,6 +73,8 @@ public class PersonThumbnail extends Entity {
 		return true;
 	}
 	
+	//region Static methods
+	
 	public static Person getLatest() throws ResponseException {
 		
 		ResponseObject response = TMDBAPI.getLatestPerson();
@@ -79,5 +85,7 @@ public class PersonThumbnail extends Entity {
 			return new Person(response.getData());
 		}
 	}
+	
+	//endregion
 	
 }

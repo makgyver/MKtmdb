@@ -54,6 +54,7 @@ public final class Constants {
 	public static final String GET_AUTH_TOKEN = AUTHENTICATION + "token/new";
 	public static final String GET_GUEST_SESSION = AUTHENTICATION + "guest_session/new";
 	public static final String GUEST_ID = "guest_session_id";
+	public static final String HEADQUARTERS = "headquarters";
 	public static final String HEIGHT = "height";
 	public static final String HOMEPAGE = "homepage";
 	public static final String ID = "id";
@@ -71,6 +72,7 @@ public final class Constants {
 	public static final String LIST = "list";
 	public static final String LIST_TYPE = "list_type";
 	public static final String LISTS = "lists";
+	public static final String LOGO_PATH = "logo_path";
 	public static final String LOGO_SIZES = "logo_sizes";
 	public static final String MOVIE = "movie";
 	public static final String MOVIE_ID = "movie_id";
@@ -83,6 +85,7 @@ public final class Constants {
 	public static final String OVERVIEW = "overview";
 	public static final String PATH = "file_path";
 	public static final String PAGE = "page";
+	public static final String PARENT_COMPANY = "parent_company";
 	public static final String PERSON = "person";
 	public static final String PLACE_OF_BIRTH = "place_of_birth";
 	public static final String POPULAR_MOVIES = "movie/popular";

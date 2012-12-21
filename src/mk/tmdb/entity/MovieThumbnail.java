@@ -17,8 +17,8 @@ import net.sf.json.JSONObject;
 
 public class MovieThumbnail extends Entity {
 
-	protected boolean adult;
-	protected int id;
+	protected Boolean adult;
+	protected Integer id;
 	protected String originalTitle;
 	protected String title;
 	protected String posterPath;
@@ -271,6 +271,17 @@ public class MovieThumbnail extends Entity {
 			}
 
 			return tops;
+		}
+	}
+	
+	public static Movie getMovieInformation(int movieID) throws ResponseException {
+		
+		ResponseObject response = TMDBAPI.getMovieInformation(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			return new Movie(response.getData());
 		}
 	}
 	

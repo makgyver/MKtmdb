@@ -27,7 +27,7 @@ public class Movie extends MovieBasic {
 	protected String tagline = null;
 	protected Integer revenue = null;
 	protected Set<Genre> genres = Collections.synchronizedSet(new LinkedHashSet<Genre>());
-	protected Set<Company> companies = Collections.synchronizedSet(new LinkedHashSet<Company>());
+	protected Set<CompanyThumbnail> companies = Collections.synchronizedSet(new LinkedHashSet<CompanyThumbnail>());
 	protected Set<Country> countries = Collections.synchronizedSet(new LinkedHashSet<Country>());
 	protected Set<Language> languages = Collections.synchronizedSet(new LinkedHashSet<Language>());
 	
@@ -99,7 +99,7 @@ public class Movie extends MovieBasic {
 		return overview != null;
 	}
 	
-	public Set<Company> getCompanies() {
+	public Set<CompanyThumbnail> getCompanies() {
 		return companies;
 	}
 	
@@ -112,7 +112,7 @@ public class Movie extends MovieBasic {
 		return countries;
 	}
 	
-	public void setCompanies(Set<Company> companies) {
+	public void setCompanies(Set<CompanyThumbnail> companies) {
 		this.companies.clear();
 		this.companies.addAll(companies);
 	}
@@ -204,7 +204,7 @@ public class Movie extends MovieBasic {
 		if (json.has(Constants.COMPANIES)) {
 			JSONArray companiesList = json.getJSONArray(Constants.COMPANIES);
 			for (Object obj : companiesList) {
-			    companies.add(new Company((JSONObject) obj));
+			    companies.add(new CompanyThumbnail((JSONObject) obj));
 			}
 		}
 		
@@ -235,5 +235,5 @@ public class Movie extends MovieBasic {
 			return new Movie(response.getData());
 		}
 	}
-
+	
 }

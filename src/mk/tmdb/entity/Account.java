@@ -16,7 +16,7 @@ import net.sf.json.JSONObject;
  * Moreover can store the authenticated session id by calling the {@link #setSessionID(String) setSessionID} method.
  * To get the the information about a specific account call the {@link #getInformation(String) getInformation} static method.
  * 
- * @author mirkopolato
+ * @author Mirko Polato
  *
  */
 public class Account extends Entity {

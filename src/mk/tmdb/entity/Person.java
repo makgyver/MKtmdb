@@ -17,18 +17,24 @@ import net.sf.json.JSONObject;
 
 public class Person extends PersonThumbnail {
 
-	private boolean adult;
+	//region Fields
+	
+	private Boolean adult = null;
 	private Set<String> aka = Collections.synchronizedSet(new LinkedHashSet<String>()); 
-	private String bio;
-	private Date birthday;
-	private Date deathday;
-	private URL homepage;
-	private String placeOfBirth;
+	private String bio = null;
+	private Date birthday = null;
+	private Date deathday = null;
+	private URL homepage = null;
+	private String placeOfBirth = null;
+	
+	//endregion
 	
 	public Person(JSONObject json) {
 		super(json);
 		parseJSON(json);
 	}
+	
+	//region Getters/Setters
 	
 	public boolean isAdult() {
 		return adult;
@@ -36,6 +42,10 @@ public class Person extends PersonThumbnail {
 	
 	public void setAdult(boolean adult) {
 		this.adult = adult;
+	}
+	
+	public boolean isAdultSet() {
+		return adult != null;
 	}
 	
 	public Set<String> getAka() {
@@ -54,6 +64,10 @@ public class Person extends PersonThumbnail {
 		this.bio = bio;
 	}
 	
+	public boolean isBiographySet() {
+		return bio != null;
+	}
+	
 	public Date getBirthday() {
 		return birthday;
 	}
@@ -67,6 +81,10 @@ public class Person extends PersonThumbnail {
 		}
 	}
 	
+	public boolean isBirthdaySet() {
+		return birthday != null;
+	}
+	
 	public Date getDeathday() {
 		return deathday;
 	}
@@ -78,6 +96,10 @@ public class Person extends PersonThumbnail {
 		} catch (ParseException e) {
 			Log.print(e);
 		}
+	}
+	
+	public boolean isDeathdaySet() {
+		return deathday != null;
 	}
 	
 	public URL getHomepage() {
@@ -96,6 +118,12 @@ public class Person extends PersonThumbnail {
 		this.placeOfBirth = placeOfBirth;
 	}
 
+	public boolean isPlaceOfBirthSet() {
+		return placeOfBirth != null;
+	}
+	
+	//endregion
+	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		

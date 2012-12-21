@@ -1,53 +1,101 @@
 package mk.tmdb.entity;
 
+import java.net.URL;
+
 import mk.tmdb.core.Constants;
-import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
-public class Company extends Entity {
+public class Company extends CompanyThumbnail {
+
+	//region Fields
 	
-	private int id;
-	private String name;
+	private String description = null;
+	private String headquarters = null;
+	private URL homepage = null;
+	private String logoPath = null;
+	private String parentCompany = null;
 	
-	public Company(int id, String name) {
-		this.id = id;
-		this.name = name;
-	}
+	//endregion
 	
 	public Company(JSONObject json) {
 		super(json);
 		parseJSON(json);
 	}
+
+	//region Getters/Setters
 	
-	public int getId() {
-		return id;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public boolean isDescriptionSet() {
+		return description != null;
 	}
 
-	public String getName() {
-		return name;
+	public String getHeadquarters() {
+		return headquarters;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setHeadquarters(String headquarters) {
+		this.headquarters = headquarters;
+	}
+	
+	public boolean isHeadquartersSet() {
+		return headquarters != null;
 	}
 
+	public URL getHomepage() {
+		return homepage;
+	}
+
+	public void setHomepage(URL homepage) {
+		this.homepage = homepage;
+	}
+
+	public boolean isHomepageSet() {
+		return homepage != null;
+	}
+	
+	public String getLogoPath() {
+		return logoPath;
+	}
+
+	public void setLogoPath(String logoPath) {
+		this.logoPath = logoPath;
+	}
+
+	public boolean isLogoPathSet() {
+		return logoPath != null;
+	}
+	
+	public String getParentCompany() {
+		return parentCompany;
+	}
+
+	public void setParentCompany(String parentCompany) {
+		this.parentCompany = parentCompany;
+	}
+	
+	public boolean isParentCompanySet() {
+		return parentCompany != null;
+	}
+	
+	//endregion
+	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
-		try {
-			
-			setId(json.getInt(Constants.ID));
-			setName(json.getString(Constants.NAME));
-			
-		} catch (Exception e) {
-			Log.print(e);
-			return false;
-		}
 		
-		return true;	
+		if (json.has(Constants.DESCRIPTION)) setDescription(json.getString(Constants.DESCRIPTION));
+		if (json.has(Constants.HOMEPAGE)) setDescription(json.getString(Constants.HOMEPAGE));
+		if (json.has(Constants.PARENT_COMPANY)) setDescription(json.getString(Constants.PARENT_COMPANY));
+		if (json.has(Constants.LOGO_PATH)) setDescription(json.getString(Constants.LOGO_PATH));
+		if (json.has(Constants.HEADQUARTERS)) setDescription(json.getString(Constants.HEADQUARTERS));
+		
+		return true;
 	}
-
+	
 }
