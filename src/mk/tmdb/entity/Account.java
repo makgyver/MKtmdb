@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
-import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.movie.MovieReduced;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.ResponseArray;
@@ -234,7 +234,7 @@ public class Account extends Entity {
 	 */
 	public static Account getInformation(String sessionID) throws ResponseException {
 		
-		ResponseObject response = TMDBAPI.getAccountInformation(sessionID);
+		ResponseObject response = TMDbAPI.getAccountInformation(sessionID);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -266,7 +266,7 @@ public class Account extends Entity {
 	 */
 	public List<MovieReduced> getFavoriteMovies(int page) throws ResponseException {
 		
-		ResponseArray response = TMDBAPI.getFavoriteMovies(this, page);
+		ResponseArray response = TMDbAPI.getFavoriteMovies(this, page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -290,7 +290,7 @@ public class Account extends Entity {
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
 	public List<MovieReduced> getAllFavoriteMovies() throws ResponseException {
-		ResponseArray response = TMDBAPI.getAllFavoriteMovies(this);
+		ResponseArray response = TMDbAPI.getAllFavoriteMovies(this);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -314,7 +314,7 @@ public class Account extends Entity {
 	 * @return Whether the operation succeeded or not 
 	 */
 	public boolean addMovieToFavorites(int movieID) {
-		ResponseObject response = TMDBAPI.addMovieToFavorites(this, movieID);
+		ResponseObject response = TMDbAPI.addMovieToFavorites(this, movieID);
 		return response.hasError();
 	}
 	
@@ -325,7 +325,7 @@ public class Account extends Entity {
 	 * @return Whether the operation succeeded or not 
 	 */
 	public boolean removeMovieFromFavorites(int movieID) {
-		ResponseObject response = TMDBAPI.removeMovieFromFavorites(this, movieID);
+		ResponseObject response = TMDbAPI.removeMovieFromFavorites(this, movieID);
 		return response.hasError();
 	}
 	
@@ -352,7 +352,7 @@ public class Account extends Entity {
 	 */
 	public List<MovieList> getFavoriteLists(int page) throws ResponseException {
 		
-		ResponseArray response = TMDBAPI.getFavoriteLists(this, page);
+		ResponseArray response = TMDbAPI.getFavoriteLists(this, page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -376,7 +376,7 @@ public class Account extends Entity {
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
 	public List<MovieList> getAllFavoriteLists() throws ResponseException {
-		ResponseArray response = TMDBAPI.getAllFavoriteLists(this);
+		ResponseArray response = TMDbAPI.getAllFavoriteLists(this);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -416,7 +416,7 @@ public class Account extends Entity {
 	 */
 	public List<MovieReduced> getRatedMovies(int page) throws ResponseException {
 		
-		ResponseArray response = TMDBAPI.getRatedMovies(this, page);
+		ResponseArray response = TMDbAPI.getRatedMovies(this, page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -440,7 +440,7 @@ public class Account extends Entity {
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
 	public List<MovieReduced> getAllRatedMovies() throws ResponseException {
-		ResponseArray response = TMDBAPI.getAllRatedMovies(this);
+		ResponseArray response = TMDbAPI.getAllRatedMovies(this);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -480,7 +480,7 @@ public class Account extends Entity {
 	 */
 	public List<MovieReduced> getMovieWatchlist(int page) throws ResponseException {
 		
-		ResponseArray response = TMDBAPI.getMovieWatchList(this, page);
+		ResponseArray response = TMDbAPI.getMovieWatchList(this, page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -504,7 +504,7 @@ public class Account extends Entity {
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
 	public List<MovieReduced> getAllMovieWatchlist() throws ResponseException {
-		ResponseArray response = TMDBAPI.getAllMovieWatchList(this);
+		ResponseArray response = TMDbAPI.getAllMovieWatchList(this);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -528,7 +528,7 @@ public class Account extends Entity {
 	 * @return Whether the operation succeeded or not
 	 */
 	public boolean addMovieToWatchlist(int movieID) {
-		ResponseObject response = TMDBAPI.addMovieToWatchlist(this, movieID);
+		ResponseObject response = TMDbAPI.addMovieToWatchlist(this, movieID);
 		return response.hasError();
 	}
 	
@@ -539,7 +539,7 @@ public class Account extends Entity {
 	 * @return Whether the operation succeeded or not
 	 */
 	public boolean removeMovieToWatchlist(int movieID) {
-		ResponseObject response = TMDBAPI.removeMovieFromWatchlist(this, movieID);
+		ResponseObject response = TMDbAPI.removeMovieFromWatchlist(this, movieID);
 		return response.hasError();
 	}
 	

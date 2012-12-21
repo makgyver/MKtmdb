@@ -19,6 +19,10 @@ public class MovieList extends Entity {
 		parseJSON(json);
 	}
 	
+	public MovieList(MovieList list) {
+		this(list.getOriginJSON());
+	}
+	
 	public String getId() {
 		return id;
 	}

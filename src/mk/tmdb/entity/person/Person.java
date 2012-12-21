@@ -34,6 +34,10 @@ public class Person extends PersonThumbnail {
 		parseJSON(json);
 	}
 	
+	public Person(PersonThumbnail person) {
+		this(person.getOriginJSON());
+	}
+	
 	//region Getters/Setters
 	
 	public boolean isAdult() {

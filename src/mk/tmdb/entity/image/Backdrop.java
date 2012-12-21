@@ -19,6 +19,10 @@ public class Backdrop extends Image {
 	public Backdrop(JSONObject json) {
 		super(json);
 	}
+	
+	public Backdrop(Backdrop backdrop) {
+		this(backdrop.getOriginJSON());
+	}
 
 	@Override
 	public URL getUrl(Size size) throws MalformedURLException, 

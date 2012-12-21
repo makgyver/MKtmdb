@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
-import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.Entity;
 import mk.tmdb.entity.role.Role;
 import mk.tmdb.exception.ResponseException;
@@ -22,6 +22,10 @@ public class PersonThumbnail extends Entity {
 	public PersonThumbnail(JSONObject json) {
 		super(json);
 		parseJSON(json);
+	}
+	
+	public PersonThumbnail(PersonThumbnail person) {
+		this(person.getOriginJSON());
 	}
 	
 	//region Getters/Setters
@@ -79,7 +83,7 @@ public class PersonThumbnail extends Entity {
 	
 	public static Person getLatest() throws ResponseException {
 		
-		ResponseObject response = TMDBAPI.getLatestPerson();
+		ResponseObject response = TMDbAPI.getLatestPerson();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());

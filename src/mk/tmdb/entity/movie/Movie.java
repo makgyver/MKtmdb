@@ -7,7 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
-import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.CompanyThumbnail;
 import mk.tmdb.entity.Country;
 import mk.tmdb.entity.Genre;
@@ -231,7 +231,7 @@ public class Movie extends MovieBasic {
 	
 	public static Movie getLatestMovie() throws ResponseException {
 		
-		ResponseObject response = TMDBAPI.getLatestMovie();
+		ResponseObject response = TMDbAPI.getLatestMovie();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());

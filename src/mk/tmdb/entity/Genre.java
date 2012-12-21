@@ -33,6 +33,15 @@ public class Genre extends Entity {
 	}
 	
 	/**
+	 * Copy constructor.
+	 * 
+	 * @param genre The genre to copy.
+	 */
+	public Genre(Genre genre) {
+		this(genre.getOriginJSON());
+	}
+	
+	/**
 	 * Gets the genre ID.
 	 * 
 	 * @return The genre ID

@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
-import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.Keyword;
 import mk.tmdb.entity.Language;
 import mk.tmdb.entity.image.Backdrop;
@@ -111,7 +111,7 @@ public class MovieFull extends Movie {
 	}
 
 	public void retrieveImages() {
-		ResponseObject response = TMDBAPI.getMovieImages(id);
+		ResponseObject response = TMDbAPI.getMovieImages(id);
 		
 		if (!response.hasError()) {
 			
@@ -132,7 +132,7 @@ public class MovieFull extends Movie {
 	}
 	
 	public void retrieveKeywords() {
-		ResponseObject response = TMDBAPI.getMovieKeywords(id);
+		ResponseObject response = TMDbAPI.getMovieKeywords(id);
 		
 		if (!response.hasError()) { 
 			
@@ -147,7 +147,7 @@ public class MovieFull extends Movie {
 	}
 	
 	public void retriveTranslations() {
-		ResponseObject response = TMDBAPI.getMovieTranslations(id);
+		ResponseObject response = TMDbAPI.getMovieTranslations(id);
 		
 		if (!response.hasError()) {
 			
@@ -162,7 +162,7 @@ public class MovieFull extends Movie {
 	}
 	
 	public void retrieveTrailers() {
-		ResponseObject response = TMDBAPI.getMovieTrailers(id);
+		ResponseObject response = TMDbAPI.getMovieTrailers(id);
 		
 		if (!response.hasError()) {
 		
@@ -188,7 +188,7 @@ public class MovieFull extends Movie {
 	}
 	
 	public void retrieveCastInformation() {
-		ResponseObject response = TMDBAPI.getCastInformation(id);
+		ResponseObject response = TMDbAPI.getCastInformation(id);
 		
 		if (!response.hasError()) {
 		

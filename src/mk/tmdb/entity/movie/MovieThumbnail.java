@@ -8,7 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
-import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.Account;
 import mk.tmdb.entity.Entity;
 import mk.tmdb.exception.ResponseException;
@@ -112,7 +112,7 @@ public class MovieThumbnail extends Entity {
 	//region Static methods
 	
 	public static boolean rateMovie(String sessionID, boolean guest, int movieID, float value) {
-		ResponseObject response = TMDBAPI.setMovieRate(sessionID, guest, movieID, value);
+		ResponseObject response = TMDbAPI.setMovieRate(sessionID, guest, movieID, value);
 		return !response.hasError();
 	}
 	
@@ -122,7 +122,7 @@ public class MovieThumbnail extends Entity {
 
 	public static Set<MovieReduced> getInTheatreMovies(int page) throws ResponseException {
 		
-		ResponseArray response = TMDBAPI.getInTheatresMovies(page);
+		ResponseArray response = TMDbAPI.getInTheatresMovies(page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -140,7 +140,7 @@ public class MovieThumbnail extends Entity {
 	
 	public static Set<MovieReduced> getAllInTheatreMovies() throws ResponseException {
 		
-		ResponseArray response = TMDBAPI.getAllInTheatresMovies();
+		ResponseArray response = TMDbAPI.getAllInTheatresMovies();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -162,7 +162,7 @@ public class MovieThumbnail extends Entity {
 
 	public static Set<MovieReduced> getUpcomingMovies(int page) throws ResponseException {
 
-		ResponseArray response = TMDBAPI.getUpcomingMovies(page);
+		ResponseArray response = TMDbAPI.getUpcomingMovies(page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -180,7 +180,7 @@ public class MovieThumbnail extends Entity {
 	
 	public static Set<MovieReduced> getAllUpcomingMovies() throws ResponseException {
 
-		ResponseArray response = TMDBAPI.getAllUpcomingMovies();
+		ResponseArray response = TMDbAPI.getAllUpcomingMovies();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -202,7 +202,7 @@ public class MovieThumbnail extends Entity {
 
 	public static Set<MovieReduced> getPopularMovies(int page) throws ResponseException {
 
-		ResponseArray response = TMDBAPI.getPopularMovies(page);
+		ResponseArray response = TMDbAPI.getPopularMovies(page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -220,7 +220,7 @@ public class MovieThumbnail extends Entity {
 	
 	public static Set<MovieReduced> getAllPopularMovies() throws ResponseException {
 
-		ResponseArray response = TMDBAPI.getAllPopularMovies();
+		ResponseArray response = TMDbAPI.getAllPopularMovies();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -242,7 +242,7 @@ public class MovieThumbnail extends Entity {
 
 	public static Set<MovieReduced> getTopRatedMovies(int page) throws ResponseException {
 		
-		ResponseArray response = TMDBAPI.getTopRatedMovies(page);
+		ResponseArray response = TMDbAPI.getTopRatedMovies(page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -260,7 +260,7 @@ public class MovieThumbnail extends Entity {
 	
 	public static Set<MovieReduced> getAllTopRatedMovies() throws ResponseException {
 		
-		ResponseArray response = TMDBAPI.getAllTopRatedMovies();
+		ResponseArray response = TMDbAPI.getAllTopRatedMovies();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -278,7 +278,7 @@ public class MovieThumbnail extends Entity {
 	
 	public static Movie getMovieInformation(int movieID) throws ResponseException {
 		
-		ResponseObject response = TMDBAPI.getMovieInformation(movieID);
+		ResponseObject response = TMDbAPI.getMovieInformation(movieID);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());

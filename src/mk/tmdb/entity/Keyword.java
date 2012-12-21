@@ -33,6 +33,15 @@ public class Keyword extends Entity {
 	}
 	
 	/**
+	 * Copy constructor.
+	 * 
+	 * @param keyword The keyword to copy
+	 */
+	public Keyword(Keyword keyword) {
+		this(keyword.getOriginJSON());
+	}
+	
+	/**
 	 * Gets the keyword ID.
 	 * 
 	 * @return The keyword ID

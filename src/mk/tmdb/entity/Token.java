@@ -19,12 +19,16 @@ public class Token extends Entity {
 		parseJSON(json);
 	}	
 	
+	public Token(Token token) {
+		this(token.getOriginJSON());
+	}
+	
 	public Date getExpirationDate() {
 		return expirationDate;
 	}
 
 	private void setExpirationDate(String exp) {
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd.HH:mm:ss Z");
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
 		try {
 			this.expirationDate = (Date)formatter.parse(exp);
 		} catch (ParseException e) {

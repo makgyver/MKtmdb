@@ -19,11 +19,21 @@ public abstract class Role extends Entity {
 	
 	/**
 	 * Initializes the origin JSON object.
+	 * 
 	 * @param json The origin JSON object
 	 */
 	public Role(JSONObject json) {
 		super(json);
 		parseJSON(json);
+	}
+	
+	/**
+	 * Copy constructor.
+	 * 
+	 * @param role The role to copy
+	 */
+	public Role(Role role) {
+		this(role.getOriginJSON());
 	}
 	
 	/**

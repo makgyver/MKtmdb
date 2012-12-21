@@ -172,7 +172,7 @@ public class Configuration {
 			
 		if (loaded) return;
 		
-		ResponseObject response = TMDBAPI.getConfiguration(); 
+		ResponseObject response = TMDbAPI.getConfiguration(); 
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());

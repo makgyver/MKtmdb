@@ -31,7 +31,7 @@ public class Authentication {
 	 */
 	public static Token getNewToken() throws ResponseException {
 		
-		ResponseObject response = TMDBAPI.getAuthenticationToken();
+		ResponseObject response = TMDbAPI.getAuthenticationToken();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -77,7 +77,7 @@ public class Authentication {
 	 */
 	public static String getNewSession(Token token) throws ResponseException {
 		
-		ResponseObject response = TMDBAPI.getAuthenticationSession(token);
+		ResponseObject response = TMDbAPI.getAuthenticationSession(token);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -99,7 +99,7 @@ public class Authentication {
 	 */
 	public static String getNewGuestSession() throws ResponseException {
 		
-		ResponseObject response = TMDBAPI.getAuthenticationGuestSession();
+		ResponseObject response = TMDbAPI.getAuthenticationGuestSession();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());

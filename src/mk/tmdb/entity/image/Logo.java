@@ -20,6 +20,10 @@ public class Logo extends Image {
 		super(json);
 	}
 
+	public Logo(Logo logo) {
+		this(logo.getOriginJSON());
+	}
+	
 	@Override
 	public URL getUrl(Size size) throws MalformedURLException, 
 										ConfigurationNotLoadedException, 

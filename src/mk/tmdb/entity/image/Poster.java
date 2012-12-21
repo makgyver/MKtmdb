@@ -20,6 +20,10 @@ public class Poster extends Image {
 		super(json);
 	}
 
+	public Poster(Poster poster) {
+		this(poster.getOriginJSON());
+	}
+	
 	@Override
 	public URL getUrl(Size size) throws MalformedURLException, 
 										ConfigurationNotLoadedException, 

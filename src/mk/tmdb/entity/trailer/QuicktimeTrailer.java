@@ -14,6 +14,10 @@ public class QuicktimeTrailer extends Trailer {
 		setName(name);
 		parseJSON(json);
 	}
+	
+	public QuicktimeTrailer(QuicktimeTrailer trailer, String name) {
+		this(trailer.getOriginJSON(), name);
+	}
 
 	@Override
 	public boolean parseJSON(JSONObject json) {

@@ -10,20 +10,13 @@ public class Language extends Entity {
 	private String name;
 	private String englishName = "";
 	
-	public Language(String iso, String name) {
-		this.iso639_1 = iso;
-		this.name = name;
-	}
-	
-	public Language(String iso, String name, String english) {
-		this.iso639_1 = iso;
-		this.name = name;
-		this.englishName = english;
-	}
-	
 	public Language(JSONObject json) {
 		super(json);
 		parseJSON(json);
+	}
+	
+	public Language(Language lang) {
+		this(lang.getOriginJSON());
 	}
 	
 	public String getIso639_1() {

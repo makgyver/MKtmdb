@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
-import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.Credit;
 import mk.tmdb.entity.Credit.Type;
 import mk.tmdb.entity.image.Image;
@@ -54,7 +54,7 @@ public class PersonFull extends Person {
 	}
 
 	public void retrieveCredits() {
-		ResponseObject response = TMDBAPI.getPersonCredits(id);
+		ResponseObject response = TMDbAPI.getPersonCredits(id);
 		
 		if (!response.hasError()) {
 		
@@ -76,7 +76,7 @@ public class PersonFull extends Person {
 	}
 	
 	public void retrieveImages() {
-		ResponseObject response = TMDBAPI.getPersonImages(id);
+		ResponseObject response = TMDbAPI.getPersonImages(id);
 		
 		if (!response.hasError()) {
 			

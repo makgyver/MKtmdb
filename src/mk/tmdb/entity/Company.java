@@ -21,6 +21,10 @@ public class Company extends CompanyThumbnail {
 		super(json);
 		parseJSON(json);
 	}
+	
+	public Company(CompanyThumbnail company) {
+		this(company.getOriginJSON());
+	}
 
 	//region Getters/Setters
 	

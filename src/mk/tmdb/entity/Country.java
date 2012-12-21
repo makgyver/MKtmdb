@@ -9,14 +9,13 @@ public class Country extends Entity {
 	private String iso3166_1;
 	private String name;
 	
-	public Country(String iso, String name) {
-		this.iso3166_1 = iso;
-		this.name = name;
-	}
-	
 	public Country(JSONObject json) {
 		super(json);
 		parseJSON(json);
+	}
+	
+	public Country(Country country) {
+		this(country.getOriginJSON());
 	}
 	
 	public String getIso3166_1() {

@@ -16,6 +16,10 @@ public class MovieCast extends PersonThumbnail {
 		super(json);
 		this.movieID = movieID;
 	}
+	
+	public MovieCast(MovieCast mcast, int movieID) {
+		this(mcast.getOriginJSON(), movieID);
+	}
 
 	public Set<Cast> getCast() {
 		return cast;

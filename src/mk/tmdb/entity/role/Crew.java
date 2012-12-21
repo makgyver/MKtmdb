@@ -18,15 +18,26 @@ public class Crew extends Role {
 	
 	/**
 	 * Creates a new Crew role based on the given JSON object.
+	 * 
 	 * @param json The origin JSON object
 	 */
 	public Crew(JSONObject json) {
 		super(json);
 		parseJSON(json);
 	}
+	
+	/**
+	 * Copy constructor.
+	 * 
+	 * @param role The role to copy
+	 */
+	public Crew(Role role) {
+		this(role.getOriginJSON());
+	}
 
 	/**
 	 * Gets the department.
+	 * 
 	 * @return The department
 	 */
 	public String getDepartment() {

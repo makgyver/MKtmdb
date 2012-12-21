@@ -26,7 +26,7 @@ import net.sf.json.JSONSerializer;
  * @author Mirko Polato
  *
  */
-public final class TMDBAPI {
+public final class TMDbAPI {
 
 	//region Timeout
 	

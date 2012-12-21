@@ -16,6 +16,10 @@ public class MovieCrew extends PersonThumbnail {
 		super(json);
 		this.movieID = movieID;
 	}
+	
+	public MovieCrew(MovieCrew mcrew, int movieID) {
+		this(mcrew.getOriginJSON(), movieID);
+	}
 
 	public Set<Crew> getCrew() {
 		return crew;

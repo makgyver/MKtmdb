@@ -16,6 +16,10 @@ public class YoutubeTrailer extends Trailer {
 		parseJSON(json);
 	}
 	
+	public YoutubeTrailer(YoutubeTrailer trailer) {
+		this(trailer.getOriginJSON());
+	}
+	
 	@Override
 	public boolean parseJSON(JSONObject json) {
 		

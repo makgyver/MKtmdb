@@ -20,6 +20,10 @@ public class Profile extends Image {
 		super(json);
 	}
 
+	public Profile(Profile profile) {
+		this(profile.getOriginJSON());
+	}
+	
 	@Override
 	public URL getUrl(Size size) throws MalformedURLException, 
 										ConfigurationNotLoadedException, 

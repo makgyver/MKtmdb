@@ -23,6 +23,10 @@ public class Credit extends Entity {
 		this.type = type;
 	}
 	
+	public Credit(Credit credit) {
+		this(credit.getOriginJSON(), credit.getType());
+	}
+	
 	public MovieThumbnail getMovie() {
 		return movie;
 	}
@@ -37,6 +41,10 @@ public class Credit extends Entity {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Type getType() {
+		return type;
 	}
 
 	@Override

@@ -27,6 +27,15 @@ public class Cast extends Role {
 	}
 	
 	/**
+	 * Copy constructor.
+	 * 
+	 * @param role The role to copy
+	 */
+	public Cast(Role role) {
+		this(role.getOriginJSON());
+	}
+	
+	/**
 	 * Gets the character name.
 	 * 
 	 * @return The character name

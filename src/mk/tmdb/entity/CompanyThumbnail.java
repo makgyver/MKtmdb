@@ -14,6 +14,10 @@ public class CompanyThumbnail extends Entity {
 		parseJSON(json);
 	}
 	
+	public CompanyThumbnail(CompanyThumbnail company) {
+		this(company.getOriginJSON());
+	}
+	
 	//region Getters/Setters
 	
 	public int getId() {
