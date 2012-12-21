@@ -2,34 +2,30 @@ package mk.tmdb.entity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
-import mk.tmdb.core.URLCreator;
 import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
+import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 
 public class Movie extends MovieBasic {
 	
 	//region Private fields
 
-	protected String imdbID;
-	protected int budget;
-	protected URL homepage;
-	protected String overview;
-	protected int runtime;
-	protected String status;
-	protected String tagline;
-	protected int revenue;
+	protected String imdbID = null;
+	protected Integer budget = null;
+	protected URL homepage = null;
+	protected String overview = null;
+	protected Integer runtime = null;
+	protected String status = null;
+	protected String tagline = null;
+	protected Integer revenue = null;
 	protected Set<Genre> genres = Collections.synchronizedSet(new LinkedHashSet<Genre>());
 	protected Set<Company> companies = Collections.synchronizedSet(new LinkedHashSet<Company>());
 	protected Set<Country> countries = Collections.synchronizedSet(new LinkedHashSet<Country>());
@@ -42,6 +38,9 @@ public class Movie extends MovieBasic {
 		parseJSON(json);
 	}
 	
+	public Movie(MovieThumbnail movie) {
+		this(movie.getOriginJSON());
+	}
 	
 	public String getImdbID() {
 		return imdbID;
@@ -51,12 +50,20 @@ public class Movie extends MovieBasic {
 		this.imdbID = imdbID;
 	}
 	
+	public boolean isImdbIDSet() {
+		return imdbID != null;
+	}
+	
 	public int getBudget() {
 		return budget;
 	}
 	
 	public void setBudget(int budget) {
 		this.budget = budget;
+	}
+	
+	public boolean isBudgetSet() {
+		return budget != null;
 	}
 	
 	public Set<Genre> getGenres() {
@@ -76,12 +83,20 @@ public class Movie extends MovieBasic {
 		this.homepage = homepage;
 	}
 	
+	public boolean isHomepageSet() {
+		return homepage != null;
+	}
+	
 	public String getOverview() {
 		return overview;
 	}
 	
 	public void setOverview(String overview) {
 		this.overview = overview;
+	}
+	
+	public boolean isOverviewSet() {
+		return overview != null;
 	}
 	
 	public Set<Company> getCompanies() {
@@ -110,6 +125,10 @@ public class Movie extends MovieBasic {
 		this.runtime = runtime;
 	}
 	
+	public boolean isRuntimeSet() {
+		return runtime != null;
+	}
+	
 	public Set<Language> getLanguages() {
 		return languages;
 	}
@@ -127,12 +146,20 @@ public class Movie extends MovieBasic {
 		this.status = status;
 	}
 	
+	public boolean isStatusSet() {
+		return status != null;
+	}
+	
 	public String getTagline() {
 		return tagline;
 	}
 	
 	public void setTagline(String tagline) {
 		this.tagline = tagline;
+	}
+	
+	public boolean isTaglineSet() {
+		return tagline != null;
 	}
 	
 	public int getRevenue() {
@@ -142,245 +169,71 @@ public class Movie extends MovieBasic {
 	public void setRevenue(int revenue) {
 		this.revenue = revenue;
 	}
+	
+	public boolean isRevenueSet() {
+		return revenue != null;
+	}
 
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 			
-		setBudget(json.getInt(Constants.BUDGET));
-		setImdbID(json.getString(Constants.IMDB));
-		setOverview(json.getString(Constants.OVERVIEW));
-		setRevenue(json.getInt(Constants.REVENUE));
-		setRuntime(json.getInt(Constants.RUNTIME));
-		setStatus(json.getString(Constants.STATUS));
-		setTagline(json.getString(Constants.TAGLINE));
+		if (json.has(Constants.BUDGET)) setBudget(json.getInt(Constants.BUDGET));
+		if (json.has(Constants.IMDB)) setImdbID(json.getString(Constants.IMDB));
+		if (json.has(Constants.OVERVIEW)) setOverview(json.getString(Constants.OVERVIEW));
+		if (json.has(Constants.REVENUE)) setRevenue(json.getInt(Constants.REVENUE));
+		if (json.has(Constants.RUNTIME)) setRuntime(json.getInt(Constants.RUNTIME));
+		if (json.has(Constants.STATUS)) setStatus(json.getString(Constants.STATUS));
+		if (json.has(Constants.TAGLINE)) setTagline(json.getString(Constants.TAGLINE));
 		
-		try {
-			setHomepage(new URL(json.getString(Constants.HOMEPAGE)));
-		}
-		catch (MalformedURLException e) {
-			Log.print(e);
-		}
-		
-		JSONArray genresList = json.getJSONArray(Constants.GENRES);
-		for (Object obj : genresList) {
-		    genres.add(new Genre((JSONObject) obj));
-		}
-
-		JSONArray companiesList = json.getJSONArray(Constants.COMPANIES);
-		for (Object obj : companiesList) {
-		    companies.add(new Company((JSONObject) obj));
+		if (json.has(Constants.HOMEPAGE)) {
+			try {
+				setHomepage(new URL(json.getString(Constants.HOMEPAGE)));
+			}
+			catch (MalformedURLException e) {
+				Log.print(e);
+			}
 		}
 		
-		JSONArray countriesList = json.getJSONArray(Constants.COUNTRIES);
-		for (Object obj : countriesList) {
-		    countries.add(new Country((JSONObject) obj));
+		if (json.has(Constants.GENRES)) {
+			JSONArray genresList = json.getJSONArray(Constants.GENRES);
+			for (Object obj : genresList) {
+			    genres.add(new Genre((JSONObject) obj));
+			}
 		}
 		
-		JSONArray langsList = json.getJSONArray(Constants.LANGUAGES);
-		for (Object obj : langsList) {
-		    languages.add(new Language((JSONObject) obj));
+		if (json.has(Constants.COMPANIES)) {
+			JSONArray companiesList = json.getJSONArray(Constants.COMPANIES);
+			for (Object obj : companiesList) {
+			    companies.add(new Company((JSONObject) obj));
+			}
 		}
 		
+		if (json.has(Constants.COUNTRIES)) {
+			JSONArray countriesList = json.getJSONArray(Constants.COUNTRIES);
+			for (Object obj : countriesList) {
+			    countries.add(new Country((JSONObject) obj));
+			}
+		}
+		
+		if (json.has(Constants.LANGUAGES)) {
+			JSONArray langsList = json.getJSONArray(Constants.LANGUAGES);
+			for (Object obj : langsList) {
+			    languages.add(new Language((JSONObject) obj));
+			}
+		}
 		
 		return true;
 	}
 	
-	/*
-	public void getNormalVersion() throws MalformedURLException {
+	public static Movie getLatestMovie() throws ResponseException {
 		
-		if (version != Version.REDUCED) return;
-		version = Version.NORMAL;
+		ResponseObject response = TMDBAPI.getLatestMovie();
 		
-		JSONObject json = TMDBAPI.getHttpJSON(URLCreator.getMovieInfoUrl(id));
-		
-		originJson = json.toString();
-		
-		setBudget(json.getInt(Constants.BUDGET));
-		setImdbID(json.getString(Constants.IMDB));
-		setOverview(json.getString(Constants.OVERVIEW));
-		setRevenue(json.getInt(Constants.REVENUE));
-		setRuntime(json.getInt(Constants.RUNTIME));
-		setStatus(json.getString(Constants.STATUS));
-		setTagline(json.getString(Constants.TAGLINE));
-		
-		try {
-			setHomepage(new URL(json.getString(Constants.HOMEPAGE)));
-		}
-		catch (MalformedURLException e) {
-			Log.print(e);
-		}
-	
-		JSONArray genresList = json.getJSONArray(Constants.GENRES);
-		for (Object obj : genresList) {
-		    genres.add(new Genre((JSONObject) obj));
-		}
-	
-		JSONArray companiesList = json.getJSONArray(Constants.COMPANIES);
-		for (Object obj : companiesList) {
-		    companies.add(new Company((JSONObject) obj));
-		}
-	
-		JSONArray countriesList = json.getJSONArray(Constants.COUNTRIES);
-		for (Object obj : countriesList) {
-		    countries.add(new Country((JSONObject) obj));
-		}
-	
-		JSONArray langsList = json.getJSONArray(Constants.LANGUAGES);
-		for (Object obj : langsList) {
-		    languages.add(new Language((JSONObject) obj));
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			return new Movie(response.getData());
 		}
 	}
-	
-	public void getFullVersion() throws MalformedURLException {
-		
-		if (version != Version.NORMAL) return;
-		
-		version = Version.FULL;
-		
-		JSONObject images = TMDBAPI.getHttpJSON(URLCreator.getMovieImagesUrl(id)); 
-		
-		JSONArray allPosters = images.getJSONArray(Constants.POSTERS);
-		posters.clear();
-		for (Object obj : allPosters) {
-		    posters.add(new Poster((JSONObject) obj));
-		}
-		
-		JSONArray allBackdrops = images.getJSONArray(Constants.BACKDROPS);
-		backdrops.clear();
-		for (Object obj : allBackdrops) {
-		    backdrops.add(new Backdrop((JSONObject) obj));
-		}
-		
-		JSONObject words = TMDBAPI.getHttpJSON(URLCreator.getMovieKeywordsUrl(id));
-		
-		JSONArray allkeys = words.getJSONArray(Constants.KEYWORDS);
-		keywords.clear();
-		for (Object obj : allkeys) {
-		    keywords.add(new Keyword((JSONObject) obj));
-		}
-		
-		JSONObject trans = TMDBAPI.getHttpJSON(URLCreator.getMovieTranslationsUrl(id));
-		
-		JSONArray allTrans = trans.getJSONArray(Constants.TRANSLATIONS);
-		translations.clear();
-		for (Object obj : allTrans) {
-		    translations.add(new Language((JSONObject) obj));
-		}
-		
-		JSONObject videos = TMDBAPI.getHttpJSON(URLCreator.getMovieTrailersUrl(id));
-		
-		JSONArray utube = videos.getJSONArray(Constants.YOUTUBE);
-		trailers.clear();
-		for (Object obj : utube) {
-		    trailers.add(new YoutubeTrailer((JSONObject) obj));
-		}
-		
-		JSONArray quick = videos.getJSONArray(Constants.QUICKTIME);
-		
-		for (Object obj : quick) {
-			String name = ((JSONObject) obj).getString(Constants.NAME);
-			JSONArray quicks = ((JSONObject) obj).getJSONArray(Constants.SOURCES);
-			
-			for (Object jobj : quicks) {
-				trailers.add(new QuicktimeTrailer((JSONObject) jobj, name));
-			}
-		}	
-		
-		JSONObject castCrew = TMDBAPI.getHttpJSON(URLCreator.getCastInfoUrl(id));
-		
-		JSONArray castArray = castCrew.getJSONArray(Constants.CAST);
-		cast.clear();
-		for (Object obj : castArray) {
-			cast.add(new Actor((JSONObject) obj));
-		}
-		
-		JSONArray crewArray = castCrew.getJSONArray(Constants.CREW);
-		crew.clear();
-		for (Object obj : crewArray) {
-			crew.add(new CrewMember((JSONObject) obj));
-		}
-	}
-	
-	public static Set<Movie> getUpcomingMovies() throws MalformedURLException, 
-														InvalidApiKeyException {
-		return getUpcomingMovies(1);
-	}
 
-	public static Set<Movie> getUpcomingMovies(int page) throws MalformedURLException, 
-																InvalidApiKeyException {
-		Set<Movie> upcoming = new LinkedHashSet<Movie>();
-
-		JSONObject result = TMDBAPI.getHttpJSON(URLCreator.getUpcomingMoviesListUrl(page));
-		JSONArray array = result.getJSONArray(Constants.RESULT); 
-		for (Object obj : array) {
-			upcoming.add(new Movie((JSONObject) obj));
-		}
-
-		return upcoming;
-	}
-
-	public static Movie getLatestMovie() throws MalformedURLException, 
-												InvalidApiKeyException {
-		return new Movie(TMDBAPI.getHttpJSON(URLCreator.getLatestMovieUrl()));
-	}
-
-	public static Set<Movie> getInTheatreMovies() throws MalformedURLException, 
-														 InvalidApiKeyException {
-		return getInTheatreMovies(1);
-	}
-
-	public static Set<Movie> getInTheatreMovies(int page) throws MalformedURLException, 
-																 InvalidApiKeyException {
-		Set<Movie> inTheatre = new LinkedHashSet<Movie>();
-
-		JSONObject result = TMDBAPI.getHttpJSON(URLCreator.getInTheatreMoviesUrl(page));
-		JSONArray array = result.getJSONArray(Constants.RESULT); 
-		for (Object obj : array) {
-			inTheatre.add(new Movie((JSONObject) obj));
-		}
-
-		return inTheatre;
-	}
-
-	public static Set<Movie> getPopularMovies() throws MalformedURLException,
-													   InvalidApiKeyException {
-		return getPopularMovies(1);
-	}
-
-	public static Set<Movie> getPopularMovies(int page) throws MalformedURLException, 
-															   InvalidApiKeyException {
-		Set<Movie> popular = new LinkedHashSet<Movie>();
-
-		JSONObject result = TMDBAPI.getHttpJSON(URLCreator.getPopularMoviesUrl(page));
-		JSONArray array = result.getJSONArray(Constants.RESULT); 
-		for (Object obj : array) {
-			popular.add(new Movie((JSONObject) obj));
-		}
-
-		return popular;
-	}
-
-	public static Set<Movie> getTopRatedMovies() throws MalformedURLException,
-														InvalidApiKeyException {
-		return getTopRatedMovies(1);
-	}
-
-	public static Set<Movie> getTopRatedMovies(int page) throws MalformedURLException, 
-																InvalidApiKeyException {
-		Set<Movie> top = new LinkedHashSet<Movie>();
-
-		JSONObject result = TMDBAPI.getHttpJSON(URLCreator.getTopRatedMoviesUrl(page));
-		JSONArray array = result.getJSONArray(Constants.RESULT); 
-		for (Object obj : array) {
-			top.add(new Movie((JSONObject) obj));
-		}
-
-		return top;
-	}
-
-	public static void rateMovie(String sessionID, boolean guest, int movieID, int value) throws MalformedURLException, 
-																								 InvalidApiKeyException {
-		TMDBAPI.getHttpJSON(URLCreator.setMovieRateUrl(sessionID, movieID, value, guest));
-	}
-	*/
 }

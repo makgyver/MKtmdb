@@ -24,6 +24,10 @@ public class MovieFull extends Movie {
 		super(json);
 		retrieveFullInfo();
 	}
+	
+	public MovieFull(MovieThumbnail movie) {
+		this(movie.getOriginJSON());
+	}
 
 	public Set<Backdrop> getBackdrops() {
 		return backdrops;
@@ -177,7 +181,6 @@ public class MovieFull extends Movie {
 				crew.add(new CrewMember((JSONObject) obj));
 			}
 		}
-		
 	}
 	
 }

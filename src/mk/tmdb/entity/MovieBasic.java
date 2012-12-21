@@ -4,23 +4,18 @@ import mk.tmdb.core.Constants;
 import net.sf.json.JSONObject;
 
 public class MovieBasic extends MovieReduced {
-
-	protected String backdropPath;
-	protected double popularity;
+	
+	protected Double popularity = null;
 	
 	public MovieBasic(JSONObject json) {
 		super(json);
 		parseJSON(json);
 	}
+
+	public MovieBasic(MovieThumbnail movie) {
+		this(movie.getOriginJSON());
+	}
 	
-	public String getBackdropPath() {
-		return backdropPath;
-	}
-
-	public void setBackdropPath(String backdropPath) {
-		this.backdropPath = backdropPath;
-	}
-
 	public double getPopularity() {
 		return popularity;
 	}
@@ -29,11 +24,14 @@ public class MovieBasic extends MovieReduced {
 		this.popularity = popularity;
 	}
 
+	public boolean isPopularitySet() {
+		return popularity != null;
+	}
+	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		
-		setBackdropPath(json.getString(Constants.BACKDROP_PATH));
-		setPopularity(json.getDouble(Constants.POPULARITY));
+		if (json.has(Constants.POPULARITY)) setPopularity(json.getDouble(Constants.POPULARITY));
 
 		return true;
 	}

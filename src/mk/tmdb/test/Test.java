@@ -8,6 +8,8 @@ import net.sf.json.JSONObject;
 
 import mk.tmdb.core.TMDBAPI;
 import mk.tmdb.core.URLCreator;
+import mk.tmdb.entity.Movie;
+import mk.tmdb.entity.MovieThumbnail;
 import mk.tmdb.utils.Log;
 
 public class Test {

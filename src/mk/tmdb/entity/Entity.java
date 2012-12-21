@@ -4,19 +4,19 @@ import net.sf.json.JSONObject;
 
 public abstract class Entity {
 
-	protected String originJson = "";
+	protected JSONObject originJson = null;
 	
 	public Entity() {}
 	
 	public Entity(JSONObject json) {
-		this.originJson = json.toString();
+		this.originJson = json;
 	}
 	
 	protected boolean parseJSON(JSONObject json) {
 		return false;
 	}
 
-	public String getOriginJSON() {
+	public JSONObject getOriginJSON() {
 		return originJson;
 	}
 
