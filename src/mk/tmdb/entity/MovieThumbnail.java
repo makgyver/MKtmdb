@@ -107,6 +107,8 @@ public class MovieThumbnail extends Entity {
 		return rateMovie(sessionID, true, id, value);
 	}
 	
+	//region Static methods
+	
 	public static boolean rateMovie(String sessionID, boolean guest, int movieID, float value) {
 		ResponseObject response = TMDBAPI.setMovieRate(sessionID, guest, movieID, value);
 		return !response.hasError();
@@ -119,6 +121,24 @@ public class MovieThumbnail extends Entity {
 	public static Set<MovieReduced> getInTheatreMovies(int page) throws ResponseException {
 		
 		ResponseArray response = TMDBAPI.getInTheatresMovies(page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<MovieReduced> inTheatre = new LinkedHashSet<MovieReduced>();
+			Set<JSONObject> array = response.getData();
+			for (JSONObject json : array) {
+				inTheatre.add(new MovieReduced(json));
+			}
+
+			return inTheatre;
+		}
+	}
+	
+	public static Set<MovieReduced> getAllInTheatreMovies() throws ResponseException {
+		
+		ResponseArray response = TMDBAPI.getAllInTheatresMovies();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -155,6 +175,24 @@ public class MovieThumbnail extends Entity {
 			return upcoming;
 		}
 	}
+	
+	public static Set<MovieReduced> getAllUpcomingMovies() throws ResponseException {
+
+		ResponseArray response = TMDBAPI.getAllUpcomingMovies();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<MovieReduced> upcoming = new LinkedHashSet<MovieReduced>();
+			Set<JSONObject> array = response.getData();
+			for (JSONObject json : array) {
+				upcoming.add(new MovieReduced(json));
+			}
+
+			return upcoming;
+		}
+	}
 
 	public static Set<MovieReduced> getPopularMovies() throws ResponseException  {
 		return getPopularMovies(1);
@@ -163,6 +201,24 @@ public class MovieThumbnail extends Entity {
 	public static Set<MovieReduced> getPopularMovies(int page) throws ResponseException {
 
 		ResponseArray response = TMDBAPI.getPopularMovies(page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<MovieReduced> popular = new LinkedHashSet<MovieReduced>();
+			Set<JSONObject> array = response.getData();
+			for (JSONObject json : array) {
+				popular.add(new MovieReduced(json));
+			}
+
+			return popular;
+		}
+	}
+	
+	public static Set<MovieReduced> getAllPopularMovies() throws ResponseException {
+
+		ResponseArray response = TMDBAPI.getAllPopularMovies();
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -199,4 +255,25 @@ public class MovieThumbnail extends Entity {
 			return tops;
 		}
 	}
+	
+	public static Set<MovieReduced> getAllTopRatedMovies() throws ResponseException {
+		
+		ResponseArray response = TMDBAPI.getAllTopRatedMovies();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<MovieReduced> tops = new LinkedHashSet<MovieReduced>();
+			Set<JSONObject> array = response.getData();
+			for (JSONObject json : array) {
+				tops.add(new MovieReduced(json));
+			}
+
+			return tops;
+		}
+	}
+	
+	//endregion
+	
 }

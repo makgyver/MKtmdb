@@ -70,6 +70,15 @@ public class Account extends Entity {
 		parseJSON(json);
 	}
 	
+	/**
+	 * Copy constructors.
+	 * 
+	 * @param account The account to copy
+	 */
+	public Account(Account account) {
+		this(account.getOriginJSON());
+	}
+	
 	//region Getters/Setters
 	
 	/**
