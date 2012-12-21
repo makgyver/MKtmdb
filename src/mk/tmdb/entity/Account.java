@@ -229,7 +229,7 @@ public class Account extends Entity {
 	 * Static method that gets the basic information for an account. 
 	 * 
 	 * @param sessionID The session ID
-	 * @return The account
+	 * @return The user account
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
 	public static Account getInformation(String sessionID) throws ResponseException {

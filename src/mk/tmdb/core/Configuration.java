@@ -178,34 +178,32 @@ public class Configuration {
 			throw new ResponseException(response.getStatus());
 		}
 		
-		JSONObject json = response.getData();
+		JSONObject json = response.getData().getJSONObject(Constants.IMAGES);
 		
 		url = json.getString(Constants.BASE_URL);
 		secureUrl = json.getString(Constants.SECURE_URL);
 		
-		JSONObject jimages = json.getJSONObject(Constants.IMAGES);
-		
-		JSONArray posters = jimages.getJSONArray(Constants.POSTER_SIZES);
+		JSONArray posters = json.getJSONArray(Constants.POSTER_SIZES);
 		for (Object obj : posters) {
 			posterSizes.add((String) obj);
 		}
 		
-		JSONArray backdrops = jimages.getJSONArray(Constants.BACKDROP_SIZES);
+		JSONArray backdrops = json.getJSONArray(Constants.BACKDROP_SIZES);
 		for (Object obj : backdrops) {
 			backdropSizes.add((String) obj);
 		}
 		
-		JSONArray profiles = jimages.getJSONArray(Constants.PROFILE_SIZES);
+		JSONArray profiles = json.getJSONArray(Constants.PROFILE_SIZES);
 		for (Object obj : profiles) {
 			profileSizes.add((String) obj);
 		}
 		
-		JSONArray logos = jimages.getJSONArray(Constants.LOGO_SIZES);
+		JSONArray logos = json.getJSONArray(Constants.LOGO_SIZES);
 		for (Object obj : logos) {
 			logoSizes.add((String) obj);
 		}
 		
-		JSONArray keys = json.getJSONArray(Constants.CHANGE_KEYS);
+		JSONArray keys = response.getData().getJSONArray(Constants.CHANGE_KEYS);
 		for (Object obj : keys) {
 			changeKeys.add((String) obj);
 		}

@@ -66,6 +66,7 @@ public enum Status {
 	
 	/**
 	 * Creates a new enumeration item with the specified code and message.
+	 * 
 	 * @param code The status code
 	 * @param message The status message
 	 */
@@ -76,6 +77,7 @@ public enum Status {
 	
 	/**
 	 * Gets the status code.
+	 * 
 	 * @return The status code
 	 */
 	public int getCode() {
@@ -84,6 +86,7 @@ public enum Status {
 	
 	/**
 	 * Gets the status message.
+	 * 
 	 * @return The status message.
 	 */
 	public String getMessage() {
@@ -92,6 +95,7 @@ public enum Status {
 	
     /**
 	 * Gets the status identified by the given code.
+	 * 
 	 * @param code The status code.
 	 * @return The status
 	 */

@@ -1,69 +1,69 @@
 package mk.tmdb.test;
 
-import java.awt.Desktop;
-import java.net.URI;
 import java.net.URL;
+import java.util.Date;
+import java.util.Set;
 
-import net.sf.json.JSONObject;
-
-import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.core.Configuration;
 import mk.tmdb.core.URLCreator;
-import mk.tmdb.entity.movie.Movie;
-import mk.tmdb.entity.movie.MovieThumbnail;
 import mk.tmdb.utils.Log;
 
 public class Test {
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		try {
 			
-			//System.out.println(URLCreator.getCastInfoUrl(49051));
-			/*System.out.println(URLCreator.getMovieInfoUrl(49051));
-			System.out.println(URLCreator.getMovieChangesUrl(49051));
-			System.out.println(URLCreator.getMovieImagesUrl(49051));
-			System.out.println(URLCreator.getMovieInfoUrl(49051));
-			System.out.println(URLCreator.getMovieKeywordsUrl(49051));
-			System.out.println(URLCreator.getMovieReleasesDatesUrl(49051));
-			System.out.println(URLCreator.getMovieTrailersUrl(49051));
-			System.out.println(URLCreator.getMovieTranslationsUrl(49051));
-			System.out.println(URLCreator.getAlternativeMovieTitlesUrl(49051));
-			System.out.println(URLCreator.getInTheatresMoviesUrl());
-			System.out.println(URLCreator.searchCompanyByNameUrl("twisted"));
-			System.out.println(URLCreator.searchPeopleByNameUrl("DiCaprio"));
-			System.out.println(URLCreator.searchPeopleByNameUrl("DiCaprio", false));
-			System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2010));
-			System.out.println(URLCreator.searchMovieByTitleUrl("inception", true));
-			System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2010, false));*/
+			// Configuration class tested with success.
+			
+			int accountID = 1, movieID = 1, page = 2, collectionID = 1, companyID = 1, listID = 1;
+			String sessionID = "session", token = "token", start = "start", end = "end";
+			
+			String s1 = URLCreator.getApiKey();
+			
+			URL s2 = URLCreator.addMovieToFavsUrl(accountID, sessionID);
+			URL s3 = URLCreator.addMovieToWatchlistUrl(accountID, sessionID);
+			URL s4 = URLCreator.getAccountFavsListsUrl(accountID, sessionID);
+			URL s5 = URLCreator.getAccountFavsListsUrl(accountID, sessionID, page);
+			URL s6 = URLCreator.getAccountFavsMoviesUrl(accountID, sessionID);
+			URL s7 = URLCreator.getAccountFavsMoviesUrl(accountID, sessionID, page);
+			URL s8 = URLCreator.getAccountInfoUrl(sessionID);
+			URL s9 = URLCreator.getAlternativeMovieTitlesUrl(movieID);
+			URL s10 = URLCreator.getAuthSessionUrl(token);
+			URL s11 = URLCreator.getAuthTokenUrl();
+			URL s12 = URLCreator.getCastInfoUrl(movieID);
+			URL s13 = URLCreator.getChangedMoviesUrl();
+			URL s14 = URLCreator.getChangedMoviesUrl(page);
+			URL s15 = URLCreator.getChangedMoviesUrl(start, end);
+			URL s16 = URLCreator.getChangedMoviesUrl(start, end);
+			URL s17 = URLCreator.getChangedMoviesUrl(start, end, page);
+			URL s18 = URLCreator.getChangedMoviesUrl(start, end, page);
+			URL s19 = URLCreator.getChangedPersonsUrl();
+			URL s20 = URLCreator.getChangedPersonsUrl(page);
+			URL s21 = URLCreator.getChangedPersonsUrl(start, end);
+			URL s22 = URLCreator.getChangedPersonsUrl(start, end);
+			URL s23 = URLCreator.getChangedPersonsUrl(start, end, page);
+			URL s24 = URLCreator.getChangedPersonsUrl(start, end, page);
+			URL s25 = URLCreator.getCollectionImagesUrl(collectionID);
+			URL s26 = URLCreator.getCollectionInfoUrl(collectionID);
+			URL s27 = URLCreator.getCompanyInfoUrl(companyID);
+			URL s28 = URLCreator.getConfigurationUrl();
+			URL s29 = URLCreator.getGenresListUrl();
+			URL s30 = URLCreator.getGuestSessionUrl();
+			URL s31 = URLCreator.getInTheatresMoviesUrl();
+			URL s32 = URLCreator.getInTheatresMoviesUrl(page);
+			URL s33 = URLCreator.getLatestMovieUrl();
+			URL s34 = URLCreator.getLatestPerson();
+			URL s35 = URLCreator.getListsBelongsToMovieUrl(movieID);
+			URL s36 = URLCreator.getListsBelongsToMovieUrl(movieID, page);
+			URL s37 = URLCreator.getListUrl(listID);
+			URL s38 = URLCreator.getMovieChangesUrl(movieID);
+			URL s39 = URLCreator.getMovieChangesUrl(movieID, start, end);
+			URL s40 = URLCreator.getMovieChangesUrl(movieID, start, end);
+			URL s41 = URLCreator.getMovieImagesUrl(movieID);
+			URL s42 = URLCreator.getMovieInfoUrl(movieID);
 			
 			
-			//ce0176326843ee3106195ef8a1e1eec7ebea1f23
-			//System.out.println(URLCreator.getMovieTrailersUrl(49051));
-			//System.out.println(URLCreator.getAccountInfoUrl("ad1b1fd3fdfa6a07cda5d3b924caf5d6f19d06c5"));
-			//System.out.println(URLCreator.getAccountFavsListsUrl("ad1b1fd3fdfa6a07cda5d3b924caf5d6f19d06c5"));
-			//System.out.println(URLCreator.getAccountFavsMoviesUrl("ad1b1fd3fdfa6a07cda5d3b924caf5d6f19d06c5"));
-			//System.out.println(URLCreator.addMovieToFavsUrl("2296309", "ad1b1fd3fdfa6a07cda5d3b924caf5d6f19d06c5", 49051));
-			//System.out.println(URLCreator.getInTheatreMoviesUrl());
-			//System.out.println(TMDBAPI.getMovieInformation(49051).getData().toString());
-			
-			
-			
-			//JSONObject j = new JSONObject();
-			//j.put("movie_id", 49051);
-			//j.put("favorite", true);
-			
-			//URL e = new URL("kjvfv fdv sdfvj sdfjvsdfvo");
-			
-			System.out.println(URLCreator.getCastInfoUrl(49051));
-			System.out.println(URLCreator.getPersonInfoUrl(109));
-			System.out.println(URLCreator.getPersonCreditsUrl(109));
-			System.out.println(URLCreator.searchMovieByTitleUrl("last"));
-			
-			//System.out.println(TMDBAPI.ma(new URL("http://api.themoviedb.org/3/account/2296309/favorite?api_key=6827f4afdbf8291669e04ca338ab087c&session_id=69713017689af29008212bb1c96ba772dcb6a05d"), j));
-
-			//System.out.println(URLCreator.searchMovieByTitleUrl("inception", 2013));
-			
-			//Movie movie = new Movie(WebRequest.getHttpJSON(URLCreator.getMovieInfoUrl(49051)));
-			//System.out.println(movie.getReleaseDate());
 
 		} catch (Exception e){
 			Log.print(e);

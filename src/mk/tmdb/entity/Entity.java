@@ -30,10 +30,7 @@ public abstract class Entity {
 	}
 	
 	/**
-	 * Parses the JSON Object.
-	 * 
-	 * @param json
-	 * @return
+	 * Parses the origin JSON Object.
 	 */
 	protected boolean parseJSON(JSONObject json) {
 		return false;
