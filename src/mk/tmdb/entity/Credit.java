@@ -1,5 +1,9 @@
 package mk.tmdb.entity;
 
+import mk.tmdb.entity.movie.MovieThumbnail;
+import mk.tmdb.entity.role.Cast;
+import mk.tmdb.entity.role.Crew;
+import mk.tmdb.entity.role.Role;
 import net.sf.json.JSONObject;
 
 public class Credit extends Entity {

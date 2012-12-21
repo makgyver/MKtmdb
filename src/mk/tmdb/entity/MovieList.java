@@ -95,7 +95,6 @@ public class MovieList extends Entity {
 		setPosterPath(json.getString(Constants.POSTER_PATH));
 		setIso639_1(json.getString(Constants.ISO_6391));
 		
-		
 		return true;
 	}
 	

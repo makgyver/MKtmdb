@@ -1,4 +1,4 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.person;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -6,7 +6,10 @@ import java.util.Set;
 
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.entity.Credit;
 import mk.tmdb.entity.Credit.Type;
+import mk.tmdb.entity.image.Image;
+import mk.tmdb.entity.image.Profile;
 import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

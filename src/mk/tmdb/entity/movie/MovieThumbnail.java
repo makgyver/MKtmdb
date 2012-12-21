@@ -1,4 +1,4 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.movie;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,6 +9,8 @@ import java.util.Set;
 
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.entity.Account;
+import mk.tmdb.entity.Entity;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
 import mk.tmdb.utils.ResponseArray;

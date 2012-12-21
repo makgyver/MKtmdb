@@ -1,4 +1,4 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.image;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -7,6 +7,7 @@ import net.sf.json.JSONObject;
 
 import mk.tmdb.core.Configuration;
 import mk.tmdb.core.Constants;
+import mk.tmdb.entity.Entity;
 import mk.tmdb.exception.ConfigurationNotLoadedException;
 import mk.tmdb.exception.ImageSizeNotSupportedException;
 import mk.tmdb.utils.Log;

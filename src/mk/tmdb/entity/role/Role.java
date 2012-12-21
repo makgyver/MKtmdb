@@ -1,6 +1,7 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.role;
 
 import mk.tmdb.core.Constants;
+import mk.tmdb.entity.Entity;
 import net.sf.json.JSONObject;
 
 /**

@@ -1,9 +1,10 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.person;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import mk.tmdb.entity.role.Crew;
 import net.sf.json.JSONObject;
 
 public class MovieCrew extends PersonThumbnail {

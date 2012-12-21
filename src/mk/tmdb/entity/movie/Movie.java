@@ -1,4 +1,4 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.movie;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -8,6 +8,10 @@ import java.util.Set;
 
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.entity.CompanyThumbnail;
+import mk.tmdb.entity.Country;
+import mk.tmdb.entity.Genre;
+import mk.tmdb.entity.Language;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
 import mk.tmdb.utils.ResponseObject;

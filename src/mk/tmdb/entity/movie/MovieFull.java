@@ -1,4 +1,4 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.movie;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -6,6 +6,15 @@ import java.util.Set;
 
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.entity.Keyword;
+import mk.tmdb.entity.Language;
+import mk.tmdb.entity.image.Backdrop;
+import mk.tmdb.entity.image.Poster;
+import mk.tmdb.entity.person.MovieCast;
+import mk.tmdb.entity.person.MovieCrew;
+import mk.tmdb.entity.trailer.QuicktimeTrailer;
+import mk.tmdb.entity.trailer.Trailer;
+import mk.tmdb.entity.trailer.YoutubeTrailer;
 import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

@@ -1,4 +1,4 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.role;
 
 import mk.tmdb.core.Constants;
 import net.sf.json.JSONObject;

@@ -1,4 +1,4 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.image;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,13 +10,13 @@ import mk.tmdb.exception.ConfigurationNotLoadedException;
 import mk.tmdb.exception.ImageSizeNotSupportedException;
 import mk.tmdb.utils.Size;
 
-public class Profile extends Image {
-
-	public Profile(String path) {
+public class Backdrop extends Image {
+	
+	public Backdrop(String path) {
 		super(path);
 	}
 	
-	public Profile(JSONObject json) {
+	public Backdrop(JSONObject json) {
 		super(json);
 	}
 
@@ -27,7 +27,7 @@ public class Profile extends Image {
 		
 		if (Configuration.isLoaded()) {
 			
-			if (Configuration.getProfileSizes().contains(size)) {
+			if (Configuration.getBackdropSizes().contains(size)) {
 				
 				return new URL(Configuration.getUrl() + 
 						   	   size + 

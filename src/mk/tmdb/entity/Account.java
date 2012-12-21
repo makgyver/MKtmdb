@@ -6,6 +6,7 @@ import java.util.Set;
 
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDBAPI;
+import mk.tmdb.entity.movie.MovieReduced;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.ResponseArray;
 import mk.tmdb.utils.ResponseObject;

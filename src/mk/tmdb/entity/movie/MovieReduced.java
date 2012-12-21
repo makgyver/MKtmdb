@@ -1,4 +1,4 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.movie;
 
 
 import mk.tmdb.core.Constants;

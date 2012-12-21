@@ -1,7 +1,8 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.trailer;
 
 import java.net.URL;
 
+import mk.tmdb.entity.Entity;
 import net.sf.json.JSONObject;
 
 public abstract class Trailer extends Entity {
