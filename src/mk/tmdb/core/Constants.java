@@ -9,6 +9,7 @@ package mk.tmdb.core;
 public final class Constants {
 	
 	public static final String ACCOUNT = "account";
+	public static final String ACTOR = "Actor";
 	public static final String ADULT = "adult";
 	public static final String AKA = "also_known_as";
 	public static final String ALT_TITLES = "alternative_titles";
@@ -127,6 +128,6 @@ public final class Constants {
 	public static final String WATCHLIST = "movie_watchlist";
 	public static final String WIDTH = "width";
 	public static final String YEAR = "year";
-	public static final String YOUTUBE = "youtube";	
+	public static final String YOUTUBE = "youtube";
 	
 }

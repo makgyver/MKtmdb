@@ -15,10 +15,8 @@ import mk.tmdb.utils.Log;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class Person extends Entity {
+public class Person extends PersonThumbnail {
 
-	private int id;
-	private String name;
 	private boolean adult;
 	private Set<String> aka = Collections.synchronizedSet(new LinkedHashSet<String>()); 
 	private String bio;
@@ -26,27 +24,10 @@ public class Person extends Entity {
 	private Date deathday;
 	private URL homepage;
 	private String placeOfBirth;
-	private String profilePath;
 	
 	public Person(JSONObject json) {
 		super(json);
 		parseJSON(json);
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	public boolean isAdult() {
@@ -114,26 +95,16 @@ public class Person extends Entity {
 	public void setPlaceOfBirth(String placeOfBirth) {
 		this.placeOfBirth = placeOfBirth;
 	}
-	
-	public String getProfilePath() {
-		return profilePath;
-	}
-	
-	public void setProfilePath(String profilePath) {
-		this.profilePath = profilePath;
-	}
 
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		
-		setName(json.getString(Constants.NAME));
-		setId(json.getInt(Constants.ID));
 		if (json.has(Constants.ADULT)) setAdult(json.getBoolean(Constants.ADULT));
 		if (json.has(Constants.BIO)) setBiography(json.getString(Constants.BIO));
 		if (json.has(Constants.BIRTHDAY)) setBirthday(json.getString(Constants.BIRTHDAY));
 		if (json.has(Constants.DEATHDAY)) setDeathday(json.getString(Constants.DEATHDAY));
 		if (json.has(Constants.PLACE_OF_BIRTH)) setPlaceOfBirth(json.getString(Constants.PLACE_OF_BIRTH));
-		setProfilePath(json.getString(Constants.PROFILE_PATH));
+		
 		
 		if (json.has(Constants.AKA)) {
 			JSONArray akas = json.getJSONArray(Constants.AKA); 
@@ -152,5 +123,4 @@ public class Person extends Entity {
 		
 		return true;
 	}
-	
 }

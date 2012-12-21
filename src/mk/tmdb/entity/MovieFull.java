@@ -17,8 +17,8 @@ public class MovieFull extends Movie {
 	private Set<Keyword> keywords = Collections.synchronizedSet(new LinkedHashSet<Keyword>());
 	private Set<Language> translations = Collections.synchronizedSet(new LinkedHashSet<Language>());
 	private Set<Trailer> trailers = Collections.synchronizedSet(new LinkedHashSet<Trailer>());
-	private Set<Actor> cast = Collections.synchronizedSet(new LinkedHashSet<Actor>());
-	private Set<CrewMember> crew = Collections.synchronizedSet(new LinkedHashSet<CrewMember>());
+	private Set<MovieCast> cast = Collections.synchronizedSet(new LinkedHashSet<MovieCast>());
+	private Set<MovieCrew> crew = Collections.synchronizedSet(new LinkedHashSet<MovieCrew>());
 	
 	public MovieFull(JSONObject json) {
 		super(json);
@@ -35,7 +35,7 @@ public class MovieFull extends Movie {
 
 	public void setBackdrops(Set<Backdrop> backdrops) {
 		this.backdrops.clear();
-		this.backdrops = backdrops;
+		this.backdrops.addAll(backdrops);
 	}
 
 	public Set<Poster> getPosters() {
@@ -44,7 +44,7 @@ public class MovieFull extends Movie {
 
 	public void setPosters(Set<Poster> posters) {
 		this.posters.clear();
-		this.posters = posters;
+		this.posters.addAll(posters);
 	}
 
 	public Set<Keyword> getKeywords() {
@@ -53,7 +53,7 @@ public class MovieFull extends Movie {
 
 	public void setKeywords(Set<Keyword> keywords) {
 		this.keywords.clear();
-		this.keywords = keywords;
+		this.keywords.addAll(keywords);
 	}
 
 	public Set<Language> getTranslations() {
@@ -62,7 +62,7 @@ public class MovieFull extends Movie {
 
 	public void setTranslations(Set<Language> translations) {
 		this.translations.clear();
-		this.translations = translations;
+		this.translations.addAll(translations);
 	}
 
 	public Set<Trailer> getTrailers() {
@@ -71,25 +71,25 @@ public class MovieFull extends Movie {
 
 	public void setTrailers(Set<Trailer> trailers) {
 		this.trailers.clear();
-		this.trailers = trailers;
+		this.trailers.addAll(trailers);
 	}
 
-	public Set<Actor> getCast() {
+	public Set<MovieCast> getCast() {
 		return cast;
 	}
 
-	public void setCast(Set<Actor> cast) {
+	public void setCast(Set<MovieCast> cast) {
 		this.cast.clear();
-		this.cast = cast;
+		this.cast.addAll(cast);
 	}
 
-	public Set<CrewMember> getCrew() {
+	public Set<MovieCrew> getCrew() {
 		return crew;
 	}
 
-	public void setCrew(Set<CrewMember> crew) {
+	public void setCrew(Set<MovieCrew> crew) {
 		this.crew.clear();
-		this.crew = crew;
+		this.crew.addAll(crew);
 	}
 
 	private void retrieveFullInfo() {
@@ -172,13 +172,13 @@ public class MovieFull extends Movie {
 			JSONArray castArray = castCrew.getJSONArray(Constants.CAST);
 			cast.clear();
 			for (Object obj : castArray) {
-				cast.add(new Actor((JSONObject) obj));
+				cast.add(new MovieCast((JSONObject) obj, id));
 			}
 			
 			JSONArray crewArray = castCrew.getJSONArray(Constants.CREW);
 			crew.clear();
 			for (Object obj : crewArray) {
-				crew.add(new CrewMember((JSONObject) obj));
+				crew.add(new MovieCrew((JSONObject) obj, id));
 			}
 		}
 	}
