@@ -22,13 +22,22 @@ public class MovieFull extends Movie {
 	
 	public MovieFull(JSONObject json) {
 		super(json);
-		retrieveFullInfo();
+	}
+	
+	public MovieFull(JSONObject json, boolean loadAll) {
+		super(json);
+		if (loadAll) retrieveFullInformation();
 	}
 	
 	public MovieFull(MovieThumbnail movie) {
 		this(movie.getOriginJSON());
 	}
 
+	public MovieFull(MovieThumbnail movie, boolean loadAll) {
+		this(movie.getOriginJSON());
+		if (loadAll) retrieveFullInformation();
+	}
+	
 	public Set<Backdrop> getBackdrops() {
 		return backdrops;
 	}
@@ -92,8 +101,7 @@ public class MovieFull extends Movie {
 		this.crew.addAll(crew);
 	}
 
-	private void retrieveFullInfo() {
-		
+	public void retrieveImages() {
 		ResponseObject response = TMDBAPI.getMovieImages(id);
 		
 		if (!response.hasError()) {
@@ -112,8 +120,10 @@ public class MovieFull extends Movie {
 			    backdrops.add(new Backdrop((JSONObject) obj));
 			}
 		}
-		
-		response = TMDBAPI.getMovieKeywords(id);
+	}
+	
+	public void retrieveKeywords() {
+		ResponseObject response = TMDBAPI.getMovieKeywords(id);
 		
 		if (!response.hasError()) { 
 			
@@ -125,8 +135,10 @@ public class MovieFull extends Movie {
 			    keywords.add(new Keyword((JSONObject) obj));
 			}
 		}
-		
-		response = TMDBAPI.getMovieTranslations(id);
+	}
+	
+	public void retriveTranslations() {
+		ResponseObject response = TMDBAPI.getMovieTranslations(id);
 		
 		if (!response.hasError()) {
 			
@@ -138,8 +150,10 @@ public class MovieFull extends Movie {
 			    translations.add(new Language((JSONObject) obj));
 			}
 		}
-		
-		response = TMDBAPI.getMovieTrailers(id);
+	}
+	
+	public void retrieveTrailers() {
+		ResponseObject response = TMDBAPI.getMovieTrailers(id);
 		
 		if (!response.hasError()) {
 		
@@ -162,8 +176,10 @@ public class MovieFull extends Movie {
 				}
 			}	
 		}
-		
-		response = TMDBAPI.getCastInformation(id);
+	}
+	
+	public void retrieveCastInformation() {
+		ResponseObject response = TMDBAPI.getCastInformation(id);
 		
 		if (!response.hasError()) {
 		
@@ -181,6 +197,15 @@ public class MovieFull extends Movie {
 				crew.add(new MovieCrew((JSONObject) obj, id));
 			}
 		}
+	}
+	
+	public void retrieveFullInformation() {
+		
+		retrieveCastInformation();
+		retrieveImages();
+		retrieveKeywords();
+		retrieveTrailers();
+		retriveTranslations();	
 	}
 	
 }

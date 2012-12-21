@@ -92,6 +92,7 @@ public final class Constants {
 	public static final String POSTERS = "posters";
 	public static final String PROFILE_PATH = "profile_path";
 	public static final String PROFILE_SIZES = "profile_sizes";
+	public static final String PROFILES = "profiles";
 	public static final String QUERY = "query";
 	public static final String QUICKTIME = "quicktime";
 	public static final String RATED_MOVIES = "rated_movies";
