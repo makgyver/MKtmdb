@@ -252,7 +252,7 @@ public class Account extends Entity {
 	 * @return The favorite movies list
 	 * @throws ResponseException Throws whether the server response is not a success. 
 	 */
-	public List<Movie> getFavoriteMovies() throws ResponseException {
+	public List<MovieReduced> getFavoriteMovies() throws ResponseException {
 		return getFavoriteMovies(1);
 	}
 	
@@ -263,7 +263,7 @@ public class Account extends Entity {
 	 * @return The favorite movies list
 	 * @throws ResponseException Throws whether the server response is not a success. 
 	 */
-	public List<Movie> getFavoriteMovies(int page) throws ResponseException {
+	public List<MovieReduced> getFavoriteMovies(int page) throws ResponseException {
 		
 		ResponseArray response = TMDBAPI.getFavoriteMovies(this, page);
 		
@@ -271,11 +271,11 @@ public class Account extends Entity {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<Movie> movies = new LinkedList<Movie>();
+			List<MovieReduced> movies = new LinkedList<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
-				movies.add(new Movie(json));
+				movies.add(new MovieReduced(json));
 			}
 			
 			return movies;
@@ -288,18 +288,18 @@ public class Account extends Entity {
 	 * @return The entire favorite movies list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<Movie> getAllFavoriteMovies() throws ResponseException {
+	public List<MovieReduced> getAllFavoriteMovies() throws ResponseException {
 		ResponseArray response = TMDBAPI.getAllFavoriteMovies(this);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<Movie> movies = new LinkedList<Movie>();
+			List<MovieReduced> movies = new LinkedList<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
-				movies.add(new Movie(json));
+				movies.add(new MovieReduced(json));
 			}
 			
 			return movies;
@@ -402,7 +402,7 @@ public class Account extends Entity {
 	 * @return The rated movies list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<Movie> getRatedMovies() throws ResponseException {
+	public List<MovieReduced> getRatedMovies() throws ResponseException {
 		return getRatedMovies(1);
 	}
 	
@@ -413,7 +413,7 @@ public class Account extends Entity {
 	 * @return The rated movies list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<Movie> getRatedMovies(int page) throws ResponseException {
+	public List<MovieReduced> getRatedMovies(int page) throws ResponseException {
 		
 		ResponseArray response = TMDBAPI.getRatedMovies(this, page);
 		
@@ -421,11 +421,11 @@ public class Account extends Entity {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<Movie> movies = new LinkedList<Movie>();
+			List<MovieReduced> movies = new LinkedList<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
-				movies.add(new Movie(json));
+				movies.add(new MovieReduced(json));
 			}
 			
 			return movies;
@@ -438,18 +438,18 @@ public class Account extends Entity {
 	 * @return The rated movies list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<Movie> getAllRatedMovies() throws ResponseException {
+	public List<MovieReduced> getAllRatedMovies() throws ResponseException {
 		ResponseArray response = TMDBAPI.getAllRatedMovies(this);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<Movie> movies = new LinkedList<Movie>();
+			List<MovieReduced> movies = new LinkedList<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
-				movies.add(new Movie(json));
+				movies.add(new MovieReduced(json));
 			}
 			
 			return movies;
@@ -466,7 +466,7 @@ public class Account extends Entity {
 	 * @return The movies watch list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<Movie> getMovieWatchlist() throws ResponseException {
+	public List<MovieReduced> getMovieWatchlist() throws ResponseException {
 		return getMovieWatchlist(1);
 	}
 	
@@ -477,7 +477,7 @@ public class Account extends Entity {
 	 * @return The movies watch list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<Movie> getMovieWatchlist(int page) throws ResponseException {
+	public List<MovieReduced> getMovieWatchlist(int page) throws ResponseException {
 		
 		ResponseArray response = TMDBAPI.getMovieWatchList(this, page);
 		
@@ -485,11 +485,11 @@ public class Account extends Entity {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<Movie> movies = new LinkedList<Movie>();
+			List<MovieReduced> movies = new LinkedList<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
-				movies.add(new Movie(json));
+				movies.add(new MovieReduced(json));
 			}
 			
 			return movies;
@@ -502,18 +502,18 @@ public class Account extends Entity {
 	 * @return The movies watch list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<Movie> getAllMovieWatchlist() throws ResponseException {
+	public List<MovieReduced> getAllMovieWatchlist() throws ResponseException {
 		ResponseArray response = TMDBAPI.getAllMovieWatchList(this);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<Movie> movies = new LinkedList<Movie>();
+			List<MovieReduced> movies = new LinkedList<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
-				movies.add(new Movie(json));
+				movies.add(new MovieReduced(json));
 			}
 			
 			return movies;
