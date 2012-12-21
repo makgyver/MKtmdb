@@ -51,11 +51,10 @@ public class Test {
 			
 			//URL e = new URL("kjvfv fdv sdfvj sdfjvsdfvo");
 			
-			System.out.println(URLCreator.getAuthTokenUrl());
-			System.out.println(URLCreator.getRequestAuthorizationUrl(""));
-			System.out.println(URLCreator.getAuthSessionUrl(""));
-			System.out.println(URLCreator.getAccountInfoUrl(""));
-			System.out.println(URLCreator.getAccountFavsListsUrl(1, ""));
+			System.out.println(URLCreator.getCastInfoUrl(49051));
+			System.out.println(URLCreator.getPersonInfoUrl(109));
+			System.out.println(URLCreator.getPersonCreditsUrl(109));
+			System.out.println(URLCreator.searchMovieByTitleUrl("last"));
 			
 			//System.out.println(TMDBAPI.ma(new URL("http://api.themoviedb.org/3/account/2296309/favorite?api_key=6827f4afdbf8291669e04ca338ab087c&session_id=69713017689af29008212bb1c96ba772dcb6a05d"), j));
 

@@ -18,93 +18,30 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
-public class Movie extends Entity {
-	
-	public enum Version {
-		
-		REDUCED,
-		NORMAL,
-		FULL
-	}
-	
-	private static final int MOVIE_JSON_SIZE = 23;
+public class Movie extends MovieBasic {
 	
 	//region Private fields
 
-	private boolean adult;
-	private Backdrop backdrop;
-	private Poster poster;
-	private int id;
-	private String imdbID;
-	private int budget;
-	private URL homepage;
-	private String overview;
-	private double popularity;
-	private String originalTitle;
-	private Date releaseDate;
-	private int runtime;
-	private String status;
-	private String tagline;
-	private String title;
-	private double voteAverage;
-	private int voteCount;
-	private int revenue;
-	private Set<Genre> genres = Collections.synchronizedSet(new LinkedHashSet<Genre>());
-	private Set<Company> companies = Collections.synchronizedSet(new LinkedHashSet<Company>());
-	private Set<Country> countries = Collections.synchronizedSet(new LinkedHashSet<Country>());
-	private Set<Language> languages = Collections.synchronizedSet(new LinkedHashSet<Language>());
-	private Set<Backdrop> backdrops = Collections.synchronizedSet(new LinkedHashSet<Backdrop>());
-	private Set<Poster> posters = Collections.synchronizedSet(new LinkedHashSet<Poster>());
-	private Set<Keyword> keywords = Collections.synchronizedSet(new LinkedHashSet<Keyword>());
-	private Set<Language> translations = Collections.synchronizedSet(new LinkedHashSet<Language>());
-	private Set<Trailer> trailers = Collections.synchronizedSet(new LinkedHashSet<Trailer>());
-	private Set<Actor> cast = Collections.synchronizedSet(new LinkedHashSet<Actor>());
-	private Set<CrewMember> crew = Collections.synchronizedSet(new LinkedHashSet<CrewMember>());
-	private Version version;
+	protected String imdbID;
+	protected int budget;
+	protected URL homepage;
+	protected String overview;
+	protected int runtime;
+	protected String status;
+	protected String tagline;
+	protected int revenue;
+	protected Set<Genre> genres = Collections.synchronizedSet(new LinkedHashSet<Genre>());
+	protected Set<Company> companies = Collections.synchronizedSet(new LinkedHashSet<Company>());
+	protected Set<Country> countries = Collections.synchronizedSet(new LinkedHashSet<Country>());
+	protected Set<Language> languages = Collections.synchronizedSet(new LinkedHashSet<Language>());
 	
 	//endregion
-	
-	public Movie(String jsonString) {
-		this((JSONObject) JSONSerializer.toJSON(jsonString));
-		this.originJson = jsonString;
-	}
 	
 	public Movie(JSONObject json) {
 		super(json);
 		parseJSON(json);
 	}
 	
-	public boolean isAdult() {
-		return adult;
-	}
-	
-	public void setAdult(boolean adult) {
-		this.adult = adult;
-	}
-	
-	public Backdrop getBackdrop() {
-		return backdrop;
-	}
-	
-	public void setBackdrop(String backdropPath) {
-		this.backdrop = new Backdrop(backdropPath);
-	}
-	
-	public Poster getPoster() {
-		return poster;
-	}
-	
-	public void setPoster(String posterPath) {
-		this.poster = new Poster(posterPath);
-	}
-
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
 	
 	public String getImdbID() {
 		return imdbID;
@@ -147,22 +84,6 @@ public class Movie extends Entity {
 		this.overview = overview;
 	}
 	
-	public double getPopularity() {
-		return popularity;
-	}
-	
-	public void setPopularity(double popularity) {
-		this.popularity = popularity;
-	}
-	
-	public String getOriginalTitle() {
-		return originalTitle;
-	}
-	
-	public void setOriginalTitle(String originalTitle) {
-		this.originalTitle = originalTitle;
-	}
-	
 	public Set<Company> getCompanies() {
 		return companies;
 	}
@@ -179,19 +100,6 @@ public class Movie extends Entity {
 	public void setCompanies(Set<Company> companies) {
 		this.companies.clear();
 		this.companies.addAll(companies);
-	}
-	
-	public Date getReleaseDate() {
-		return releaseDate;
-	}
-	
-	public void setReleaseDate(String releaseDate) {
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			this.releaseDate = (Date)formatter.parse(releaseDate);
-		} catch (ParseException e) {
-			Log.print(e);
-		}
 	}
 	
 	public int getRuntime() {
@@ -227,30 +135,6 @@ public class Movie extends Entity {
 		this.tagline = tagline;
 	}
 	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public double getVoteAverage() {
-		return voteAverage;
-	}
-	
-	public void setVoteAverage(double voteAverage) {
-		this.voteAverage = voteAverage;
-	}
-	
-	public int getVoteCount() {
-		return voteCount;
-	}
-	
-	public void setVoteCount(int voteCount) {
-		this.voteCount = voteCount;
-	}
-	
 	public int getRevenue() {
 		return revenue;
 	}
@@ -259,127 +143,48 @@ public class Movie extends Entity {
 		this.revenue = revenue;
 	}
 
-	public Set<Backdrop> getBackdrops() {
-		return backdrops;
-	}
-
-	public void setBackdrops(Set<Backdrop> backdrops) {
-		this.backdrops = backdrops;
-	}
-
-	public Set<Poster> getPosters() {
-		return posters;
-	}
-
-	public void setPosters(Set<Poster> posters) {
-		this.posters = posters;
-	}
-	
-	public Version getVersion() {
-		return version;
-	}
-
-	public Set<Language> getTranslations() {
-		return translations;
-	}
-
-	public void setTranslations(Set<Language> translations) {
-		this.translations = translations;
-	}
-
-	public Set<Actor> getCast() {
-		return cast;
-	}
-
-	public void setCast(Set<Actor> cast) {
-		this.cast = cast;
-	}
-
-	public Set<CrewMember> getCrew() {
-		return crew;
-	}
-
-	public void setCrew(Set<CrewMember> crew) {
-		this.crew = crew;
-	}
-	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
-		try {
 			
-			// -- Reduced version
-			
-			setAdult(json.getBoolean(Constants.ADULT));
-			setBackdrop(json.getString(Constants.BACKDROP_PATH));
-			setId(json.getInt(Constants.ID));
-			setOriginalTitle(json.getString(Constants.ORIGINAL_TITLE));
-			setPopularity(json.getDouble(Constants.POPULARITY));
-			setPoster(json.getString(Constants.POSTER_PATH));
-			setReleaseDate(json.getString(Constants.RELEASE_DATE));
-			setTitle(json.getString(Constants.TITLE));
-			setVoteAverage(json.getDouble(Constants.AVERAGE));
-			setVoteCount(json.getInt(Constants.COUNT));
-			
-			if (json.size() < MOVIE_JSON_SIZE) {
-				version = Version.REDUCED;
-			} else {
-				version = Version.NORMAL;
-			}
-			
-			// -- Normal Version
-			
-			if (json.has(Constants.BUDGET)) setBudget(json.getInt(Constants.BUDGET));
-			if (json.has(Constants.IMDB)) setImdbID(json.getString(Constants.IMDB));
-			if (json.has(Constants.OVERVIEW)) setOverview(json.getString(Constants.OVERVIEW));
-			if (json.has(Constants.REVENUE)) setRevenue(json.getInt(Constants.REVENUE));
-			if (json.has(Constants.RUNTIME)) setRuntime(json.getInt(Constants.RUNTIME));
-			if (json.has(Constants.STATUS)) setStatus(json.getString(Constants.STATUS));
-			if (json.has(Constants.TAGLINE)) setTagline(json.getString(Constants.TAGLINE));
-			
-			if (json.has(Constants.HOMEPAGE)) {
-				try {
-					setHomepage(new URL(json.getString(Constants.HOMEPAGE)));
-				}
-				catch (MalformedURLException e) {
-					Log.print(e);
-				}
-			}
-			
-			if (json.has(Constants.GENRES)) {
-				JSONArray genresList = json.getJSONArray(Constants.GENRES);
-				for (Object obj : genresList) {
-				    genres.add(new Genre((JSONObject) obj));
-				}
-			}
-			
-			if (json.has(Constants.COMPANIES)) {
-				JSONArray companiesList = json.getJSONArray(Constants.COMPANIES);
-				for (Object obj : companiesList) {
-				    companies.add(new Company((JSONObject) obj));
-				}
-			}
-			
-			if (json.has(Constants.COUNTRIES)) {
-				JSONArray countriesList = json.getJSONArray(Constants.COUNTRIES);
-				for (Object obj : countriesList) {
-				    countries.add(new Country((JSONObject) obj));
-				}
-			}
-			
-			if (json.has(Constants.LANGUAGES)) {
-				JSONArray langsList = json.getJSONArray(Constants.LANGUAGES);
-				for (Object obj : langsList) {
-				    languages.add(new Language((JSONObject) obj));
-				}
-			}
+		setBudget(json.getInt(Constants.BUDGET));
+		setImdbID(json.getString(Constants.IMDB));
+		setOverview(json.getString(Constants.OVERVIEW));
+		setRevenue(json.getInt(Constants.REVENUE));
+		setRuntime(json.getInt(Constants.RUNTIME));
+		setStatus(json.getString(Constants.STATUS));
+		setTagline(json.getString(Constants.TAGLINE));
 		
-		} catch (Exception e) {
-			Log.print(e);
-			return false;
+		try {
+			setHomepage(new URL(json.getString(Constants.HOMEPAGE)));
 		}
+		catch (MalformedURLException e) {
+			Log.print(e);
+		}
+		
+		JSONArray genresList = json.getJSONArray(Constants.GENRES);
+		for (Object obj : genresList) {
+		    genres.add(new Genre((JSONObject) obj));
+		}
+
+		JSONArray companiesList = json.getJSONArray(Constants.COMPANIES);
+		for (Object obj : companiesList) {
+		    companies.add(new Company((JSONObject) obj));
+		}
+		
+		JSONArray countriesList = json.getJSONArray(Constants.COUNTRIES);
+		for (Object obj : countriesList) {
+		    countries.add(new Country((JSONObject) obj));
+		}
+		
+		JSONArray langsList = json.getJSONArray(Constants.LANGUAGES);
+		for (Object obj : langsList) {
+		    languages.add(new Language((JSONObject) obj));
+		}
+		
 		
 		return true;
 	}
+	
 	/*
 	public void getNormalVersion() throws MalformedURLException {
 		
