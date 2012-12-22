@@ -1451,6 +1451,64 @@ public final class TMDbAPI {
 	
 	//endregion
 	
+	//region Keyword
+	
+	public static ResponseObject getKeywordInformation(int keywordID) {
+		try {
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getKeywordInformation(keywordID))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseObject(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseArray getMoviesByKeyword(int keywordID) {
+		try {
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByKeyword(keywordID))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseArray getMoviesByKeyword(int keywordID, int page) {
+		try {
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByKeyword(keywordID, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	public static ResponseArray getAllMoviesByKeyword(int keywordID) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByKeyword(keywordID))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByKeyword(keywordID, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	//endregion
+	
 	//region Search
 	
 	/**

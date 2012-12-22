@@ -327,7 +327,7 @@ public class Account extends Entity {
 	 * Static method that gets a new Account instance filled with the basic information. 
 	 * 
 	 * @param sessionID The session ID
-	 * @return The user account
+	 * @return A new user account
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
 	public static Account getInformation(String sessionID) throws ResponseException {

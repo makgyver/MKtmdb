@@ -1,7 +1,16 @@
 package mk.tmdb.entity;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import mk.tmdb.core.Constants;
+import mk.tmdb.core.TMDbAPI;
+import mk.tmdb.entity.movie.MovieReduced;
+import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
+import mk.tmdb.utils.ResponseArray;
+import mk.tmdb.utils.ResponseObject;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -94,5 +103,70 @@ public class Genre extends Entity {
 		
 		return true;
 	}
+	
+	//region Static methods
+	
+	/**
+	 * Gets the genres list.
+	 * 
+	 * @return The genres list
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
+	public static Set<Genre> getList() throws ResponseException {
+		
+		ResponseObject response = TMDbAPI.getGenresList();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<Genre> genres = new LinkedHashSet<Genre>();
+			JSONArray array = response.getData().getJSONArray(Constants.GENRES);
+			for(Object json : array) {
+				genres.add(new Genre((JSONObject) json));
+			}
+			
+			return genres;
+		}
+	}
+	
+	public static Set<MovieReduced> getAssociatedMovies(int genreID) throws ResponseException {
+		return getAssociatedMovies(genreID, 1);
+	}
+	
+	public static Set<MovieReduced> getAssociatedMovies(int genreID, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getMoviesByGenre(genreID, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			Set<JSONObject> array = response.getData();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> getAllAssociatedMovies(int genreID) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getAllMoviesByGenre(genreID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			Set<JSONObject> array = response.getData();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	//endregion
 	
 }

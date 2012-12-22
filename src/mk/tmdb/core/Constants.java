@@ -67,6 +67,7 @@ public final class Constants {
 	public static final String ITEM_COUNT = "item_count";
 	public static final String ITEMS = "items";
 	public static final String JOB = "job";
+	public static final String KEYWORD = "keyword";
 	public static final String KEYWORDS = "keywords";
 	public static final String LANGUAGES = "spoken_languages";
 	public static final String LATEST = "movie/latest";

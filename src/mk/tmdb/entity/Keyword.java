@@ -1,7 +1,10 @@
 package mk.tmdb.entity;
 
 import mk.tmdb.core.Constants;
+import mk.tmdb.core.TMDbAPI;
+import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
+import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONObject;
 
 /**
@@ -77,6 +80,9 @@ public class Keyword extends Entity {
 		this.value = value;
 	}
 	
+	/**
+	 * Parses the origin JSON object.
+	 */
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		try {
@@ -91,5 +97,20 @@ public class Keyword extends Entity {
 		
 		return true;
 	}
+	
+	//region Static methods
+	
+	public static Keyword getInformation(int keywordID) throws ResponseException {
+		
+		ResponseObject response = TMDbAPI.getKeywordInformation(keywordID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			return new Keyword(response.getData());
+		}
+	}
+	
+	//endregion
 	
 }
