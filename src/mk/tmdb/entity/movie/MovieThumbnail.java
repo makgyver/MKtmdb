@@ -303,7 +303,7 @@ public class MovieThumbnail extends Entity {
 		}
 	}
 	
-	public static Movie getMovieInformation(int movieID) throws ResponseException {
+	public static Movie getInformation(int movieID) throws ResponseException {
 		
 		ResponseObject response = TMDbAPI.getMovieInformation(movieID);
 		

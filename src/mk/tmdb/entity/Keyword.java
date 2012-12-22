@@ -1,9 +1,14 @@
 package mk.tmdb.entity;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDbAPI;
+import mk.tmdb.entity.movie.MovieReduced;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
+import mk.tmdb.utils.ResponseArray;
 import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONObject;
 
@@ -108,6 +113,46 @@ public class Keyword extends Entity {
 			throw new ResponseException(response.getStatus());
 		} else {
 			return new Keyword(response.getData());
+		}
+	}
+	
+	public static Set<MovieReduced> getAssociatedMovies(int keywordID) throws ResponseException {
+		return getAssociatedMovies(keywordID, 1);
+	}
+	
+	public static Set<MovieReduced> getAssociatedMovies(int keywordID, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getMoviesByKeyword(keywordID, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> getAllAssociatedMovies(int keywordID) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getAllMoviesByKeyword(keywordID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
 		}
 	}
 	

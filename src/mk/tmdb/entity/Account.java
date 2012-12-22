@@ -418,7 +418,7 @@ public class Account extends Entity {
 	 */
 	public static boolean addMovieToFavorites(Account account, int movieID) {
 		ResponseObject response = TMDbAPI.addMovieToFavorites(account, movieID);
-		return response.hasError();
+		return !response.hasError();
 	}
 	
 	/**
@@ -430,7 +430,7 @@ public class Account extends Entity {
 	 */
 	public static boolean removeMovieFromFavorites(Account account, int movieID) {
 		ResponseObject response = TMDbAPI.removeMovieFromFavorites(account, movieID);
-		return response.hasError();
+		return !response.hasError();
 	}
 	
 	//endregion
@@ -643,7 +643,7 @@ public class Account extends Entity {
 	 */
 	public static boolean addMovieToWatchlist(Account account, int movieID) {
 		ResponseObject response = TMDbAPI.addMovieToWatchlist(account, movieID);
-		return response.hasError();
+		return !response.hasError();
 	}
 	
 	/**
@@ -655,7 +655,7 @@ public class Account extends Entity {
 	 */
 	public static boolean removeMovieToWatchlist(Account account, int movieID) {
 		ResponseObject response = TMDbAPI.removeMovieFromWatchlist(account, movieID);
-		return response.hasError();
+		return !response.hasError();
 	}
 	
 	//endregion

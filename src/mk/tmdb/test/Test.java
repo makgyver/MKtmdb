@@ -1,9 +1,6 @@
 package mk.tmdb.test;
 
-import java.util.Date;
-
 import mk.tmdb.core.Authentication;
-import mk.tmdb.entity.Account;
 import mk.tmdb.entity.Token;
 import mk.tmdb.utils.Log;
 

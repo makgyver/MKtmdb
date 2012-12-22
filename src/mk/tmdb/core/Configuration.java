@@ -164,7 +164,7 @@ public class Configuration {
 	}
 
 	/**
-	 * Loads the configuration information.
+	 * Loads the configuration information (if it was not already loaded). 
 	 * 
 	 * @throws ResponseException Throws if the API call is failed for some reason.
 	 */
