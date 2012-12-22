@@ -17,6 +17,8 @@ import net.sf.json.JSONObject;
 
 public class MovieFull extends Movie {
 
+	//region Fields
+	
 	private Set<Backdrop> backdrops = Collections.synchronizedSet(new LinkedHashSet<Backdrop>());
 	private Set<Poster> posters = Collections.synchronizedSet(new LinkedHashSet<Poster>());
 	private Set<Keyword> keywords = Collections.synchronizedSet(new LinkedHashSet<Keyword>());
@@ -24,6 +26,8 @@ public class MovieFull extends Movie {
 	private Set<Trailer> trailers = Collections.synchronizedSet(new LinkedHashSet<Trailer>());
 	private Set<MovieCast> cast = Collections.synchronizedSet(new LinkedHashSet<MovieCast>());
 	private Set<MovieCrew> crew = Collections.synchronizedSet(new LinkedHashSet<MovieCrew>());
+	
+	//endregion
 	
 	public MovieFull(JSONObject json) {
 		super(json);
@@ -52,6 +56,8 @@ public class MovieFull extends Movie {
 				Log.print(e);
 			}
 	}
+	
+	//region Getters/Setters
 	
 	public Set<Backdrop> getBackdrops() {
 		return backdrops;
@@ -115,6 +121,8 @@ public class MovieFull extends Movie {
 		this.crew.clear();
 		this.crew.addAll(crew);
 	}
+	
+	//endregion
 	
 	private void getFullInformation() throws ResponseException {
 		

@@ -29,12 +29,16 @@ import net.sf.json.JSONObject;
 
 public class MovieThumbnail extends Entity {
 
+	//region Fields
+	
 	protected Boolean adult = null;
 	protected Integer id;
 	protected String originalTitle;
 	protected String title;
 	protected String posterPath;
 	protected Date releaseDate;
+	
+	//endregion
 	
 	public MovieThumbnail(JSONObject json) {
 		super(json);
@@ -441,6 +445,60 @@ public class MovieThumbnail extends Entity {
 			}
 			
 			return images;
+		}
+	}
+	
+	public static Set<Integer> getChanged() throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedMovies();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getChanged(int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedMovies(page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getAllChanged() throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getAllChangedMovies();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
 		}
 	}
 	

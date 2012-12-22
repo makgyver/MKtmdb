@@ -12,6 +12,7 @@ import mk.tmdb.entity.Credit.Type;
 import mk.tmdb.entity.image.Profile;
 import mk.tmdb.entity.role.Role;
 import mk.tmdb.exception.ResponseException;
+import mk.tmdb.utils.ResponseArray;
 import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -111,8 +112,6 @@ public class PersonThumbnail extends Entity {
 		}
 	}
 	
-	//endregion
-	
 	public static Set<Credit> getCredits(int persondID) throws ResponseException {
 		
 		ResponseObject response = TMDbAPI.getPersonCredits(persondID);
@@ -155,5 +154,61 @@ public class PersonThumbnail extends Entity {
 			return images;
 		}
 	}
+	
+	public static Set<Integer> getChanged() throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedPersons();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getChanged(int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedPersons(page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getAllChanged() throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getAllChangedPersons();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	//endregion
 	
 }
