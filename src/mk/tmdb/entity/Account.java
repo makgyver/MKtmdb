@@ -157,7 +157,7 @@ public class Account extends Entity {
 	}
 	
 	/**
-	 * Gets the accoun name.
+	 * Gets the account name.
 	 * 
 	 * @return The account name
 	 */
@@ -212,6 +212,7 @@ public class Account extends Entity {
 	
 	/**
 	 * Gets the session ID.
+	 * 
 	 * @return The session ID
 	 */
 	public String getSessionID() {

@@ -24,9 +24,6 @@ public class Test {
 			System.in.read();
 			String sessionID = Authentication.getNewSession(token);
 			
-			Account account = Account.createInstance(sessionID);
-			account.
-			
 			System.out.println("");
 			
 			

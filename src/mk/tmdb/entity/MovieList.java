@@ -14,6 +14,8 @@ import net.sf.json.JSONObject;
 
 public class MovieList extends Entity {
 
+	//region Fields
+	
 	private String id;
 	private int count;
 	private int favoritesCount;
@@ -25,6 +27,8 @@ public class MovieList extends Entity {
 	private String creator = null;
 	private Set<MovieReduced> movies = Collections.synchronizedSet(new LinkedHashSet<MovieReduced>());
 	
+	//endregion
+	
 	public MovieList(JSONObject json) {
 		super(json);
 		parseJSON(json);
@@ -33,6 +37,8 @@ public class MovieList extends Entity {
 	public MovieList(MovieList list) {
 		this(list.getOriginJSON());
 	}
+	
+	//region Getters/Setters
 	
 	public String getId() {
 		return id;
@@ -122,6 +128,8 @@ public class MovieList extends Entity {
 		this.movies.clear();
 		this.movies.addAll(movies);
 	}
+	
+	//endregion
 
 	@Override
 	protected boolean parseJSON(JSONObject json) {
@@ -147,20 +155,16 @@ public class MovieList extends Entity {
 		return true;
 	}
 	
-	public void retrieveList() throws ResponseException {
+	// Static methods
+	
+	public static MovieList getList(String listID) throws ResponseException {
 		
-		ResponseObject response = TMDbAPI.getList(id);
+		ResponseObject response = TMDbAPI.getList(listID);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
-			setCreator(response.getData().getString(Constants.CREATED_BY));
-			
-			JSONArray array = response.getData().getJSONArray(Constants.ITEMS);
-			movies.clear();
-			for (Object obj : array) {
-				movies.add(new MovieReduced((JSONObject) obj));
-			}
+			return new MovieList(response.getData());
 		}
 	}
 	

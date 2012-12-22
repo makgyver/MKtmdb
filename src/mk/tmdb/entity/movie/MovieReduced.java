@@ -9,6 +9,7 @@ public class MovieReduced extends MovieThumbnail {
 	protected Double voteAverage = null;
 	protected Integer voteCount = null;
 	protected String backdropPath = null;
+	protected Double popularity = null;
 	
 	public MovieReduced(JSONObject json) {
 		super(json);
@@ -54,6 +55,18 @@ public class MovieReduced extends MovieThumbnail {
 	public boolean isVoteCountSet() {
 		return voteCount != null;
 	}
+	
+	public double getPopularity() {
+		return popularity;
+	}
+
+	public void setPopularity(double popularity) {
+		this.popularity = popularity;
+	}
+
+	public boolean isPopularitySet() {
+		return popularity != null;
+	}
 
 	@Override
 	protected boolean parseJSON(JSONObject json) {
@@ -61,6 +74,7 @@ public class MovieReduced extends MovieThumbnail {
 		if (json.has(Constants.AVERAGE)) setVoteAverage(json.getDouble(Constants.AVERAGE));
 		if (json.has(Constants.COUNT)) setVoteCount(json.getInt(Constants.COUNT));
 		if (json.has(Constants.BACKDROP_PATH)) setBackdropPath(json.getString(Constants.BACKDROP_PATH));
+		if (json.has(Constants.POPULARITY)) setPopularity(json.getDouble(Constants.POPULARITY));
 		
 		return true;
 	}

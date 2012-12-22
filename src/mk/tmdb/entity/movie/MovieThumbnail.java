@@ -11,10 +11,20 @@ import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.Account;
 import mk.tmdb.entity.Entity;
+import mk.tmdb.entity.Keyword;
+import mk.tmdb.entity.Language;
+import mk.tmdb.entity.image.Backdrop;
+import mk.tmdb.entity.image.Poster;
+import mk.tmdb.entity.person.MovieCast;
+import mk.tmdb.entity.person.MovieCrew;
+import mk.tmdb.entity.trailer.QuicktimeTrailer;
+import mk.tmdb.entity.trailer.Trailer;
+import mk.tmdb.entity.trailer.YoutubeTrailer;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
 import mk.tmdb.utils.ResponseArray;
 import mk.tmdb.utils.ResponseObject;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class MovieThumbnail extends Entity {
@@ -34,6 +44,8 @@ public class MovieThumbnail extends Entity {
 	public MovieThumbnail(MovieThumbnail movie) {
 		this(movie.getOriginJSON());
 	}
+	
+	//region Getters/Setters
 	
 	public boolean isAdult() {
 		return adult;
@@ -92,6 +104,8 @@ public class MovieThumbnail extends Entity {
 		}
 	}
 	
+	//endregion
+	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		
@@ -114,6 +128,11 @@ public class MovieThumbnail extends Entity {
 	}
 	
 	//region Static methods
+	
+	public static boolean rateMovie(Account account, int movieID, float value) {
+		ResponseObject response = TMDbAPI.setMovieRate(account.getSessionID(), false, movieID, value);
+		return !response.hasError();
+	}
 	
 	public static boolean rateMovie(String sessionID, boolean guest, int movieID, float value) {
 		ResponseObject response = TMDbAPI.setMovieRate(sessionID, guest, movieID, value);
@@ -290,6 +309,146 @@ public class MovieThumbnail extends Entity {
 			return new Movie(response.getData());
 		}
 	}
+	
+	public static Set<Keyword> getKeywords(int movieID) throws ResponseException {
+		ResponseObject response = TMDbAPI.getMovieKeywords(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			JSONArray allkeys = response.getData().getJSONArray(Constants.KEYWORDS);
+			Set<Keyword> keywords = new LinkedHashSet<Keyword>();
+			for (Object obj : allkeys) {
+			    keywords.add(new Keyword((JSONObject) obj));
+			}
+			
+			return keywords;
+		}
+	}
+	
+	public static Set<Language> getTranslations(int movieID) throws ResponseException {
+		ResponseObject response = TMDbAPI.getMovieTranslations(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			JSONArray allTrans = response.getData().getJSONArray(Constants.TRANSLATIONS);
+			Set<Language> translations = new LinkedHashSet<Language>();
+			for (Object obj : allTrans) {
+			    translations.add(new Language((JSONObject) obj));
+			}
+			
+			return translations;
+		}
+	}
+	
+	public static Set<Trailer> getTrailers(int movieID) throws ResponseException {
+		ResponseObject response = TMDbAPI.getMovieTrailers(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+		
+			JSONArray utube = response.getData().getJSONArray(Constants.YOUTUBE);
+			Set<Trailer> trailers = new LinkedHashSet<Trailer>();
+			for (Object obj : utube) {
+			    trailers.add(new YoutubeTrailer((JSONObject) obj));
+			}
+			
+			JSONArray quick = response.getData().getJSONArray(Constants.QUICKTIME);
+			
+			for (Object obj : quick) {
+				String name = ((JSONObject) obj).getString(Constants.NAME);
+				JSONArray quicks = ((JSONObject) obj).getJSONArray(Constants.SOURCES);
+				
+				for (Object jobj : quicks) {
+					trailers.add(new QuicktimeTrailer((JSONObject) jobj, name));
+				}
+			}	
+			
+			return trailers;
+		}
+	}
+	
+	public static Set<MovieCast> getCastInformation(int movieID) throws ResponseException {
+		ResponseObject response = TMDbAPI.getCastInformation(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+		
+			JSONArray castArray = response.getData().getJSONArray(Constants.CAST);
+			Set<MovieCast> cast = new LinkedHashSet<MovieCast>();
+			for (Object obj : castArray) {
+				cast.add(new MovieCast((JSONObject) obj, movieID));
+			}
+			
+			return cast;
+		}
+	}
+
+	public static Set<MovieCrew> getCrewInformation(int movieID) throws ResponseException {
+		ResponseObject response = TMDbAPI.getCastInformation(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+		
+			JSONArray crewArray = response.getData().getJSONArray(Constants.CREW);
+			Set<MovieCrew> crew = new LinkedHashSet<MovieCrew>();
+			for (Object obj : crewArray) {
+				crew.add(new MovieCrew((JSONObject) obj, movieID));
+			}
+			
+			return crew;
+		}
+	}
+	
+	public static Set<Poster> getPosters(int movieID) throws ResponseException {
+		
+		ResponseObject response = TMDbAPI.getMovieImages(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			JSONArray allPosters = response.getData().getJSONArray(Constants.POSTERS);
+			
+			Set<Poster> images = new LinkedHashSet<Poster>();
+			for (Object obj : allPosters) {
+			    images.add(new Poster((JSONObject) obj));
+			}
+			
+			return images;
+		}
+	}
+	
+	public static Set<Backdrop> getBackdrops(int movieID) throws ResponseException {
+		
+		ResponseObject response = TMDbAPI.getMovieImages(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<Backdrop> images = new LinkedHashSet<Backdrop>();
+			
+			JSONArray allBackdrops = response.getData().getJSONArray(Constants.BACKDROPS);
+			for (Object obj : allBackdrops) {
+			    images.add(new Backdrop((JSONObject) obj));
+			}
+			
+			return images;
+		}
+	}
+	
+	//endregion
+
+	//region Search methods
+	
+	
 	
 	//endregion
 	

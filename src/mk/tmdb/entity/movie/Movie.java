@@ -18,7 +18,7 @@ import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class Movie extends MovieBasic {
+public class Movie extends MovieReduced {
 	
 	//region Private fields
 
