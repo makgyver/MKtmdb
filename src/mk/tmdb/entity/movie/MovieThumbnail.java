@@ -448,7 +448,209 @@ public class MovieThumbnail extends Entity {
 
 	//region Search methods
 	
+	public static Set<MovieReduced> searchByTitle(String movieTitle) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.searchMovieByTitle(movieTitle);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
 	
+	public static Set<MovieReduced> searchByTitle(String movieTitle, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.searchMovieByTitle(movieTitle, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> searchByTitle(String movieTitle, boolean adult) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.searchMovieByTitle(movieTitle, adult);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> searchByTitle(String movieTitle, boolean adult, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.searchMovieByTitle(movieTitle, adult, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> fullSearchByTitle(String movieTitle) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.fullSearchMovieByTitle(movieTitle);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> fullSearchByTitle(String movieTitle, boolean adult) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.fullSearchMovieByTitle(movieTitle, adult);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> searchByTitleAndYear(String movieTitle, int year) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.searchMovieByTitleAndYear(movieTitle, year);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> searchByTitleAndYear(String movieTitle, int year, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.searchMovieByTitleAndYear(movieTitle, year, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> searchByTitleAndYear(String movieTitle, int year, boolean adult) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.searchMovieByTitleAndYear(movieTitle, year, adult);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> searchByTitleAndYear(String movieTitle, int year, boolean adult, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.searchMovieByTitleAndYear(movieTitle, year, adult, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> fullSearchByTitleAndYear(String movieTitle, int year) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.fullSearchMovieByTitleAndYear(movieTitle, year);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
+	
+	public static Set<MovieReduced> fullSearchByTitleAndYear(String movieTitle, int year, boolean adult) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.fullSearchMovieByTitleAndYear(movieTitle, year, adult);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
+			for(JSONObject json : array) {
+				movies.add(new MovieReduced(json));
+			}
+			
+			return movies;
+		}
+	}
 	
 	//endregion
 	

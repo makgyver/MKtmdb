@@ -21,7 +21,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
 /**
- * Static class that offers methods for calling the The Movie DataBase Api.
+ * Static class that offers methods for calling the The Movie Database Api.
  * 
  * @author Mirko Polato
  *
@@ -1603,7 +1603,7 @@ public final class TMDbAPI {
 	 * @param year The year of the movie
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray fullSearchMovieByTitle(String movieTitle, int year) {
+	public static ResponseArray fullSearchMovieByTitleAndYear(String movieTitle, int year) {
 		try {
 			
 			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleAndYearUrl(movieTitle, year))));
@@ -1690,8 +1690,8 @@ public final class TMDbAPI {
 	 * @param adult Whether the movie audience is adult only
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray searchMovieByTitle(String movieTitle, int year, boolean adult) {
-		return searchMovieByTitle(movieTitle, year, adult, 1);
+	public static ResponseArray searchMovieByTitleAndYear(String movieTitle, int year, boolean adult) {
+		return searchMovieByTitleAndYear(movieTitle, year, adult, 1);
 	}
 	
 	/**
@@ -1703,7 +1703,7 @@ public final class TMDbAPI {
 	 * @param page The page number to retrieve
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray searchMovieByTitle(String movieTitle, int year, boolean adult, int page) {
+	public static ResponseArray searchMovieByTitleAndYear(String movieTitle, int year, boolean adult, int page) {
 		try {
 			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, year, adult, page))));
 			
@@ -1722,7 +1722,7 @@ public final class TMDbAPI {
 	 * @param adult Whether the movie audience is adult only
 	 * @return The TMDB Api response array
 	 */
-	public static ResponseArray fullSearchMovieByTitle(String movieTitle, int year, boolean adult) {
+	public static ResponseArray fullSearchMovieByTitleAndYear(String movieTitle, int year, boolean adult) {
 		try {
 			
 			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchMovieByTitleUrl(movieTitle, year, adult))));
