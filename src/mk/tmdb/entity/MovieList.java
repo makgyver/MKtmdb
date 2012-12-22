@@ -1,6 +1,15 @@
 package mk.tmdb.entity;
 
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import mk.tmdb.core.Constants;
+import mk.tmdb.core.TMDbAPI;
+import mk.tmdb.entity.movie.MovieReduced;
+import mk.tmdb.exception.ResponseException;
+import mk.tmdb.utils.ResponseObject;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class MovieList extends Entity {
@@ -10,9 +19,11 @@ public class MovieList extends Entity {
 	private int favoritesCount;
 	private String posterPath;
 	private String name;
-	private String type;
+	private String type = null;
 	private String description;
 	private String iso639_1;
+	private String creator = null;
+	private Set<MovieReduced> movies = Collections.synchronizedSet(new LinkedHashSet<MovieReduced>());
 	
 	public MovieList(JSONObject json) {
 		super(json);
@@ -71,6 +82,10 @@ public class MovieList extends Entity {
 		this.type = type;
 	}
 	
+	public boolean isTypeSet() {
+		return type != null;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -87,19 +102,66 @@ public class MovieList extends Entity {
 		this.iso639_1 = iso639_1;
 	}
 	
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+	
+	public boolean isCreatorSet() {
+		return creator != null;
+	}
+
+	public Set<MovieReduced> getMovies() {
+		return movies;
+	}
+
+	public void setMovies(Set<MovieReduced> movies) {
+		this.movies.clear();
+		this.movies.addAll(movies);
+	}
+
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		
 		setId(json.getString(Constants.ID));
 		setDescription(json.getString(Constants.DESCRIPTION));
-		setType(json.getString(Constants.LIST_TYPE));
+		if (json.has(Constants.LIST_TYPE)) setType(json.getString(Constants.LIST_TYPE));
 		setName(json.getString(Constants.NAME));
 		setFavoritesCount(json.getInt(Constants.FAVORITE_COUNT));
 		setCount(json.getInt(Constants.ITEM_COUNT));
 		setPosterPath(json.getString(Constants.POSTER_PATH));
 		setIso639_1(json.getString(Constants.ISO_6391));
+		if (json.has(Constants.CREATED_BY)) setCreator(json.getString(Constants.CREATED_BY));
+		
+		if (json.has(Constants.ITEMS)) {
+			JSONArray array = json.getJSONArray(Constants.ITEMS);
+			movies.clear();
+			for (Object obj : array) {
+				movies.add(new MovieReduced((JSONObject) obj));
+			}
+		}
 		
 		return true;
+	}
+	
+	public void retrieveList() throws ResponseException {
+		
+		ResponseObject response = TMDbAPI.getList(id);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			setCreator(response.getData().getString(Constants.CREATED_BY));
+			
+			JSONArray array = response.getData().getJSONArray(Constants.ITEMS);
+			movies.clear();
+			for (Object obj : array) {
+				movies.add(new MovieReduced((JSONObject) obj));
+			}
+		}
 	}
 	
 }

@@ -1284,7 +1284,7 @@ public final class TMDbAPI {
 	 * @param listID The list ID
 	 * @return The TMDB Api response object
 	 */
-	public static ResponseObject getList(int listID) {
+	public static ResponseObject getList(String listID) {
 		try {
 			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getListUrl(listID))));
 			

@@ -19,7 +19,7 @@ import net.sf.json.JSONObject;
 
 public class MovieThumbnail extends Entity {
 
-	protected Boolean adult;
+	protected Boolean adult = null;
 	protected Integer id;
 	protected String originalTitle;
 	protected String title;
@@ -41,6 +41,10 @@ public class MovieThumbnail extends Entity {
 
 	public void setAdult(boolean adult) {
 		this.adult = adult;
+	}
+	
+	public boolean isAdultSet() {
+		return adult != null;
 	}
 
 	public int getId() {
@@ -91,9 +95,9 @@ public class MovieThumbnail extends Entity {
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		
-		setAdult(json.getBoolean(Constants.ADULT));
+		if (json.has(Constants.ADULT)) setAdult(json.getBoolean(Constants.ADULT));
 		setId(json.getInt(Constants.ID));
-		setOriginalTitle(json.getString(Constants.ORIGINAL_TITLE));
+		if (json.has(Constants.ORIGINAL_TITLE)) setOriginalTitle(json.getString(Constants.ORIGINAL_TITLE));
 		setPosterPath(json.getString(Constants.POSTER_PATH));
 		setReleaseDate(json.getString(Constants.RELEASE_DATE));
 		setTitle(json.getString(Constants.TITLE));

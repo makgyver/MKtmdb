@@ -1,7 +1,7 @@
 package mk.tmdb.entity;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
@@ -58,6 +58,26 @@ public class Account extends Entity {
 	 * The authenticated session ID.
 	 */
 	private String sessionID;
+	
+	/**
+	 * The favorite movies list for this account.
+	 */
+	private Set<MovieReduced> favoriteMovies = Collections.synchronizedSet(new LinkedHashSet<MovieReduced>());
+
+	/**
+	 * The favorite lists list for this account.
+	 */
+	private Set<MovieList> favoriteLists = Collections.synchronizedSet(new LinkedHashSet<MovieList>());
+	
+	/**
+	 * The rated movies list for this account.
+	 */
+	private Set<MovieReduced> ratedMovies = Collections.synchronizedSet(new LinkedHashSet<MovieReduced>());
+	
+	/**
+	 * The watch list for this account.
+	 */
+	private Set<MovieReduced> watchlist = Collections.synchronizedSet(new LinkedHashSet<MovieReduced>());
 	
 	//endregion
 	
@@ -207,6 +227,80 @@ public class Account extends Entity {
 		this.sessionID = sessionID;
 	}
 	
+	/**
+	 * Gets the watch list.
+	 * 
+	 * @return The watch list.
+	 */
+	public Set<MovieReduced> getWatchlist() {
+		return watchlist;
+	}
+
+	/**
+	 * Sets the watch list.
+	 * 
+	 * @param watchlist The new watch list
+	 */
+	public void setWatchlist(Set<MovieReduced> watchlist) {
+		this.watchlist.addAll(watchlist);
+	}
+
+	/**
+	 * Gets the favorite movies list.
+	 * 
+	 * @return The favorite movies list
+	 */
+	public Set<MovieReduced> getFavoriteMovies() {
+		return this.favoriteMovies;
+	}
+	
+	/**
+	 * Sets the favorite movies list.
+	 * 
+	 * @param favoriteMovies The new favorite movies list
+	 */
+	public void setFavoriteMovies(Set<MovieReduced> favoriteMovies) {
+		this.favoriteMovies.addAll(favoriteMovies);
+	}
+	
+	/**
+	 * Gets the favorite lists list.
+	 * 
+	 * @return The favorite lists list
+	 */
+	public Set<MovieList> getFavoriteLists() {
+		return this.favoriteLists;
+	}
+
+	/**
+	 * Sets the favorite lists list.
+	 * 
+	 * @param favoriteLists The new favorite lists list
+	 */
+	public void setFavoriteLists(Set<MovieList> favoriteLists) {
+		this.favoriteLists.clear();
+		this.favoriteLists.addAll(favoriteLists);
+	}
+
+	/**
+	 * Gets the top rated movies list.
+	 * 
+	 * @return The top rated movies list
+	 */
+	public Set<MovieReduced> getRatedMovies() {
+		return this.ratedMovies;
+	}
+	
+	/**
+	 * Sets the top rated movies list.
+	 * 
+	 * @param ratedMovies The new top rated movies list
+	 */
+	public void setRatedMovies(Set<MovieReduced> ratedMovies) {
+		this.ratedMovies.clear();
+		this.ratedMovies.addAll(ratedMovies);
+	}
+	
 	//endregion
 	
 	/**
@@ -225,8 +319,12 @@ public class Account extends Entity {
 		return true;
 	}
 	
+	// --------------
+	// Static methods
+	// --------------
+	
 	/**
-	 * Static method that gets the basic information for an account. 
+	 * Static method that gets a new Account instance filled with the basic information. 
 	 * 
 	 * @param sessionID The session ID
 	 * @return The user account
@@ -250,29 +348,31 @@ public class Account extends Entity {
 	/**
 	 * Gets the list of favorite movies for this account.
 	 * 
+	 * @param account The user account
 	 * @return The favorite movies list
 	 * @throws ResponseException Throws whether the server response is not a success. 
 	 */
-	public List<MovieReduced> getFavoriteMovies() throws ResponseException {
-		return getFavoriteMovies(1);
+	public static Set<MovieReduced> getFavoriteMovies(Account account) throws ResponseException {
+		return getFavoriteMovies(account, 1);
 	}
 	
 	/**
 	 * Gets the list of favorite movies for an account.
 	 * 
+	 * @param account The user account
 	 * @param page The page number to retrieve
 	 * @return The favorite movies list
 	 * @throws ResponseException Throws whether the server response is not a success. 
 	 */
-	public List<MovieReduced> getFavoriteMovies(int page) throws ResponseException {
+	public static Set<MovieReduced> getFavoriteMovies(Account account, int page) throws ResponseException {
 		
-		ResponseArray response = TMDbAPI.getFavoriteMovies(this, page);
+		ResponseArray response = TMDbAPI.getFavoriteMovies(account, page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<MovieReduced> movies = new LinkedList<MovieReduced>();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
@@ -286,17 +386,18 @@ public class Account extends Entity {
 	/**
 	 * Gets the entire list of favorite movies for an account.
 	 * 
+	 * @param account The user account
 	 * @return The entire favorite movies list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieReduced> getAllFavoriteMovies() throws ResponseException {
-		ResponseArray response = TMDbAPI.getAllFavoriteMovies(this);
+	public static Set<MovieReduced> getAllFavoriteMovies(Account account) throws ResponseException {
+		ResponseArray response = TMDbAPI.getAllFavoriteMovies(account);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<MovieReduced> movies = new LinkedList<MovieReduced>();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
@@ -310,22 +411,24 @@ public class Account extends Entity {
 	/**
 	 * Adds a movie to this accounts favorite list.
 	 * 
+	 * @param account The user account
 	 * @param movieID The movie ID
 	 * @return Whether the operation succeeded or not 
 	 */
-	public boolean addMovieToFavorites(int movieID) {
-		ResponseObject response = TMDbAPI.addMovieToFavorites(this, movieID);
+	public static boolean addMovieToFavorites(Account account, int movieID) {
+		ResponseObject response = TMDbAPI.addMovieToFavorites(account, movieID);
 		return response.hasError();
 	}
 	
 	/**
 	 * Removes a movie from this accounts favorite list.
 	 * 
+	 * @param account The user account
 	 * @param movieID The movie ID
 	 * @return Whether the operation succeeded or not 
 	 */
-	public boolean removeMovieFromFavorites(int movieID) {
-		ResponseObject response = TMDbAPI.removeMovieFromFavorites(this, movieID);
+	public static boolean removeMovieFromFavorites(Account account, int movieID) {
+		ResponseObject response = TMDbAPI.removeMovieFromFavorites(account, movieID);
 		return response.hasError();
 	}
 	
@@ -336,29 +439,31 @@ public class Account extends Entity {
 	/**
 	 * Gets the lists that you have created and marked as a favorite.
 	 * 
+	 * @param account The user account
 	 * @return The favorite lists list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieList> getFavoriteLists() throws ResponseException {
-		return getFavoriteLists(1);
+	public static Set<MovieList> getFavoriteLists(Account account) throws ResponseException {
+		return getFavoriteLists(account, 1);
 	}
 	
 	/**
 	 * Gets the lists that you have created and marked as a favorite.
 	 * 
+	 * @param account The user account
 	 * @param page The page number to retrieve
 	 * @return The favorite lists list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieList> getFavoriteLists(int page) throws ResponseException {
+	public static Set<MovieList> getFavoriteLists(Account account, int page) throws ResponseException {
 		
-		ResponseArray response = TMDbAPI.getFavoriteLists(this, page);
+		ResponseArray response = TMDbAPI.getFavoriteLists(account, page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<MovieList> lists = new LinkedList<MovieList>();
+			Set<MovieList> lists = new LinkedHashSet<MovieList>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
@@ -372,17 +477,18 @@ public class Account extends Entity {
 	/**
 	 * Gets all the lists that you have created and marked as a favorite.
 	 * 
+	 * @param account The user account
 	 * @return The entire favorite lists list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieList> getAllFavoriteLists() throws ResponseException {
-		ResponseArray response = TMDbAPI.getAllFavoriteLists(this);
+	public static Set<MovieList> getAllFavoriteLists(Account account) throws ResponseException {
+		ResponseArray response = TMDbAPI.getAllFavoriteLists(account);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<MovieList> lists = new LinkedList<MovieList>();
+			Set<MovieList> lists = new LinkedHashSet<MovieList>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
@@ -400,29 +506,31 @@ public class Account extends Entity {
 	/**
 	 * Gets the list of rated movies for this account.
 	 * 
+	 * @param account The user account
 	 * @return The rated movies list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieReduced> getRatedMovies() throws ResponseException {
-		return getRatedMovies(1);
+	public static Set<MovieReduced> getRatedMovies(Account account) throws ResponseException {
+		return getRatedMovies(account, 1);
 	}
 	
 	/**
 	 * Gets the list of rated movies for an account.
 	 *  
+	 * @param account The user account
 	 * @param page The page number to retrieve
 	 * @return The rated movies list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieReduced> getRatedMovies(int page) throws ResponseException {
+	public static Set<MovieReduced> getRatedMovies(Account account, int page) throws ResponseException {
 		
-		ResponseArray response = TMDbAPI.getRatedMovies(this, page);
+		ResponseArray response = TMDbAPI.getRatedMovies(account, page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<MovieReduced> movies = new LinkedList<MovieReduced>();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
@@ -436,17 +544,18 @@ public class Account extends Entity {
 	/**
 	 * Gets the list of all rated movies for an account.
 	 * 
+	 * @param account The user account
 	 * @return The rated movies list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieReduced> getAllRatedMovies() throws ResponseException {
-		ResponseArray response = TMDbAPI.getAllRatedMovies(this);
+	public static Set<MovieReduced> getAllRatedMovies(Account account) throws ResponseException {
+		ResponseArray response = TMDbAPI.getAllRatedMovies(account);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<MovieReduced> movies = new LinkedList<MovieReduced>();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
@@ -464,29 +573,31 @@ public class Account extends Entity {
 	/**
 	 * Gets the list of movies on this accounts watch list.
 	 * 
+	 * @param account The user account
 	 * @return The movies watch list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieReduced> getMovieWatchlist() throws ResponseException {
-		return getMovieWatchlist(1);
+	public static Set<MovieReduced> getMovieWatchlist(Account account) throws ResponseException {
+		return getMovieWatchlist(account, 1);
 	}
 	
 	/**
 	 * Gets the list of movies on this accounts watch list.
 	 * 
+	 * @param account The user account
 	 * @param page The page number to retrieve
 	 * @return The movies watch list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieReduced> getMovieWatchlist(int page) throws ResponseException {
+	public static Set<MovieReduced> getMovieWatchlist(Account account, int page) throws ResponseException {
 		
-		ResponseArray response = TMDbAPI.getMovieWatchList(this, page);
+		ResponseArray response = TMDbAPI.getMovieWatchList(account, page);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<MovieReduced> movies = new LinkedList<MovieReduced>();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
@@ -500,17 +611,18 @@ public class Account extends Entity {
 	/**
 	 * Gets the list of all movies on this accounts watch list.
 	 * 
+	 * @param account The user account
 	 * @return The movies watch list
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
-	public List<MovieReduced> getAllMovieWatchlist() throws ResponseException {
-		ResponseArray response = TMDbAPI.getAllMovieWatchList(this);
+	public static Set<MovieReduced> getAllMovieWatchlist(Account account) throws ResponseException {
+		ResponseArray response = TMDbAPI.getAllMovieWatchList(account);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
 		} else {
 			
-			List<MovieReduced> movies = new LinkedList<MovieReduced>();
+			Set<MovieReduced> movies = new LinkedHashSet<MovieReduced>();
 			Set<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
@@ -524,22 +636,24 @@ public class Account extends Entity {
 	/**
 	 * Adds a movie to this accounts watch list.
 	 * 
+	 * @param account The user account
 	 * @param movieID The movie ID
 	 * @return Whether the operation succeeded or not
 	 */
-	public boolean addMovieToWatchlist(int movieID) {
-		ResponseObject response = TMDbAPI.addMovieToWatchlist(this, movieID);
+	public static boolean addMovieToWatchlist(Account account, int movieID) {
+		ResponseObject response = TMDbAPI.addMovieToWatchlist(account, movieID);
 		return response.hasError();
 	}
 	
 	/**
 	 * Removes a movie from this accounts watch list.
 	 * 
+	 * @param account The user account
 	 * @param movieID The movie ID
 	 * @return Whether the operation succeeded or not
 	 */
-	public boolean removeMovieToWatchlist(int movieID) {
-		ResponseObject response = TMDbAPI.removeMovieFromWatchlist(this, movieID);
+	public static boolean removeMovieToWatchlist(Account account, int movieID) {
+		ResponseObject response = TMDbAPI.removeMovieFromWatchlist(account, movieID);
 		return response.hasError();
 	}
 	

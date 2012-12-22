@@ -36,6 +36,7 @@ public final class Constants {
 	public static final String CONFIGURATION = "configuration";
 	public static final String COUNT = "vote_count";
 	public static final String COUNTRIES = "production_countries";
+	public static final String CREATED_BY = "created_by";
 	public static final String CREDITS = "credits";
 	public static final String CREW = "crew";
 	public static final String DEATHDAY = "deathday";
@@ -64,6 +65,7 @@ public final class Constants {
 	public static final String ISO_31661 = "iso_3166_1";
 	public static final String ISO_6391 = "iso_639_1";
 	public static final String ITEM_COUNT = "item_count";
+	public static final String ITEMS = "items";
 	public static final String JOB = "job";
 	public static final String KEYWORDS = "keywords";
 	public static final String LANGUAGES = "spoken_languages";

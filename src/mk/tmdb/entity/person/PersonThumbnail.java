@@ -14,10 +14,14 @@ import net.sf.json.JSONObject;
 
 public class PersonThumbnail extends Entity {
 
+	//region Fields
+	
 	protected Integer id;
 	protected String name;
 	protected String profilePath;
 	protected Set<Role> roles = Collections.synchronizedSet(new LinkedHashSet<Role>());
+	
+	//endregion
 	
 	public PersonThumbnail(JSONObject json) {
 		super(json);
@@ -84,6 +88,17 @@ public class PersonThumbnail extends Entity {
 	public static Person getLatest() throws ResponseException {
 		
 		ResponseObject response = TMDbAPI.getLatestPerson();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			return new Person(response.getData());
+		}
+	}
+	
+	public static Person createInstance(int personID) throws ResponseException {
+		
+		ResponseObject response = TMDbAPI.getPersonInformation(personID);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
