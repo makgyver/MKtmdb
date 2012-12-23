@@ -8,6 +8,7 @@ import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.movie.MovieReduced;
 import mk.tmdb.exception.ResponseException;
+import mk.tmdb.utils.ResponseArray;
 import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -165,6 +166,42 @@ public class MovieList extends Entity {
 			throw new ResponseException(response.getStatus());
 		} else {
 			return new MovieList(response.getData());
+		}
+	}
+	
+	public static Set<MovieList> searchByName(String name) throws ResponseException {
+		return searchByName(name, 1);
+	}
+	
+	public static Set<MovieList> searchByName(String name, int page) throws ResponseException {
+		ResponseArray response = TMDbAPI.searchListByName(name, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieList> lists = new LinkedHashSet<MovieList>();
+			for(JSONObject json : array) {
+				lists.add(new MovieList(json));
+			}
+			
+			return lists;
+		}
+	}
+	
+	public static Set<MovieList> fullSearchByName(String name) throws ResponseException {
+		ResponseArray response = TMDbAPI.fullSearchListByName(name);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<MovieList> lists = new LinkedHashSet<MovieList>();
+			for(JSONObject json : array) {
+				lists.add(new MovieList(json));
+			}
+			
+			return lists;
 		}
 	}
 	

@@ -7,7 +7,7 @@ import net.sf.json.JSONObject;
 public class Country extends Entity {
 	
 	private String iso3166_1;
-	private String name;
+	private String name = null;
 	
 	public Country(JSONObject json) {
 		super(json);
@@ -34,12 +34,16 @@ public class Country extends Entity {
 		this.name = name;
 	}
 	
+	public boolean isNameSet() {
+		return name != null;
+	}
+	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		try {
 			
 			setIso3166_1(json.getString(Constants.ISO_31661));
-			setName(json.getString(Constants.NAME));
+			if (json.has(Constants.NAME)) setName(json.getString(Constants.NAME));
 			
 		} catch (Exception e) {
 			Log.print(e);

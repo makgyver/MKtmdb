@@ -6,6 +6,7 @@ import java.util.Set;
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.movie.MovieReduced;
+import mk.tmdb.entity.person.PersonThumbnail;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
 import mk.tmdb.utils.ResponseArray;
@@ -14,8 +15,10 @@ import net.sf.json.JSONObject;
 
 public class CompanyThumbnail extends Entity {
 
-	private Integer id;
-	private String name;
+	protected Integer id;
+	protected String name;
+	protected String logoPath = null;
+	
 	
 	public CompanyThumbnail(JSONObject json) {
 		super(json);
@@ -43,6 +46,18 @@ public class CompanyThumbnail extends Entity {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getLogoPath() {
+		return logoPath;
+	}
+
+	public void setLogoPath(String logoPath) {
+		this.logoPath = logoPath;
+	}
+
+	public boolean isLogoPathSet() {
+		return logoPath != null;
+	}
 
 	//endregion
 	
@@ -52,6 +67,7 @@ public class CompanyThumbnail extends Entity {
 			
 			setId(json.getInt(Constants.ID));
 			setName(json.getString(Constants.NAME));
+			if (json.has(Constants.LOGO_PATH)) setLogoPath(json.getString(Constants.LOGO_PATH));
 			
 		} catch (Exception e) {
 			Log.print(e);
@@ -112,5 +128,42 @@ public class CompanyThumbnail extends Entity {
 		}
 	}
 	
+	public static Set<CompanyThumbnail> searchByName(String name) throws ResponseException {
+		return searchByName(name, 1);
+	}
+	
+	public static Set<CompanyThumbnail> searchByName(String name, int page) throws ResponseException {
+		ResponseArray response = TMDbAPI.searchCompanyByName(name, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<CompanyThumbnail> companies = new LinkedHashSet<CompanyThumbnail>();
+			for(JSONObject json : array) {
+				companies.add(new CompanyThumbnail(json));
+			}
+			
+			return companies;
+		}
+	}
+	
+	public static Set<CompanyThumbnail> fullSearchByName(String name, int page) throws ResponseException {
+		ResponseArray response = TMDbAPI.fullSearchCompanyByName(name);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<CompanyThumbnail> companies = new LinkedHashSet<CompanyThumbnail>();
+			for(JSONObject json : array) {
+				companies.add(new CompanyThumbnail(json));
+			}
+			
+			return companies;
+		}
+	}
+	
 	//endregion
+
 }

@@ -1,8 +1,10 @@
 package mk.tmdb.entity;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import mk.tmdb.core.Constants;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 public class Company extends CompanyThumbnail {
@@ -12,7 +14,6 @@ public class Company extends CompanyThumbnail {
 	private String description = null;
 	private String headquarters = null;
 	private URL homepage = null;
-	private String logoPath = null;
 	private String parentCompany = null;
 	
 	//endregion
@@ -64,18 +65,6 @@ public class Company extends CompanyThumbnail {
 		return homepage != null;
 	}
 	
-	public String getLogoPath() {
-		return logoPath;
-	}
-
-	public void setLogoPath(String logoPath) {
-		this.logoPath = logoPath;
-	}
-
-	public boolean isLogoPathSet() {
-		return logoPath != null;
-	}
-	
 	public String getParentCompany() {
 		return parentCompany;
 	}
@@ -94,10 +83,14 @@ public class Company extends CompanyThumbnail {
 	protected boolean parseJSON(JSONObject json) {
 		
 		if (json.has(Constants.DESCRIPTION)) setDescription(json.getString(Constants.DESCRIPTION));
-		if (json.has(Constants.HOMEPAGE)) setDescription(json.getString(Constants.HOMEPAGE));
-		if (json.has(Constants.PARENT_COMPANY)) setDescription(json.getString(Constants.PARENT_COMPANY));
-		if (json.has(Constants.LOGO_PATH)) setDescription(json.getString(Constants.LOGO_PATH));
-		if (json.has(Constants.HEADQUARTERS)) setDescription(json.getString(Constants.HEADQUARTERS));
+		if (json.has(Constants.HOMEPAGE))
+			try {
+				setHomepage(new URL(json.getString(Constants.HOMEPAGE)));
+			} catch (MalformedURLException e) {
+				Log.print(e);
+			}
+		if (json.has(Constants.PARENT_COMPANY)) setParentCompany(json.getString(Constants.PARENT_COMPANY));
+		if (json.has(Constants.HEADQUARTERS)) setHeadquarters(json.getString(Constants.HEADQUARTERS));
 		
 		return true;
 	}

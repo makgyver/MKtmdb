@@ -156,6 +156,42 @@ public class Keyword extends Entity {
 		}
 	}
 	
+	public static Set<Keyword> searchByName(String name) throws ResponseException {
+		return searchByName(name, 1);
+	}
+	
+	public static Set<Keyword> searchByName(String name, int page) throws ResponseException {
+		ResponseArray response = TMDbAPI.searchKeywordByName(name, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<Keyword> keys = new LinkedHashSet<Keyword>();
+			for(JSONObject json : array) {
+				keys.add(new Keyword(json));
+			}
+			
+			return keys;
+		}
+	}
+	
+	public static Set<Keyword> fullSearchByName(String name) throws ResponseException {
+		ResponseArray response = TMDbAPI.fullSearchKeywordByName(name);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<Keyword> keys = new LinkedHashSet<Keyword>();
+			for(JSONObject json : array) {
+				keys.add(new Keyword(json));
+			}
+			
+			return keys;
+		}
+	}
+	
 	//endregion
 	
 }

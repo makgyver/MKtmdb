@@ -19,7 +19,7 @@ public class Person extends PersonThumbnail {
 
 	//region Fields
 	
-	private Boolean adult = null;
+	
 	private Set<String> aka = Collections.synchronizedSet(new LinkedHashSet<String>()); 
 	private String bio = null;
 	private Date birthday = null;
@@ -39,18 +39,6 @@ public class Person extends PersonThumbnail {
 	}
 	
 	//region Getters/Setters
-	
-	public boolean isAdult() {
-		return adult;
-	}
-	
-	public void setAdult(boolean adult) {
-		this.adult = adult;
-	}
-	
-	public boolean isAdultSet() {
-		return adult != null;
-	}
 	
 	public Set<String> getAka() {
 		return aka;
@@ -131,7 +119,6 @@ public class Person extends PersonThumbnail {
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		
-		if (json.has(Constants.ADULT)) setAdult(json.getBoolean(Constants.ADULT));
 		if (json.has(Constants.BIO)) setBiography(json.getString(Constants.BIO));
 		if (json.has(Constants.BIRTHDAY)) setBirthday(json.getString(Constants.BIRTHDAY));
 		if (json.has(Constants.DEATHDAY)) setDeathday(json.getString(Constants.DEATHDAY));

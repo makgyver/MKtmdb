@@ -603,6 +603,9 @@ public final class TMDbAPI {
 	 * @return The TMDB Api response object
 	 */
 	public static ResponseObject getAlternativeMovieTitles(int movieID) {
+		
+		// Country parameter has been skipped
+		
 		try {
 			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getAlternativeMovieTitlesUrl(movieID))));
 			
@@ -735,6 +738,32 @@ public final class TMDbAPI {
 	public static ResponseArray getSimilarMovies(int movieID, int page) {
 		try {
 			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.getSimilarMoviesUrl(movieID, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Gets all the similar movies for a specific movie id.
+	 * 
+	 * @param movieID The movie ID
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray getAllSimilarMovies(int movieID) {
+		try {
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getSimilarMoviesUrl(movieID))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getSimilarMoviesUrl(movieID, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);
@@ -1094,6 +1123,8 @@ public final class TMDbAPI {
 			return new ResponseObject(Status.MALFORMED_URL);
 		}
 	}
+	
+	
 	
 	//endregion
 	
@@ -1802,6 +1833,61 @@ public final class TMDbAPI {
 	}
 	
 	/**
+	 * Searches for people by name. Gets all the results.
+	 * 
+	 * @param name The person name
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchPersonByName(String name) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchPeopleByNameUrl(name))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchPeopleByNameUrl(name, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Searches for people by name. Gets all the results.
+	 * 
+	 * @param name The person name
+	 * @param adult Whether the movie audience is adult only
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchPersonByName(String name, boolean adult) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchPeopleByNameUrl(name, adult))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchPeopleByNameUrl(name, adult, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
 	 * Searches for company by name.
 	 * 
 	 * @param name The company name
@@ -1821,6 +1907,144 @@ public final class TMDbAPI {
 	public static ResponseArray searchCompanyByName(String name, int page) {
 		try {
 			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchCompanyByNameUrl(name, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Searches for company by name. Gets all the results.
+	 * 
+	 * @param name The company name
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchCompanyByName(String name) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchCompanyByNameUrl(name))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchCompanyByNameUrl(name, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Searches for keyword by name.
+	 * 
+	 * @param name The keyword name
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray searchKeywordByName(String name) {
+		return searchKeywordByName(name, 1);
+	}
+	
+	/**
+	 * Searches for keyword by name.
+	 * 
+	 * @param name The keyword name
+	 * @param page The page number to retrieve
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray searchKeywordByName(String name, int page) {
+		try {
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchKeywordByNameUrl(name, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Searches for keyword by name. Gets all the results.
+	 * 
+	 * @param name The keyword name
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchKeywordByName(String name) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchKeywordByNameUrl(name))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchKeywordByNameUrl(name, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Search for lists by name and description.
+	 * 
+	 * @param name The list name or description
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray searchListByName(String name) {
+		return searchListByName(name, 1);
+	}
+	
+	/**
+	 * Search for lists by name and description.
+	 * 
+	 * @param name The list name or description
+	 * @param page The page number to retrieve
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray searchListByName(String name, int page) {
+		try {
+			
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchListByNameUrl(name, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Search for lists by name and description. Gets all the results.
+	 * 
+	 * @param name The list name or description
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchListByName(String name) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchListByNameUrl(name))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchListByNameUrl(name, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);

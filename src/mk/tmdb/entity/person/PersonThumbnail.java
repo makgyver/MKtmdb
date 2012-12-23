@@ -25,6 +25,7 @@ public class PersonThumbnail extends Entity {
 	protected String name;
 	protected String profilePath;
 	protected Set<Role> roles = Collections.synchronizedSet(new LinkedHashSet<Role>());
+	private Boolean adult = null;
 	
 	//endregion
 	
@@ -76,6 +77,18 @@ public class PersonThumbnail extends Entity {
 		roles.add(role);
 	}
 	
+	public boolean isAdult() {
+		return adult;
+	}
+	
+	public void setAdult(boolean adult) {
+		this.adult = adult;
+	}
+	
+	public boolean isAdultSet() {
+		return adult != null;
+	}
+	
 	//endregion
 	
 	@Override
@@ -84,6 +97,7 @@ public class PersonThumbnail extends Entity {
 		setName(json.getString(Constants.NAME));
 		setId(json.getInt(Constants.ID));
 		setProfilePath(json.getString(Constants.PROFILE_PATH));
+		if (json.has(Constants.ADULT)) setAdult(json.getBoolean(Constants.ADULT));
 		
 		return true;
 	}
@@ -206,6 +220,82 @@ public class PersonThumbnail extends Entity {
 			}
 			
 			return ids;
+		}
+	}
+	
+	//endregion
+	
+	//region Search methods
+	
+	public static Set<PersonThumbnail> searchByName(String name) throws ResponseException {
+		return searchByName(name, 1);
+	}
+	
+	public static Set<PersonThumbnail> searchByName(String name, int page) throws ResponseException {
+		ResponseArray response = TMDbAPI.searchPersonByName(name, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<PersonThumbnail> people = new LinkedHashSet<PersonThumbnail>();
+			for(JSONObject json : array) {
+				people.add(new PersonThumbnail(json));
+			}
+			
+			return people;
+		}
+	}
+	
+	public static Set<PersonThumbnail> searchByName(String name, boolean adult) throws ResponseException {
+		return searchByName(name, adult, 1);
+	}
+	
+	public static Set<PersonThumbnail> searchByName(String name, boolean adult, int page) throws ResponseException {
+		ResponseArray response = TMDbAPI.searchPersonByName(name, adult, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<PersonThumbnail> people = new LinkedHashSet<PersonThumbnail>();
+			for(JSONObject json : array) {
+				people.add(new PersonThumbnail(json));
+			}
+			
+			return people;
+		}
+	}
+	
+	public static Set<PersonThumbnail> fullSearchByName(String name) throws ResponseException {
+		ResponseArray response = TMDbAPI.fullSearchPersonByName(name);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<PersonThumbnail> people = new LinkedHashSet<PersonThumbnail>();
+			for(JSONObject json : array) {
+				people.add(new PersonThumbnail(json));
+			}
+			
+			return people;
+		}
+	}
+	
+	public static Set<PersonThumbnail> fullSearchByName(String name, boolean adult) throws ResponseException {
+		ResponseArray response = TMDbAPI.fullSearchPersonByName(name, adult);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			Set<JSONObject> array = response.getData();
+			Set<PersonThumbnail> people = new LinkedHashSet<PersonThumbnail>();
+			for(JSONObject json : array) {
+				people.add(new PersonThumbnail(json));
+			}
+			
+			return people;
 		}
 	}
 	

@@ -10,6 +10,7 @@ import java.util.Set;
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.Account;
+import mk.tmdb.entity.Country;
 import mk.tmdb.entity.Entity;
 import mk.tmdb.entity.Keyword;
 import mk.tmdb.entity.Language;
@@ -22,6 +23,7 @@ import mk.tmdb.entity.trailer.Trailer;
 import mk.tmdb.entity.trailer.YoutubeTrailer;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
+import mk.tmdb.utils.Pair;
 import mk.tmdb.utils.ResponseArray;
 import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONArray;
@@ -499,6 +501,91 @@ public class MovieThumbnail extends Entity {
 			}
 			
 			return ids;
+		}
+	}
+	
+	public static Set<Pair<Country, String>> getAlternativeTitles(int movieID) throws ResponseException {
+		
+		ResponseObject response = TMDbAPI.getAlternativeMovieTitles(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			JSONArray array = response.getData().getJSONArray(Constants.TITLES);
+			Set<Pair<Country, String>> titles = new LinkedHashSet<Pair<Country, String>>();
+			for (Object obj : array) {
+				JSONObject json = (JSONObject) obj;
+			    titles.add(new Pair<Country, String>(new Country(json), json.getString(Constants.TITLE)));
+			}
+			
+			return titles;
+		}
+	}
+	
+	public static Set<Pair<Country, Date>> getReleaseDates(int movieID) throws ResponseException {
+		
+		// Certification information has been skipped
+		
+		ResponseObject response = TMDbAPI.getMovieReleases(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			JSONArray array = response.getData().getJSONArray(Constants.COUNTRIES);
+			Set<Pair<Country, Date>> dates = new LinkedHashSet<Pair<Country, Date>>();
+			for (Object obj : array) {
+				JSONObject json = (JSONObject) obj;
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			    try {
+					dates.add(new Pair<Country, Date>(new Country(json), (Date)formatter.parse(json.getString(Constants.RELEASE_DATE))));
+				} catch (ParseException e) {
+					Log.print(e);
+				}
+			}
+			
+			return dates;
+		}
+	}
+	
+	public static Set<MovieReduced> getSimilarMovies(int movieID) throws ResponseException {
+		return getSimilarMovies(movieID, 1);
+	}
+	
+	public static Set<MovieReduced> getSimilarMovies(int movieID, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getSimilarMovies(movieID, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<MovieReduced> sims = new LinkedHashSet<MovieReduced>();
+			Set<JSONObject> array = response.getData();
+			for (JSONObject json : array) {
+				sims.add(new MovieReduced(json));
+			}
+
+			return sims;
+		}
+	}
+	
+	public static Set<MovieReduced> getAllSimilarMovies(int movieID) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getAllSimilarMovies(movieID);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<MovieReduced> sims = new LinkedHashSet<MovieReduced>();
+			Set<JSONObject> array = response.getData();
+			for (JSONObject json : array) {
+				sims.add(new MovieReduced(json));
+			}
+
+			return sims;
 		}
 	}
 	
