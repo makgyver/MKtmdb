@@ -1,4 +1,4 @@
 MKtmdb
 ======
 
-TMDB API wrapper
+TMDB API wrapper written in Java.
