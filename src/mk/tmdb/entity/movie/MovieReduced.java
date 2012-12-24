@@ -6,10 +6,14 @@ import net.sf.json.JSONObject;
 
 public class MovieReduced extends MovieThumbnail {
 
+	//region Fields
+	
 	protected Double voteAverage = null;
 	protected Integer voteCount = null;
 	protected String backdropPath = null;
 	protected Double popularity = null;
+	
+	//endregion
 	
 	public MovieReduced(JSONObject json) {
 		super(json);
@@ -19,6 +23,8 @@ public class MovieReduced extends MovieThumbnail {
 	public MovieReduced(MovieThumbnail movie) {
 		this(movie.getOriginJSON());
 	}
+	
+	//region Getters/Setters
 	
 	public double getVoteAverage() {
 		return voteAverage;
@@ -67,6 +73,8 @@ public class MovieReduced extends MovieThumbnail {
 	public boolean isPopularitySet() {
 		return popularity != null;
 	}
+	
+	//endregion
 
 	@Override
 	protected boolean parseJSON(JSONObject json) {
@@ -78,6 +86,5 @@ public class MovieReduced extends MovieThumbnail {
 		
 		return true;
 	}
-	
 	
 }

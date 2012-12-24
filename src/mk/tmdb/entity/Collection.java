@@ -17,6 +17,8 @@ import mk.tmdb.utils.ResponseObject;
 
 public class Collection extends Entity {
 
+	//region Fields
+	
 	private String backdropPath;
 	private int id;
 	private String name;
@@ -24,6 +26,8 @@ public class Collection extends Entity {
 	private Set<MovieThumbnail> movies = Collections.synchronizedSet(new LinkedHashSet<MovieThumbnail>());
 	private Set<Poster> posters = Collections.synchronizedSet(new LinkedHashSet<Poster>());
 	private Set<Backdrop> backdrops = Collections.synchronizedSet(new LinkedHashSet<Backdrop>());
+	
+	//endregion
 	
 	public Collection(JSONObject json) {
 		super(json);

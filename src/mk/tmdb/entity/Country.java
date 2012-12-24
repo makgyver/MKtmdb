@@ -18,6 +18,8 @@ public class Country extends Entity {
 		this(country.getOriginJSON());
 	}
 	
+	//region Getters/Setters
+	
 	public String getIso3166_1() {
 		return iso3166_1;
 	}
@@ -37,6 +39,8 @@ public class Country extends Entity {
 	public boolean isNameSet() {
 		return name != null;
 	}
+	
+	//endregion
 	
 	@Override
 	protected boolean parseJSON(JSONObject json) {

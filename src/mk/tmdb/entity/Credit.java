@@ -27,6 +27,8 @@ public class Credit extends Entity {
 		this(credit.getOriginJSON(), credit.getType());
 	}
 	
+	//region Getters/Setters
+	
 	public MovieThumbnail getMovie() {
 		return movie;
 	}
@@ -46,6 +48,8 @@ public class Credit extends Entity {
 	public Type getType() {
 		return type;
 	}
+	
+	//endregion
 
 	@Override
 	protected boolean parseJSON(JSONObject json) {

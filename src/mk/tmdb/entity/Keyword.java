@@ -49,6 +49,8 @@ public class Keyword extends Entity {
 		this(keyword.getOriginJSON());
 	}
 	
+	//region Getters/Setters
+	
 	/**
 	 * Gets the keyword ID.
 	 * 
@@ -84,6 +86,8 @@ public class Keyword extends Entity {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
+	//endregion
 	
 	/**
 	 * Parses the origin JSON object.

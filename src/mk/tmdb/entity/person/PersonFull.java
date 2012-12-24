@@ -37,7 +37,7 @@ public class PersonFull extends Person {
 		this(person.getOriginJSON());
 		if(loadAll)
 			try {
-				retrieveAllInformation();
+				getFullInformation();
 			} catch (ResponseException e) {
 				Log.print(e);
 			}
@@ -59,7 +59,7 @@ public class PersonFull extends Person {
 		this.credits = credits;
 	}
 
-	public void retrieveAllInformation() throws ResponseException {
+	private void getFullInformation() throws ResponseException {
 		setCredits(getCredits(id));
 		setImages(getImages(id));
 	}

@@ -7,15 +7,21 @@ import net.sf.json.JSONObject;
 
 public abstract class Trailer extends Entity {
 	
+	//region Fields
+	
 	protected String name;
 	protected String size;
 	protected URL link;
 	protected String source;
 	
+	//endregion
+	
 	public Trailer(JSONObject json, String source) {
 		super(json);
 		this.source = source;
 	}
+	
+	//region Getters/Setters
 	
 	public String getName() {
 		return name;
@@ -49,6 +55,8 @@ public abstract class Trailer extends Entity {
 		this.source = source;
 	}
 
+	//endregion
+	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		return false;

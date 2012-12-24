@@ -320,9 +320,9 @@ public class Account extends Entity {
 		return true;
 	}
 	
-	// --------------
-	// Static methods
-	// --------------
+	// ----------------
+	//  Static methods
+	// ----------------
 	
 	/**
 	 * Static method that gets a new Account instance filled with the basic information. 

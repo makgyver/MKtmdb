@@ -12,10 +12,6 @@ import mk.tmdb.utils.Size;
 
 public class Backdrop extends Image {
 	
-	public Backdrop(String path) {
-		super(path);
-	}
-	
 	public Backdrop(JSONObject json) {
 		super(json);
 	}

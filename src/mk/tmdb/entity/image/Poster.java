@@ -11,10 +11,6 @@ import mk.tmdb.exception.ImageSizeNotSupportedException;
 import mk.tmdb.utils.Size;
 
 public class Poster extends Image {
-
-	public Poster(String path) {
-		super(path);
-	}
 	
 	public Poster(JSONObject json) {
 		super(json);

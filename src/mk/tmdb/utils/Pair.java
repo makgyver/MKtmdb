@@ -17,5 +17,24 @@ public class Pair<L,R> {
 	public R getSecond() { 
 		return second; 
 	}
+	
+	@Override
+	public String toString() {
+		return "(" + first.toString() + ", " + second.toString() + ")";
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		try
+		{
+			@SuppressWarnings("unchecked")
+			Pair<L,R> pair = (Pair<L, R>) object;
+			return first.equals(pair.getFirst()) && second.equals(pair.getSecond());
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
 
 }

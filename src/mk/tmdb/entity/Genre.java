@@ -50,6 +50,8 @@ public class Genre extends Entity {
 		this(genre.getOriginJSON());
 	}
 	
+	//region Getters/Setters
+	
 	/**
 	 * Gets the genre ID.
 	 * 
@@ -85,6 +87,8 @@ public class Genre extends Entity {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	//endregion
 	
 	/**
 	 * Parses the origin JSON object.

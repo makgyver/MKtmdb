@@ -11,10 +11,6 @@ import mk.tmdb.exception.ImageSizeNotSupportedException;
 import mk.tmdb.utils.Size;
 
 public class Logo extends Image {
-
-	public Logo(String path) {
-		super(path);
-	}
 	
 	public Logo(JSONObject json) {
 		super(json);

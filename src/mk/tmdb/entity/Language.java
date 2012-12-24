@@ -19,6 +19,8 @@ public class Language extends Entity {
 		this(lang.getOriginJSON());
 	}
 	
+	//region Getters/Setters
+	
 	public String getIso639_1() {
 		return iso639_1;
 	}
@@ -42,6 +44,8 @@ public class Language extends Entity {
 	public void setEnglishName(String englishName) {
 		this.englishName = englishName;
 	}
+	
+	//endregion
 	
 	@Override
 	protected boolean parseJSON(JSONObject json) {

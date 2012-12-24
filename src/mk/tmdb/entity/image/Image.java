@@ -15,6 +15,8 @@ import mk.tmdb.utils.Size;
 
 public abstract class Image extends Entity {
 		
+	//region Fields 
+	
 	protected String path;
 	protected int width = 0;
 	protected int height = 0;
@@ -23,14 +25,14 @@ public abstract class Image extends Entity {
 	protected double average = 0.0;
 	protected int count = 0;
 	
-	public Image(String path) {
-		this.path = path;
-	}
+	//endregion
 
 	public Image(JSONObject json) {
 		super(json);
 		parseJSON(json);
 	}
+	
+	//region Getters/Setters
 
 	public String getPath() {
 		return path;
@@ -96,6 +98,8 @@ public abstract class Image extends Entity {
 				   	   size + 
 				       path);
 	}
+	
+	//endregion
 	
 	@Override
 	protected boolean parseJSON(JSONObject json) {

@@ -156,7 +156,7 @@ public class MovieList extends Entity {
 		return true;
 	}
 	
-	// Static methods
+	//region Static methods
 	
 	public static MovieList getList(String listID) throws ResponseException {
 		
@@ -204,5 +204,7 @@ public class MovieList extends Entity {
 			return lists;
 		}
 	}
+	
+	//endregion
 	
 }

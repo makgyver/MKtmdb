@@ -44,5 +44,15 @@ public abstract class Entity {
 	public JSONObject getOriginJSON() {
 		return originJson;
 	}
+	
+	@Override
+	public String toString() {
+		if (originJson != null)
+		{
+			return originJson.toString();
+		} else {
+			return "";
+		}
+	}
 
 }

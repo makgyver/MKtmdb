@@ -11,10 +11,6 @@ import mk.tmdb.exception.ImageSizeNotSupportedException;
 import mk.tmdb.utils.Size;
 
 public class Profile extends Image {
-
-	public Profile(String path) {
-		super(path);
-	}
 	
 	public Profile(JSONObject json) {
 		super(json);

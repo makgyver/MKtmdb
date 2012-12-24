@@ -7,15 +7,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
-import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.Collection;
 import mk.tmdb.entity.Country;
 import mk.tmdb.entity.Genre;
 import mk.tmdb.entity.Language;
 import mk.tmdb.entity.company.CompanyThumbnail;
-import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
-import mk.tmdb.utils.ResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 

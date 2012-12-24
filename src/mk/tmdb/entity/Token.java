@@ -46,6 +46,8 @@ public class Token extends Entity {
 		this(token.getOriginJSON());
 	}
 	
+	//region Getters/Setters
+	
 	/**
 	 * Gets the expiration date.
 	 * 
@@ -87,6 +89,8 @@ public class Token extends Entity {
 		this.value = value;
 	}
 
+	//endregion
+	
 	/**
 	 * Parses the origin JSON object.
 	 */
