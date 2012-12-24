@@ -1,12 +1,12 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.company;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDbAPI;
+import mk.tmdb.entity.Entity;
 import mk.tmdb.entity.movie.MovieReduced;
-import mk.tmdb.entity.person.PersonThumbnail;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
 import mk.tmdb.utils.ResponseArray;

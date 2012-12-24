@@ -1,6 +1,7 @@
 package mk.tmdb.entity.person;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -187,6 +188,42 @@ public class PersonThumbnail extends Entity {
 		}
 	}
 	
+	public static Set<Integer> getChanged(Date start, Date end) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedPersons(start, end);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+
+	public static Set<Integer> getChanged(String start, String end) throws ResponseException {
+	
+		ResponseArray response = TMDbAPI.getChangedPersons(start, end);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
 	public static Set<Integer> getChanged(int page) throws ResponseException {
 		
 		ResponseArray response = TMDbAPI.getChangedPersons(page);
@@ -205,9 +242,81 @@ public class PersonThumbnail extends Entity {
 		}
 	}
 	
+	public static Set<Integer> getChanged(String start, String end, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedPersons(start, end, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getChanged(Date start, Date end, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedPersons(start, end, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
 	public static Set<Integer> getAllChanged() throws ResponseException {
 		
 		ResponseArray response = TMDbAPI.getAllChangedPersons();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getAllChanged(String start, String end) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getAllChangedPersons(start, end);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getAllChanged(Date start, Date end) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getAllChangedPersons(start, end);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());

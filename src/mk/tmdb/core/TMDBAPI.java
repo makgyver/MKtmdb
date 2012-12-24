@@ -865,7 +865,7 @@ public final class TMDbAPI {
 	}
 	
 	/**
-	 * Gets the lastest movie id.
+	 * Gets the latest movie id.
 	 * 
 	 * @return The TMDB Api response object
 	 */
@@ -1998,7 +1998,7 @@ public final class TMDbAPI {
 	}
 	
 	/**
-	 * Search for lists by name and description.
+	 * Searches for lists by name and description.
 	 * 
 	 * @param name The list name or description
 	 * @return The TMDB Api response array
@@ -2008,7 +2008,7 @@ public final class TMDbAPI {
 	}
 	
 	/**
-	 * Search for lists by name and description.
+	 * Searches for lists by name and description.
 	 * 
 	 * @param name The list name or description
 	 * @param page The page number to retrieve
@@ -2027,7 +2027,7 @@ public final class TMDbAPI {
 	}
 	
 	/**
-	 * Search for lists by name and description. Gets all the results.
+	 * Searches for lists by name and description. Gets all the results.
 	 * 
 	 * @param name The list name or description
 	 * @return The TMDB Api response array
@@ -2039,6 +2039,62 @@ public final class TMDbAPI {
 			
 			for (int p = 2; p <= result.getPages(); p++) {
 				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchListByNameUrl(name, p))));
+				for (Object obj : page.getData()) {
+					result.addData((JSONObject) obj);
+				}
+			}
+			
+			return result;
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Searches for collections by name.
+	 * 
+	 * @param name The collection name
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray searchCollectionByName(String name) {
+		return searchListByName(name, 1);
+	}
+	
+	/**
+	 * Search for collections by name.
+	 * 
+	 * @param name The collection name
+	 * @param page The page number to retrieve
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray searchCollectionByName(String name, int page) {
+		try {
+			
+			return new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchCollectionByNameUrl(name, page))));
+			
+		} catch (MalformedURLException e) {
+			Log.print(e);
+			
+			return new ResponseArray(Status.MALFORMED_URL);
+		}
+	}
+	
+	/**
+	 * Search for collections by name. Gets all the results.
+	 * 
+	 * @param name The collection name
+	 * @return The TMDB Api response array
+	 */
+	public static ResponseArray fullSearchCollectionByName(String name) {
+		try {
+			
+			ResponseArray result = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchCollectionByNameUrl(name))));
+			
+			for (int p = 2; p <= result.getPages(); p++) {
+				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.searchCollectionByNameUrl(name, p))));
 				for (Object obj : page.getData()) {
 					result.addData((JSONObject) obj);
 				}

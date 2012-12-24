@@ -35,7 +35,7 @@ public class MovieThumbnail extends Entity {
 	
 	protected Boolean adult = null;
 	protected Integer id;
-	protected String originalTitle;
+	protected String originalTitle = null;
 	protected String title;
 	protected String posterPath;
 	protected Date releaseDate;
@@ -79,6 +79,10 @@ public class MovieThumbnail extends Entity {
 
 	public void setOriginalTitle(String originalTitle) {
 		this.originalTitle = originalTitle;
+	}
+	
+	public boolean isOriginalTitleSet() {
+		return originalTitle != null;
 	}
 
 	public String getTitle() {
@@ -468,6 +472,42 @@ public class MovieThumbnail extends Entity {
 		}
 	}
 	
+	public static Set<Integer> getChanged(Date start, Date end) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedMovies(start, end);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getChanged(String start, String end) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedMovies(start, end);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
 	public static Set<Integer> getChanged(int page) throws ResponseException {
 		
 		ResponseArray response = TMDbAPI.getChangedMovies(page);
@@ -486,9 +526,81 @@ public class MovieThumbnail extends Entity {
 		}
 	}
 	
+	public static Set<Integer> getChanged(Date start, Date end, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedMovies(start, end, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getChanged(String start, String end, int page) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getChangedMovies(start, end, page);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
 	public static Set<Integer> getAllChanged() throws ResponseException {
 		
 		ResponseArray response = TMDbAPI.getAllChangedMovies();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getAllChanged(Date start, Date end) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getAllChangedMovies(start, end);
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			
+			Set<JSONObject> array = response.getData();
+			Set<Integer> ids = new LinkedHashSet<Integer>();
+			for (JSONObject json : array) {
+			    ids.add(json.getInt(Constants.ID));
+			}
+			
+			return ids;
+		}
+	}
+	
+	public static Set<Integer> getAllChanged(String start, String end) throws ResponseException {
+		
+		ResponseArray response = TMDbAPI.getAllChangedMovies(start, end);
 		
 		if (response.hasError()) {
 			throw new ResponseException(response.getStatus());
@@ -525,7 +637,7 @@ public class MovieThumbnail extends Entity {
 	
 	public static Set<Pair<Country, Date>> getReleaseDates(int movieID) throws ResponseException {
 		
-		// Certification information has been skipped
+		// Certification skipped
 		
 		ResponseObject response = TMDbAPI.getMovieReleases(movieID);
 		
@@ -586,6 +698,17 @@ public class MovieThumbnail extends Entity {
 			}
 
 			return sims;
+		}
+	}
+	
+	public static Movie getLatestMovie() throws ResponseException {
+		
+		ResponseObject response = TMDbAPI.getLatestMovie();
+		
+		if (response.hasError()) {
+			throw new ResponseException(response.getStatus());
+		} else {
+			return new Movie(response.getData());
 		}
 	}
 	

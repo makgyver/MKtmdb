@@ -21,6 +21,7 @@ public final class Constants {
 	public static final String BACKDROP_SIZES = "backdrop_sizes";
 	public static final String BACKDROPS = "backdrops";
 	public static final String BASE_URL = "base_url";
+	public static final String BELONGS_TO_COLLECTION = "belongs_to_collection";
 	public static final String BIO = "biography";
 	public static final String BIRTHDAY = "birthday";
 	public static final String BUDGET = "budget";
@@ -89,6 +90,7 @@ public final class Constants {
 	public static final String PATH = "file_path";
 	public static final String PAGE = "page";
 	public static final String PARENT_COMPANY = "parent_company";
+	public static final String PARTS = "parts";
 	public static final String PERSON = "person";
 	public static final String PLACE_OF_BIRTH = "place_of_birth";
 	public static final String POPULAR_MOVIES = "movie/popular";

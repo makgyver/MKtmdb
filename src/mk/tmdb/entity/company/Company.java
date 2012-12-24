@@ -1,4 +1,4 @@
-package mk.tmdb.entity;
+package mk.tmdb.entity.company;
 
 import java.net.MalformedURLException;
 import java.net.URL;

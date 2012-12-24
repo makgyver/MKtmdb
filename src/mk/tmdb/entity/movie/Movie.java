@@ -8,10 +8,11 @@ import java.util.Set;
 
 import mk.tmdb.core.Constants;
 import mk.tmdb.core.TMDbAPI;
-import mk.tmdb.entity.CompanyThumbnail;
+import mk.tmdb.entity.Collection;
 import mk.tmdb.entity.Country;
 import mk.tmdb.entity.Genre;
 import mk.tmdb.entity.Language;
+import mk.tmdb.entity.company.CompanyThumbnail;
 import mk.tmdb.exception.ResponseException;
 import mk.tmdb.utils.Log;
 import mk.tmdb.utils.ResponseObject;
@@ -30,6 +31,7 @@ public class Movie extends MovieReduced {
 	protected String status = null;
 	protected String tagline = null;
 	protected Integer revenue = null;
+	protected Collection collection = null;
 	protected Set<Genre> genres = Collections.synchronizedSet(new LinkedHashSet<Genre>());
 	protected Set<CompanyThumbnail> companies = Collections.synchronizedSet(new LinkedHashSet<CompanyThumbnail>());
 	protected Set<Country> countries = Collections.synchronizedSet(new LinkedHashSet<Country>());
@@ -45,6 +47,8 @@ public class Movie extends MovieReduced {
 	public Movie(MovieThumbnail movie) {
 		this(movie.getOriginJSON());
 	}
+	
+	//region Getters/Setters
 	
 	public String getImdbID() {
 		return imdbID;
@@ -178,6 +182,20 @@ public class Movie extends MovieReduced {
 		return revenue != null;
 	}
 
+	public Collection getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Collection collection) {
+		this.collection = collection;
+	}
+	
+	public boolean isCollectionSet() {
+		return collection != null;
+	}
+	
+	//endregion
+	
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 			
@@ -188,6 +206,7 @@ public class Movie extends MovieReduced {
 		if (json.has(Constants.RUNTIME)) setRuntime(json.getInt(Constants.RUNTIME));
 		if (json.has(Constants.STATUS)) setStatus(json.getString(Constants.STATUS));
 		if (json.has(Constants.TAGLINE)) setTagline(json.getString(Constants.TAGLINE));
+		if (json.has(Constants.BELONGS_TO_COLLECTION)) setCollection(new Collection(json.getJSONObject(Constants.BELONGS_TO_COLLECTION)));
 		
 		if (json.has(Constants.HOMEPAGE)) {
 			try {
@@ -227,17 +246,6 @@ public class Movie extends MovieReduced {
 		}
 		
 		return true;
-	}
-	
-	public static Movie getLatestMovie() throws ResponseException {
-		
-		ResponseObject response = TMDbAPI.getLatestMovie();
-		
-		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
-		} else {
-			return new Movie(response.getData());
-		}
 	}
 	
 }
