@@ -54,5 +54,15 @@ public abstract class Entity {
 			return "";
 		}
 	}
+	
+	@Override
+	public boolean equals(Object object) {
+		if (object != null) {
+			Entity entity = (Entity) object;
+			return originJson.equals((entity).getOriginJSON());
+		} else {
+			return false;
+		}
+	}
 
 }

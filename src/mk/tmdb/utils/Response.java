@@ -61,4 +61,9 @@ public abstract class Response {
 	protected void setStatus(Status status) {
 		this.status = status;
 	}
+	
+	@Override
+	public String toString() {
+		return status.getMessage();
+	}
 }

@@ -42,4 +42,9 @@ public class ImageSizeNotSupportedException extends Exception {
 		return mistake;
 	}
 	
+	@Override
+	public String toString() {
+		return "ImageSizeNotSupportedException: " + mistake;
+	}
+	
 }

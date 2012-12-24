@@ -27,9 +27,13 @@ public class Pair<L,R> {
 	public boolean equals(Object object) {
 		try
 		{
-			@SuppressWarnings("unchecked")
-			Pair<L,R> pair = (Pair<L, R>) object;
-			return first.equals(pair.getFirst()) && second.equals(pair.getSecond());
+			if (object != null) {
+				@SuppressWarnings("unchecked")
+				Pair<L,R> pair = (Pair<L, R>) object;
+				return first.equals(pair.getFirst()) && second.equals(pair.getSecond());
+			} else {
+				return false;
+			}
 		}
 		catch(Exception e)
 		{

@@ -148,7 +148,7 @@ public final class TMDbAPI {
 	}
 	
 	//endregion
-
+	
 	//region Configuration
 	
 	

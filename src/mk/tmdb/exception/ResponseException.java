@@ -53,4 +53,9 @@ public class ResponseException extends Exception {
 	public Status getStatus() {
 		return status;
 	}
+	
+	@Override
+	public String toString() {
+		return "ResponseException: " + status.getMessage();
+	}
 }

@@ -46,4 +46,8 @@ public class ConfigurationNotLoadedException extends Exception {
 		return mistake;
 	}
 	
+	@Override
+	public String toString() {
+		return "ConfigurationNotLoadedException: " + mistake;
+	}
 }
