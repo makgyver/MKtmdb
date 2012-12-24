@@ -1296,7 +1296,7 @@ public final class TMDbAPI {
 	 */
 	public static ResponseObject getCollectionImages(int collectionID) {
 		try {
-			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getCollectionInfoUrl(collectionID))));
+			return new ResponseObject(toJSON(makeApiCallGet(URLCreator.getCollectionImagesUrl(collectionID))));
 			
 		} catch (MalformedURLException e) {
 			Log.print(e);

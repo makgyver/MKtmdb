@@ -23,7 +23,7 @@ public class PersonFull extends Person {
 		super(json);
 		if (loadAll)
 			try {
-				retrieveAllInformation();
+				getFullInformation();
 			} catch (ResponseException e) {
 				Log.print(e);
 			}
