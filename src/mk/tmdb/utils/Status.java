@@ -93,18 +93,18 @@ public enum Status {
 		return message;
 	}
 	
-    /**
+	/**
 	 * Gets the status identified by the given code.
 	 * 
 	 * @param code The status code.
 	 * @return The status
 	 */
-    public static Status getStatusByCode(int code) {
-    	
-    	for (Status s : values()) {
-    		if (s.getCode() == code) return s;
-    	}
-    	
-    	return Status.UNKNOWN_ERROR;
-    }
+	public static Status getStatusByCode(int code) {
+	    
+	    for (Status s : values()) {
+	    	if (s.getCode() == code) return s;
+	    }
+	    
+	    return Status.UNKNOWN_ERROR;
+	}
 }
