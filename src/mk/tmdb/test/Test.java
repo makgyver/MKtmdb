@@ -5,9 +5,11 @@ import java.util.Set;
 import mk.tmdb.core.Authentication;
 import mk.tmdb.core.URLCreator;
 import mk.tmdb.entity.Collection;
+import mk.tmdb.entity.Genre;
 import mk.tmdb.entity.Token;
 import mk.tmdb.entity.image.Backdrop;
 import mk.tmdb.entity.image.Poster;
+import mk.tmdb.entity.movie.MovieReduced;
 import mk.tmdb.utils.Log;
 
 public class Test {
@@ -22,16 +24,18 @@ public class Test {
 			// Constants class is ok.
 			// Token class tested with success.
 			// Collection class tested with success.
+			// Entity class is ok.
+			// Genre class tested with success.
 			
-			Collection collection = Collection.getInformation(10);
-			Set<Collection> colls1 = Collection.searchByName("star");
-			Set<Collection> colls2 = Collection.searchByName("star", 2);
-			Set<Collection> colls3 = Collection.fullSearchByName("star");
-			String s = URLCreator.getCollectionInfoUrl(10).toString();
-			Set<Backdrop> backs = Collection.getBackrops(10);
-			Set<Poster> posts = Collection.getPosters(10);
+			Set<Genre> genres = Genre.getList();
+			System.out.println("0");
+			Set<MovieReduced> movies1 = Genre.getAssociatedMovies(28, 5);
+			System.out.println(movies1.size());
+			Set<MovieReduced> movies2 = Genre.getAssociatedMovies(28, 22);
+			System.out.println(movies2.size());
+			Set<MovieReduced> movies3 = Genre.getAllAssociatedMovies(28);
 			
-			System.out.println("");
+			System.out.println(movies2.size());
 			
 			
 		

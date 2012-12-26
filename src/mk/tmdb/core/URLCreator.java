@@ -1028,7 +1028,7 @@ public class URLCreator {
 	public static URL getGenresListUrl() throws MalformedURLException {
 		return new URL(Constants.API_BASE_URL +
 				  Constants.VERSION +
-				  Constants.GENRES + Constants.SLASH +
+				  Constants.GENRE + Constants.SLASH +
 				  Constants.LIST +
 				  pair(Constants.API_KEY, getApiKey()));
 	}

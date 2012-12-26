@@ -1515,8 +1515,8 @@ public final class TMDbAPI {
 			
 			for (int p = 2; p <= result.getPages(); p++) {
 				ResponseArray page = new ResponseArray(toJSON(makeApiCallGet(URLCreator.getMoviesListByGenreUrl(genreID, p))));
-				for (Object obj : page.getData()) {
-					result.addData((JSONObject) obj);
+				for (JSONObject json : page.getData()) {
+					result.addData(json);
 				}
 			}
 			

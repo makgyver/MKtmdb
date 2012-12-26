@@ -86,9 +86,10 @@ public class ResponseArray extends Response {
 	 * Adds a Json object to the data.
 	 * 
 	 * @param json The Json object to add
+	 * @return Whether the operation succeeded or not
 	 */
-	public void addData(JSONObject json) {
-		data.add(json);
+	public boolean addData(JSONObject json) {
+		return data.add(json);
 	}
 
 	/**
