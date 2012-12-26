@@ -6,6 +6,8 @@ import mk.tmdb.core.Authentication;
 import mk.tmdb.core.URLCreator;
 import mk.tmdb.entity.Collection;
 import mk.tmdb.entity.Genre;
+import mk.tmdb.entity.Keyword;
+import mk.tmdb.entity.MovieList;
 import mk.tmdb.entity.Token;
 import mk.tmdb.entity.image.Backdrop;
 import mk.tmdb.entity.image.Poster;
@@ -26,18 +28,15 @@ public class Test {
 			// Collection class tested with success.
 			// Entity class is ok.
 			// Genre class tested with success.
+			// Keyword class tested with success.
+			// MovieList class tested with success.
 			
-			Set<Genre> genres = Genre.getList();
-			System.out.println("0");
-			Set<MovieReduced> movies1 = Genre.getAssociatedMovies(28, 5);
-			System.out.println(movies1.size());
-			Set<MovieReduced> movies2 = Genre.getAssociatedMovies(28, 22);
-			System.out.println(movies2.size());
-			Set<MovieReduced> movies3 = Genre.getAllAssociatedMovies(28);
+			MovieList list = MovieList.getList("509ec17b19c2950a0600050d");
+			Set<MovieList> lists1 = MovieList.searchByName("winners");
+			Set<MovieList> lists2 = MovieList.searchByName("winners", 2);
+			Set<MovieList> lists3 = MovieList.fullSearchByName("winners");
 			
-			System.out.println(movies2.size());
-			
-			
+			System.out.print("");
 		
 
 		} catch (Exception e){

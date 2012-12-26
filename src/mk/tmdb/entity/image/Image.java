@@ -13,6 +13,12 @@ import mk.tmdb.exception.ImageSizeNotSupportedException;
 import mk.tmdb.utils.Log;
 import mk.tmdb.utils.Size;
 
+/**
+ * Abstract class that represent an image.
+ * 
+ * @author Mirko Polato
+ *
+ */
 public abstract class Image extends Entity {
 		
 	//region Fields 

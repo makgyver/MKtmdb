@@ -1098,7 +1098,7 @@ public class URLCreator {
 				  Constants.VERSION +
 				  Constants.KEYWORD + Constants.SLASH +
 				  keywordID + Constants.SLASH +
-				  Constants.MOVIE +
+				  Constants.MOVIES +
 				  pair(Constants.API_KEY, getApiKey()));
 	}
 	
@@ -1115,7 +1115,7 @@ public class URLCreator {
 				  Constants.VERSION +
 				  Constants.KEYWORD + Constants.SLASH +
 				  keywordID + Constants.SLASH +
-				  Constants.MOVIE +
+				  Constants.MOVIES +
 				  pair(Constants.API_KEY, getApiKey()) +
 				  param(pair(Constants.PAGE, String.valueOf(page))));
 	}
