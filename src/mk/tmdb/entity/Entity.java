@@ -21,7 +21,7 @@ public abstract class Entity {
 	public Entity() {}
 	
 	/**
-	 * Sets the Json object to the given one.
+	 * Sets the origin JSON object to the given one.
 	 * 
 	 * @param json The origin JSON object
 	 */

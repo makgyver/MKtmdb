@@ -89,9 +89,6 @@ public class Keyword extends Entity {
 	
 	//endregion
 	
-	/**
-	 * Parses the origin JSON object.
-	 */
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		try {
@@ -109,6 +106,13 @@ public class Keyword extends Entity {
 	
 	//region Static methods
 	
+	/**
+	 * Gets the keyword information.
+	 * 
+	 * @param keywordID The keyword ID
+	 * @return The keyword information
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Keyword getInformation(int keywordID) throws ResponseException {
 		
 		ResponseObject response = TMDbAPI.getKeywordInformation(keywordID);
@@ -120,10 +124,27 @@ public class Keyword extends Entity {
 		}
 	}
 	
+	/**
+	 * Gets the list of movies that has the specified keyword.
+	 * Returns the results of the first page.
+	 * 
+	 * @param keywordID The keyword ID
+	 * @return The list of movies that has the specified keyword
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Set<MovieReduced> getAssociatedMovies(int keywordID) throws ResponseException {
 		return getAssociatedMovies(keywordID, 1);
 	}
 	
+	/**
+	 * Gets the list of movies that has the specified keyword.
+	 * Returns the results of the given page number.
+	 * 
+	 * @param keywordID The keyword ID
+	 * @param page The page number to retrieve
+	 * @return The list of movies that has the specified keyword
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Set<MovieReduced> getAssociatedMovies(int keywordID, int page) throws ResponseException {
 		
 		ResponseArray response = TMDbAPI.getMoviesByKeyword(keywordID, page);
@@ -142,6 +163,13 @@ public class Keyword extends Entity {
 		}
 	}
 	
+	/**
+	 * Gets the list of movies that has the specified keyword. Gets all the results.
+	 * 
+	 * @param keywordID The keyword ID
+	 * @return The list of movies that has the specified keyword
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Set<MovieReduced> getAllAssociatedMovies(int keywordID) throws ResponseException {
 		
 		ResponseArray response = TMDbAPI.getAllMoviesByKeyword(keywordID);
@@ -160,10 +188,27 @@ public class Keyword extends Entity {
 		}
 	}
 	
+	/**
+	 * Searches for keyword by name.
+	 * Returns the results of the first page.
+	 * 
+	 * @param name The keyword name
+	 * @return The list of keywords
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Set<Keyword> searchByName(String name) throws ResponseException {
 		return searchByName(name, 1);
 	}
 	
+	/**
+	 * Searches for keyword by name.
+	 * Returns the results of the given page number.
+	 * 
+	 * @param name The keyword name
+	 * @param page The page number to retrieve
+	 * @return The list of keywords
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Set<Keyword> searchByName(String name, int page) throws ResponseException {
 		ResponseArray response = TMDbAPI.searchKeywordByName(name, page);
 		
@@ -180,6 +225,13 @@ public class Keyword extends Entity {
 		}
 	}
 	
+	/**
+	 * Searches for keyword by name. Gets all the results.
+	 * 
+	 * @param name The keyword name
+	 * @return The list of keywords
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Set<Keyword> fullSearchByName(String name) throws ResponseException {
 		ResponseArray response = TMDbAPI.fullSearchKeywordByName(name);
 		

@@ -18,7 +18,7 @@ public class Country extends Entity {
 	private String iso3166_1;
 	
 	/**
-	 * Tha name of the country.
+	 * The name of the country.
 	 */
 	private String name = null;
 	

@@ -20,7 +20,7 @@ public abstract class Response {
 	/**
 	 * Initializes the response basic information based on the given Json object.
 	 *  
-	 * @param json The Json response
+	 * @param json The JSON response
 	 */
 	public Response(JSONObject json) {
 		if (json.has(Constants.STATUS_CODE)) setStatus(Status.getStatusByCode(json.getInt(Constants.STATUS_CODE)));

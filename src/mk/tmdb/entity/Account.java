@@ -304,9 +304,6 @@ public class Account extends Entity {
 	
 	//endregion
 	
-	/**
-	 * Parses the Json object for retrieving the account information.
-	 */
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		
@@ -348,6 +345,7 @@ public class Account extends Entity {
 	
 	/**
 	 * Gets the list of favorite movies for this account.
+	 * Returns the results of the first page.
 	 * 
 	 * @param account The user account
 	 * @return The favorite movies list
@@ -359,6 +357,7 @@ public class Account extends Entity {
 	
 	/**
 	 * Gets the list of favorite movies for an account.
+	 * Returns the results of the given page number.
 	 * 
 	 * @param account The user account
 	 * @param page The page number to retrieve
@@ -439,6 +438,7 @@ public class Account extends Entity {
 	
 	/**
 	 * Gets the lists that you have created and marked as a favorite.
+	 * Returns the results of the first page.
 	 * 
 	 * @param account The user account
 	 * @return The favorite lists list
@@ -450,6 +450,7 @@ public class Account extends Entity {
 	
 	/**
 	 * Gets the lists that you have created and marked as a favorite.
+	 * Returns the results of the given page number.
 	 * 
 	 * @param account The user account
 	 * @param page The page number to retrieve
@@ -506,6 +507,7 @@ public class Account extends Entity {
 	
 	/**
 	 * Gets the list of rated movies for this account.
+	 * Returns the results of the first page.
 	 * 
 	 * @param account The user account
 	 * @return The rated movies list
@@ -517,6 +519,7 @@ public class Account extends Entity {
 	
 	/**
 	 * Gets the list of rated movies for an account.
+	 * Returns the results of the given page number.
 	 *  
 	 * @param account The user account
 	 * @param page The page number to retrieve
@@ -573,6 +576,7 @@ public class Account extends Entity {
 	
 	/**
 	 * Gets the list of movies on this accounts watch list.
+	 * Returns the results of the first page.
 	 * 
 	 * @param account The user account
 	 * @return The movies watch list
@@ -584,6 +588,7 @@ public class Account extends Entity {
 	
 	/**
 	 * Gets the list of movies on this accounts watch list.
+	 * Returns the results of the given page number.
 	 * 
 	 * @param account The user account
 	 * @param page The page number to retrieve

@@ -90,9 +90,6 @@ public class Genre extends Entity {
 	
 	//endregion
 	
-	/**
-	 * Parses the origin JSON object.
-	 */
 	@Override
 	protected boolean parseJSON(JSONObject json) {
 		try {
@@ -133,10 +130,25 @@ public class Genre extends Entity {
 		}
 	}
 	
+	/**
+	 * Gets the movies associated to the given genre. Returns the results of the first page.
+	 * 
+	 * @param genreID The genre ID
+	 * @return The movies associated to the genre
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Set<MovieReduced> getAssociatedMovies(int genreID) throws ResponseException {
 		return getAssociatedMovies(genreID, 1);
 	}
 	
+	/**
+	 * Gets the movies associated to the given genre. Returns the results of the given page number.
+	 * 
+	 * @param genreID The genre ID
+	 * @param page The page number to retrieve
+	 * @return The movies associated to the genre
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Set<MovieReduced> getAssociatedMovies(int genreID, int page) throws ResponseException {
 		
 		ResponseArray response = TMDbAPI.getMoviesByGenre(genreID, page);
@@ -154,6 +166,13 @@ public class Genre extends Entity {
 		}
 	}
 	
+	/**
+	 * Gets the movies associated to the given genre. Gets all the results.
+	 * 
+	 * @param genreID The genre ID
+	 * @return The movies associated to the genre.
+	 * @throws ResponseException Throws whether the server response is not a success.
+	 */
 	public static Set<MovieReduced> getAllAssociatedMovies(int genreID) throws ResponseException {
 		
 		ResponseArray response = TMDbAPI.getAllMoviesByGenre(genreID);

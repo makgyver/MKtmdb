@@ -56,7 +56,7 @@ public class Collection extends Entity {
 	private Set<Poster> posters = Collections.synchronizedSet(new LinkedHashSet<Poster>());
 	
 	/**
-	 * The backrops list of this collection.
+	 * The backdrops list of this collection.
 	 */
 	private Set<Backdrop> backdrops = Collections.synchronizedSet(new LinkedHashSet<Backdrop>());
 	

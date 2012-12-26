@@ -11,14 +11,14 @@ import net.sf.json.JSONObject;
 public class ResponseObject extends Response {
 
 	/**
-	 * The Json object response
+	 * The JSON object response
 	 */
 	private JSONObject data;
 	
 	/**
-	 * Creates a new ResponseObject instance based on the given Json object.
+	 * Creates a new ResponseObject instance based on the given JSON object.
 	 *  
-	 * @param json The Json response
+	 * @param json The JSON response
 	 */
 	public ResponseObject(JSONObject json) {
 		super(json);
@@ -38,7 +38,7 @@ public class ResponseObject extends Response {
 	}
 	
 	/**
-	 * Set the data to the given Json object.
+	 * Set the data to the given JSON object.
 	 * 
 	 * @param json The new data
 	 */
@@ -47,7 +47,7 @@ public class ResponseObject extends Response {
 	}
 
 	/**
-	 * Gets the Json object response.
+	 * Gets the JSON object response.
 	 * 
 	 * @return The data response
 	 */
