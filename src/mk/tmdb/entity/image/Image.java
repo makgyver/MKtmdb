@@ -54,7 +54,7 @@ public abstract class Image extends Entity {
 	protected double average = 0.0;
 	
 	/**
-	 * The votes count of the image.
+	 * The vote count of the image.
 	 */
 	protected int count = 0;
 	
@@ -172,7 +172,7 @@ public abstract class Image extends Entity {
 	}
 
 	/**
-	 * Sets the votes average of the image.
+	 * Sets the vote average of the image.
 	 * 
 	 * @param average The new vote average of the image.
 	 */
@@ -181,18 +181,18 @@ public abstract class Image extends Entity {
 	}
 
 	/**
-	 * Gets the votes count of the image.
+	 * Gets the vote count of the image.
 	 * 
-	 * @return The image votes count
+	 * @return The image vote count
 	 */
 	public int getCount() {
 		return count;
 	}
 
 	/**
-	 * Sets the votes count of the image.
+	 * Sets the vote count of the image.
 	 * 
-	 * @param count The new image votes count
+	 * @param count The new image vote count
 	 */
 	private void setCount(int count) {
 		this.count = count;
@@ -204,7 +204,7 @@ public abstract class Image extends Entity {
 	 * @param size The image size
 	 * @return The image URL
 	 * @throws MalformedURLException Throws if the URL is in a wrong form.
-	 * @throws ConfigurationNotLoadedException Throws if the configuration information are not been loaded.
+	 * @throws ConfigurationNotLoadedException Throws if the configuration information are not loaded.
 	 * @throws ImageSizeNotSupportedException Throws if the given image size is not supported.
 	 */
 	public URL getUrl(Size size) throws MalformedURLException, 
