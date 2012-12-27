@@ -1,7 +1,7 @@
 MKtmdb
 ======
 
-The Movie Database (TMDb) API wrapper written in Java.
+MKtmdb is a The Movie Database (TMDb) API wrapper written in Java.
 This library provides classes and methods to fully access the TMDb API 
 (you can look at the API through this link http://api.themoviedb.org/)
 with Java, so you can use it in desktop application as well as in android
