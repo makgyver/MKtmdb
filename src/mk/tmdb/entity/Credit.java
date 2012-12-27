@@ -48,8 +48,8 @@ public class Credit extends Entity {
 	 */
 	public Credit(JSONObject json, Type type) {
 		super(json);
-		parseJSON(json);
 		this.type = type;
+		parseJSON(json);
 	}
 	
 	/**
@@ -126,7 +126,7 @@ public class Credit extends Entity {
 		
 		if (json.isNullObject()) return false;
 		
-		if (type == Type.CAST) setRole(new Cast(json));
+		if (type.ordinal() == Type.CAST.ordinal()) setRole(new Cast(json));
 		else setRole(new Crew(json));
 		
 		return true;

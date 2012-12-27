@@ -621,6 +621,7 @@ public class URLCreator {
 	public static URL getLatestMovieUrl() throws MalformedURLException {
 		return new URL(Constants.API_BASE_URL +
 				  Constants.VERSION +
+				  Constants.MOVIE + Constants.SLASH +
 				  Constants.LATEST +
 				  pair(Constants.API_KEY, getApiKey()));
 	}

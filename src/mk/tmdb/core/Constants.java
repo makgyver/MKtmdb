@@ -72,7 +72,7 @@ public final class Constants {
 	public static final String KEYWORD = "keyword";
 	public static final String KEYWORDS = "keywords";
 	public static final String LANGUAGES = "spoken_languages";
-	public static final String LATEST = "movie/latest";
+	public static final String LATEST = "latest";
 	public static final String LINK = "source";
 	public static final String LIST = "list";
 	public static final String LIST_TYPE = "list_type";
