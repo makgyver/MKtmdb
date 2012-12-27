@@ -9,6 +9,8 @@ import mk.tmdb.entity.Genre;
 import mk.tmdb.entity.Keyword;
 import mk.tmdb.entity.MovieList;
 import mk.tmdb.entity.Token;
+import mk.tmdb.entity.company.Company;
+import mk.tmdb.entity.company.CompanyThumbnail;
 import mk.tmdb.entity.image.Backdrop;
 import mk.tmdb.entity.image.Poster;
 import mk.tmdb.entity.movie.MovieReduced;
@@ -30,11 +32,15 @@ public class Test {
 			// Genre class tested with success.
 			// Keyword class tested with success.
 			// MovieList class tested with success.
+			// Company hierarchy tested with success.
 			
-			MovieList list = MovieList.getList("509ec17b19c2950a0600050d");
-			Set<MovieList> lists1 = MovieList.searchByName("winners");
-			Set<MovieList> lists2 = MovieList.searchByName("winners", 2);
-			Set<MovieList> lists3 = MovieList.fullSearchByName("winners");
+			Company company = CompanyThumbnail.getInformation(1);
+			Set<MovieReduced> movies1 = CompanyThumbnail.getAssociatedMovies(1);
+			Set<MovieReduced> movies2 = CompanyThumbnail.getAssociatedMovies(1, 2);
+			Set<MovieReduced> movies3 = CompanyThumbnail.getAllAssociatedMovies(1);
+			Set<CompanyThumbnail> comps1 = Company.searchByName("lucas");
+			Set<CompanyThumbnail> comps2 = Company.searchByName("lucas", 2);
+			Set<CompanyThumbnail> comps3 = Company.fullSearchByName("lucas");
 			
 			System.out.print("");
 		

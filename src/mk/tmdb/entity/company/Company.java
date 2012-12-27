@@ -162,7 +162,7 @@ public class Company extends CompanyThumbnail {
 	/**
 	 * Checks if the parent company is set.
 	 * 
-	 * @return Whteher the parent company is set or not
+	 * @return Whether the parent company is set or not
 	 */
 	public boolean isParentCompanySet() {
 		return parentCompany != null;

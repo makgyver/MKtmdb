@@ -976,8 +976,7 @@ public class URLCreator {
 		return new URL(Constants.API_BASE_URL +
 				  Constants.VERSION +
 				  Constants.COMPANY + Constants.SLASH +
-				  companyID + Constants.SLASH +
-				  Constants.CREDITS +
+				  companyID +
 				  pair(Constants.API_KEY, getApiKey()));
 	}
 

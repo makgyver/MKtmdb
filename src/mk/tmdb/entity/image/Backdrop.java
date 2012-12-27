@@ -10,12 +10,28 @@ import mk.tmdb.exception.ConfigurationNotLoadedException;
 import mk.tmdb.exception.ImageSizeNotSupportedException;
 import mk.tmdb.utils.Size;
 
+/**
+ * Class that represents a backdrop image.
+ * 
+ * @author Mirko Polato
+ *
+ */
 public class Backdrop extends Image {
 	
+	/**
+	 * Creates a new instance of Backdrop based on the origin JSON object.
+	 * 
+	 * @param json The origin JSON object
+	 */
 	public Backdrop(JSONObject json) {
 		super(json);
 	}
 	
+	/**
+	 * Copy constructor.
+	 * 
+	 * @param backdrop The image to copy
+	 */
 	public Backdrop(Backdrop backdrop) {
 		this(backdrop.getOriginJSON());
 	}
