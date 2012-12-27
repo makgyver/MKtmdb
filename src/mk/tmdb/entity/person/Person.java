@@ -116,8 +116,10 @@ public class Person extends PersonThumbnail {
 	
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		if (json.has(Constants.BIO)) setBiography(json.getString(Constants.BIO));
 		if (json.has(Constants.BIRTHDAY)) setBirthday(json.getString(Constants.BIRTHDAY));

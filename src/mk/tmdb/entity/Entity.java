@@ -28,13 +28,6 @@ public abstract class Entity {
 	public Entity(JSONObject json) {
 		this.originJson = json;
 	}
-	
-	/**
-	 * Parses the origin JSON Object.
-	 */
-	protected boolean parseJSON(JSONObject json) {
-		return false;
-	}
 
 	/**
 	 * Gets the origin JSON object.

@@ -104,8 +104,10 @@ public class Language extends Entity {
 	
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		try {
 			
 			setIso639_1(json.getString(Constants.ISO_6391));

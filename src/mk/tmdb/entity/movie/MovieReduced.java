@@ -172,8 +172,10 @@ public class MovieReduced extends MovieThumbnail {
 	
 	//endregion
 
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		if (json.has(Constants.AVERAGE)) setVoteAverage(json.getDouble(Constants.AVERAGE));
 		if (json.has(Constants.COUNT)) setVoteCount(json.getInt(Constants.COUNT));

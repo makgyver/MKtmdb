@@ -296,8 +296,10 @@ public class MovieList extends Entity {
 	
 	//endregion
 
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		setId(json.getString(Constants.ID));
 		setDescription(json.getString(Constants.DESCRIPTION));

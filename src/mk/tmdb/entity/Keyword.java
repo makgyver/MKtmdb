@@ -89,8 +89,10 @@ public class Keyword extends Entity {
 	
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		try {
 			
 			setId(json.getInt(Constants.ID));

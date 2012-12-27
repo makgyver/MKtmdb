@@ -122,8 +122,7 @@ public class CompanyThumbnail extends Entity {
 
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	private boolean parseJSON(JSONObject json) {
 		try {
 			
 			setId(json.getInt(Constants.ID));

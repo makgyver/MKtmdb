@@ -56,8 +56,7 @@ public class Cast extends Role {
 	/**
 	 * Parses the origin JSON object.
 	 */
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	private boolean parseJSON(JSONObject json) {
 		
 		setCharacter(json.getString(Constants.CHARACTER));
 		

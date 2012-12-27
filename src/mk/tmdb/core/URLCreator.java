@@ -634,7 +634,6 @@ public class URLCreator {
 	public static URL getUpcomingMoviesListUrl(int page) throws MalformedURLException {
 		return new URL(Constants.API_BASE_URL +
 				  Constants.VERSION +
-				  Constants.MOVIE + Constants.SLASH +
 				  Constants.MOVIES_UPCOMING +
 				  pair(Constants.API_KEY, getApiKey()) + 
 				  param(pair(Constants.PAGE, String.valueOf(page))));
@@ -660,7 +659,6 @@ public class URLCreator {
 	public static URL getInTheatresMoviesUrl(int page) throws MalformedURLException {
 		return new URL(Constants.API_BASE_URL +
 				  Constants.VERSION +
-				  Constants.MOVIE + Constants.SLASH +
 				  Constants.MOVIES_INTHEATRE +
 				  pair(Constants.API_KEY, getApiKey()) + 
 				  param(pair(Constants.PAGE, String.valueOf(page))));
@@ -686,7 +684,6 @@ public class URLCreator {
 	public static URL getPopularMoviesUrl(int page) throws MalformedURLException {
 		return new URL(Constants.API_BASE_URL +
 				  Constants.VERSION +
-				  Constants.MOVIE + Constants.SLASH +
 				  Constants.POPULAR_MOVIES +
 				  pair(Constants.API_KEY, getApiKey()) + 
 				  param(pair(Constants.PAGE, String.valueOf(page))));
@@ -712,7 +709,6 @@ public class URLCreator {
 	public static URL getTopRatedMoviesUrl(int page) throws MalformedURLException {
 		return new URL(Constants.API_BASE_URL +
 				  Constants.VERSION +
-				  Constants.MOVIE + Constants.SLASH +
 				  Constants.TOPRATED_MOVIES +
 				  pair(Constants.API_KEY, getApiKey()) + 
 				  param(pair(Constants.PAGE, String.valueOf(page))));

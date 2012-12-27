@@ -211,8 +211,10 @@ public class Collection extends Entity {
 
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		setPosterPath(json.getString(Constants.POSTER_PATH));
 		setBackdropPath(json.getString(Constants.POSTER_PATH));

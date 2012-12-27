@@ -92,8 +92,10 @@ public class PersonThumbnail extends Entity {
 	
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		setName(json.getString(Constants.NAME));
 		setId(json.getInt(Constants.ID));

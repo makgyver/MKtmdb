@@ -39,8 +39,10 @@ public class YoutubeTrailer extends Trailer {
 		this(trailer.getOriginJSON());
 	}
 	
-	@Override
-	public boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		setName(json.getString(Constants.NAME));
 		setSize(json.getString(Constants.SIZE));

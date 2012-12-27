@@ -79,7 +79,7 @@ public final class TMDbAPI {
 			Log.print(e);
 			
 			JSONObject json = new JSONObject();
-			json.put(Constants.STATUS_CODE, Status.UNKNOWN_ERROR);
+			json.put(Constants.STATUS_CODE, Status.UNKNOWN_ERROR.getCode());
 			
 			result.setLength(0);
 			result.append(json.toString());

@@ -94,8 +94,7 @@ public class Token extends Entity {
 	/**
 	 * Parses the origin JSON object.
 	 */
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	private boolean parseJSON(JSONObject json) {
 		
 		setExpirationDate(json.getString(Constants.EXPIRATION));
 		setValue(json.getString(Constants.TOKEN));

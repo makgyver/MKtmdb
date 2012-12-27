@@ -15,6 +15,7 @@ public class MovieCrew extends PersonThumbnail {
 	public MovieCrew(JSONObject json, int movieID) {
 		super(json);
 		this.movieID = movieID;
+		parseJSON(json);
 	}
 	
 	public MovieCrew(MovieCrew mcrew, int movieID) {
@@ -38,8 +39,10 @@ public class MovieCrew extends PersonThumbnail {
 		return movieID;
 	}
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		addCrewRole(new Crew(json));
 		

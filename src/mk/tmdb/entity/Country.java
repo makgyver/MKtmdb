@@ -90,8 +90,10 @@ public class Country extends Entity {
 	
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		try {
 			
 			setIso3166_1(json.getString(Constants.ISO_31661));

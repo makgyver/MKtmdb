@@ -124,9 +124,4 @@ public abstract class Trailer extends Entity {
 
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
-		return false;
-	}
-	
 }

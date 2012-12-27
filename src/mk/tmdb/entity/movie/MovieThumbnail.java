@@ -73,7 +73,7 @@ public class MovieThumbnail extends Entity {
 	/**
 	 * The movie release date.
 	 */
-	protected Date releaseDate;
+	protected Date releaseDate = new Date();
 	
 	//endregion
 	
@@ -231,8 +231,10 @@ public class MovieThumbnail extends Entity {
 	
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		if (json.has(Constants.ADULT)) setAdult(json.getBoolean(Constants.ADULT));
 		setId(json.getInt(Constants.ID));

@@ -38,8 +38,10 @@ public class QuicktimeTrailer extends Trailer {
 		this(trailer.getOriginJSON(), name);
 	}
 
-	@Override
-	public boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		setSize(json.getString(Constants.SIZE));
 		

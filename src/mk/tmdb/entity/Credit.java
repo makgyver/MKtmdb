@@ -119,8 +119,10 @@ public class Credit extends Entity {
 	
 	//endregion
 
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		if (type == Type.CAST) setRole(new Cast(json));
 		else setRole(new Crew(json));

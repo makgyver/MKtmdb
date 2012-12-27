@@ -304,8 +304,10 @@ public class Account extends Entity {
 	
 	//endregion
 	
-	@Override
-	protected boolean parseJSON(JSONObject json) {
+	/**
+	 * Parses the origin JSON object.
+	 */
+	private boolean parseJSON(JSONObject json) {
 		
 		setId(json.getInt(Constants.ID));
 		setName(json.getString(Constants.NAME));

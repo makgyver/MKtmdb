@@ -48,6 +48,8 @@ public enum Status {
 	
 	INVALID_HEADER(19, "Invalid accept header"),
 	
+	INVALID_DATE_RANGE(20, "Invalid date range. Should be a range no longer than 14 days."),
+	
 	MALFORMED_URL(98, "Malformed url."),
 	
 	TIMEOUT(99, "Request Timeout. Retry in a few minutes."),
