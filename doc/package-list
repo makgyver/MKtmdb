@@ -1,0 +1,10 @@
+mk.tmdb.core
+mk.tmdb.entity
+mk.tmdb.entity.company
+mk.tmdb.entity.image
+mk.tmdb.entity.movie
+mk.tmdb.entity.person
+mk.tmdb.entity.role
+mk.tmdb.entity.trailer
+mk.tmdb.exception
+mk.tmdb.utils
