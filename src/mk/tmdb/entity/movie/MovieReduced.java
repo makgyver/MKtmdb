@@ -6,12 +6,13 @@ import net.sf.json.JSONObject;
 
 /**
  * Class that represents a Movie with limited features.
- * MovieReduced class has more features than MovieThumbnail class.
+ * MovieReduced class has more features than MovieThumbnail class.</br>
  * To get a more detailed class see the following classes:
  * <ul>
  * <li>{@link Movie}</li>
  * <li>{@link MovieFull}</li>
  * </ul>
+ * 
  * @author Mirko Polato
  *
  */

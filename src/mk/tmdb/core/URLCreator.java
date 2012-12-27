@@ -29,6 +29,7 @@ public class URLCreator {
 	
 	/**
 	 * Gets the API Key.
+	 * 
 	 * @return The query URL The API Key
 	 */
 	public static String getApiKey() {
@@ -37,6 +38,7 @@ public class URLCreator {
 
 	/**
 	 * Sets the API Key.
+	 * 
 	 * @param key The new API Key
 	 */
 	public static void setApiKey(String key) {

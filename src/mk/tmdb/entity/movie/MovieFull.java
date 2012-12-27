@@ -16,7 +16,7 @@ import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 /**
- * Class that represents a full featured movie.
+ * Class that represents a full featured movie.</br>
  * To get a less detailed class see the following classes:
  * <ul>
  * <li>{@link MovieThumbnail}</li>
