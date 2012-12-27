@@ -121,6 +121,8 @@ public class Person extends PersonThumbnail {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		if (json.has(Constants.BIO)) setBiography(json.getString(Constants.BIO));
 		if (json.has(Constants.BIRTHDAY)) setBirthday(json.getString(Constants.BIRTHDAY));
 		if (json.has(Constants.DEATHDAY)) setDeathday(json.getString(Constants.DEATHDAY));

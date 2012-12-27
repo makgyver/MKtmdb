@@ -108,8 +108,10 @@ public class Language extends Entity {
 	 * Parses the origin JSON object.
 	 */
 	private boolean parseJSON(JSONObject json) {
+
+		if (json.isNullObject()) return false;
+		
 		try {
-			
 			setIso639_1(json.getString(Constants.ISO_6391));
 			setName(json.getString(Constants.NAME));
 			

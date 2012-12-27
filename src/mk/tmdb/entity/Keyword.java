@@ -93,8 +93,10 @@ public class Keyword extends Entity {
 	 * Parses the origin JSON object.
 	 */
 	private boolean parseJSON(JSONObject json) {
+
+		if (json.isNullObject()) return false;
+		
 		try {
-			
 			setId(json.getInt(Constants.ID));
 			setValue(json.getString(Constants.NAME));
 			

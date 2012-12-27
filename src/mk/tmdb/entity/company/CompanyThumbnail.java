@@ -123,8 +123,10 @@ public class CompanyThumbnail extends Entity {
 	//endregion
 	
 	private boolean parseJSON(JSONObject json) {
+		
+		if (json.isNullObject()) return false;
+		
 		try {
-			
 			setId(json.getInt(Constants.ID));
 			setName(json.getString(Constants.NAME));
 			if (json.has(Constants.LOGO_PATH)) setLogoPath(json.getString(Constants.LOGO_PATH));

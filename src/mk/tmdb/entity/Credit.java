@@ -124,6 +124,8 @@ public class Credit extends Entity {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		if (type == Type.CAST) setRole(new Cast(json));
 		else setRole(new Crew(json));
 		

@@ -301,6 +301,8 @@ public class MovieList extends Entity {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		setId(json.getString(Constants.ID));
 		setDescription(json.getString(Constants.DESCRIPTION));
 		if (json.has(Constants.LIST_TYPE)) setType(json.getString(Constants.LIST_TYPE));

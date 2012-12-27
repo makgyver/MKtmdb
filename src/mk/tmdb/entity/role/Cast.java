@@ -58,6 +58,8 @@ public class Cast extends Role {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		setCharacter(json.getString(Constants.CHARACTER));
 		
 		return true;

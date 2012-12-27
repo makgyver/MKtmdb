@@ -36,7 +36,8 @@ public final class Constants {
 	public static final String COMPANY = "company";
 	public static final String CONFIGURATION = "configuration";
 	public static final String COUNT = "vote_count";
-	public static final String COUNTRIES = "production_countries";
+	public static final String COUNTRIES = "countries";
+	public static final String PRODUCTION_COUNTRIES = "production_countries";
 	public static final String CREATED_BY = "created_by";
 	public static final String CREDITS = "credits";
 	public static final String CREW = "crew";

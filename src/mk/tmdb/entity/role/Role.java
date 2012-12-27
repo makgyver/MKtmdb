@@ -59,6 +59,8 @@ public abstract class Role extends Entity {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		if (json.has(Constants.JOB)) setJob(json.getString(Constants.JOB));
 		else setJob(Constants.ACTOR);
 		

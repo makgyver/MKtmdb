@@ -222,8 +222,10 @@ public abstract class Image extends Entity {
 	 * Parses the origin JSON object.
 	 */
 	private boolean parseJSON(JSONObject json) {
+
+		if (json.isNullObject()) return false;
+		
 		try {
-			
 			setPath(json.getString(Constants.PATH));
 			setWidth(json.getInt(Constants.WIDTH));
 			setHeight(json.getInt(Constants.HEIGHT));

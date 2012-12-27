@@ -177,6 +177,8 @@ public class MovieReduced extends MovieThumbnail {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		if (json.has(Constants.AVERAGE)) setVoteAverage(json.getDouble(Constants.AVERAGE));
 		if (json.has(Constants.COUNT)) setVoteCount(json.getInt(Constants.COUNT));
 		if (json.has(Constants.BACKDROP_PATH)) setBackdropPath(json.getString(Constants.BACKDROP_PATH));

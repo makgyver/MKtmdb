@@ -44,6 +44,8 @@ public class MovieCast extends PersonThumbnail {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		addCastRole(new Cast(json));
 		
 		return true;

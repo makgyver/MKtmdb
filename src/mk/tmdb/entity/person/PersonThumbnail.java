@@ -97,6 +97,8 @@ public class PersonThumbnail extends Entity {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		setName(json.getString(Constants.NAME));
 		setId(json.getInt(Constants.ID));
 		setProfilePath(json.getString(Constants.PROFILE_PATH));

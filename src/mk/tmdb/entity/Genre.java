@@ -94,8 +94,10 @@ public class Genre extends Entity {
 	 * Parses the origin JSON object.
 	 */
 	private boolean parseJSON(JSONObject json) {
+
+		if (json.isNullObject()) return false;		
+		
 		try {
-			
 			setId(json.getInt(Constants.ID));
 			setName(json.getString(Constants.NAME));
 			

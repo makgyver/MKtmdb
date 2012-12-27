@@ -44,6 +44,8 @@ public class MovieCrew extends PersonThumbnail {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		addCrewRole(new Crew(json));
 		
 		return true;

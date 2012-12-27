@@ -44,6 +44,8 @@ public class YoutubeTrailer extends Trailer {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		setName(json.getString(Constants.NAME));
 		setSize(json.getString(Constants.SIZE));
 		

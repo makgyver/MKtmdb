@@ -442,6 +442,8 @@ public class Movie extends MovieReduced {
 	 */
 	private boolean parseJSON(JSONObject json) {
 			
+		if (json.isNullObject()) return false;
+		
 		if (json.has(Constants.BUDGET)) setBudget(json.getInt(Constants.BUDGET));
 		if (json.has(Constants.IMDB)) setImdbID(json.getString(Constants.IMDB));
 		if (json.has(Constants.OVERVIEW)) setOverview(json.getString(Constants.OVERVIEW));
@@ -475,8 +477,8 @@ public class Movie extends MovieReduced {
 			}
 		}
 		
-		if (json.has(Constants.COUNTRIES)) {
-			JSONArray countriesList = json.getJSONArray(Constants.COUNTRIES);
+		if (json.has(Constants.PRODUCTION_COUNTRIES)) {
+			JSONArray countriesList = json.getJSONArray(Constants.PRODUCTION_COUNTRIES);
 			for (Object obj : countriesList) {
 			    countries.add(new Country((JSONObject) obj));
 			}

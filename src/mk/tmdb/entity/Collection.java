@@ -216,6 +216,8 @@ public class Collection extends Entity {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		setPosterPath(json.getString(Constants.POSTER_PATH));
 		setBackdropPath(json.getString(Constants.POSTER_PATH));
 		setName(json.getString(Constants.NAME));

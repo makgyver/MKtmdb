@@ -309,6 +309,8 @@ public class Account extends Entity {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		setId(json.getInt(Constants.ID));
 		setName(json.getString(Constants.NAME));
 		setUsername(json.getString(Constants.USERNAME));

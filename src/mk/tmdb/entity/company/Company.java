@@ -175,6 +175,8 @@ public class Company extends CompanyThumbnail {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		if (json.has(Constants.DESCRIPTION)) setDescription(json.getString(Constants.DESCRIPTION));
 		if (json.has(Constants.HOMEPAGE))
 			try {

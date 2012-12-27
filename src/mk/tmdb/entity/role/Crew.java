@@ -58,6 +58,8 @@ public class Crew extends Role {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		setDepartment(json.getString(Constants.DEPARTMENT));
 		
 		return true;

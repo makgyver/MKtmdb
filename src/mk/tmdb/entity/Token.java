@@ -96,6 +96,8 @@ public class Token extends Entity {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		setExpirationDate(json.getString(Constants.EXPIRATION));
 		setValue(json.getString(Constants.TOKEN));
 		

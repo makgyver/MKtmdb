@@ -94,8 +94,10 @@ public class Country extends Entity {
 	 * Parses the origin JSON object.
 	 */
 	private boolean parseJSON(JSONObject json) {
+
+		if (json.isNullObject()) return false;
+		
 		try {
-			
 			setIso3166_1(json.getString(Constants.ISO_31661));
 			if (json.has(Constants.NAME)) setName(json.getString(Constants.NAME));
 			

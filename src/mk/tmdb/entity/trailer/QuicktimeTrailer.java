@@ -43,6 +43,8 @@ public class QuicktimeTrailer extends Trailer {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		setSize(json.getString(Constants.SIZE));
 		
 		try {

@@ -236,6 +236,8 @@ public class MovieThumbnail extends Entity {
 	 */
 	private boolean parseJSON(JSONObject json) {
 		
+		if (json.isNullObject()) return false;
+		
 		if (json.has(Constants.ADULT)) setAdult(json.getBoolean(Constants.ADULT));
 		setId(json.getInt(Constants.ID));
 		if (json.has(Constants.ORIGINAL_TITLE)) setOriginalTitle(json.getString(Constants.ORIGINAL_TITLE));
