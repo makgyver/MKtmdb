@@ -38,7 +38,7 @@ public abstract class Response {
 	protected Status status = Status.NONE;
 	
 	/**
-	 * Initializes the response basic information based on the given Json object.
+	 * Initializes the response basic information based on the given JSON object.
 	 *  
 	 * @param json The JSON response
 	 */

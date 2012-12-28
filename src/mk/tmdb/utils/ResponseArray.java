@@ -47,7 +47,7 @@ public class ResponseArray extends Response {
 	private int page = 0;
 	
 	/**
-	 * The Json objects list contained in the response.
+	 * The JSON objects list contained in the response.
 	 */
 	private Set<JSONObject> data = Collections.synchronizedSet(new LinkedHashSet<JSONObject>());
 	
@@ -57,9 +57,9 @@ public class ResponseArray extends Response {
 	private int results = 0;
 	
 	/**
-	 * Creates a new ResponseArray instance based on the given Json object.
+	 * Creates a new ResponseArray instance based on the given JSON object.
 	 * 
-	 * @param json The Json response
+	 * @param json The JSON response
 	 */
 	public ResponseArray(JSONObject json) {
 		super(json);
@@ -83,18 +83,18 @@ public class ResponseArray extends Response {
 	}
 	
 	/**
-	 * Gets the list of retrieved Json object.
+	 * Gets the list of retrieved JSON object.
 	 * 
-	 * @return the list of Json object
+	 * @return the list of JSON object
 	 */
 	public Set<JSONObject> getData() {
 		return data;
 	}
 	
 	/**
-	 * Sets the list of the retrieved Json object.
+	 * Sets the list of the retrieved JSON object.
 	 * 
-	 * @param array The list of Json object
+	 * @param array The list of JSON object
 	 */
 	private void setData(JSONArray array) {
 		for(Object obj : array) {
@@ -103,9 +103,9 @@ public class ResponseArray extends Response {
 	}
 	
 	/**
-	 * Adds a Json object to the data.
+	 * Adds a JSON object to the data.
 	 * 
-	 * @param json The Json object to add
+	 * @param json The JSON object to add
 	 * @return Whether the operation succeeded or not
 	 */
 	public boolean addData(JSONObject json) {

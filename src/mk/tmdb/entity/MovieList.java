@@ -350,7 +350,7 @@ public class MovieList extends Entity {
 	 * Gets a list by id.
 	 * 
 	 * @param listID The list ID
-	 * @return The TMDb Api response object
+	 * @return The TMDb APIx response object
 	 * @throws ResponseException Throws whether the server response is not a success.
 	 */
 	public static MovieList getList(String listID) throws ResponseException {

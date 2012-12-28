@@ -102,9 +102,9 @@ public class Account extends Entity {
 	//endregion
 	
 	/**
-	 * Creates a new account based on the Json object passed as parameter.
+	 * Creates a new account based on the JSON object passed as parameter.
 	 * 
-	 * @param json The Json object
+	 * @param json The JSON object
 	 */
 	public Account(JSONObject json) {
 		super(json);
