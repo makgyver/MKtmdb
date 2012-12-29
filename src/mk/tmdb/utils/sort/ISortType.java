@@ -20,6 +20,13 @@
 
 package mk.tmdb.utils.sort;
 
+/**
+ * This interface imposes to implements the getComparer method on the objects of each class that implements it.
+ * 
+ * @author Mirko Polato
+ *
+ * @param <T> Parametric type
+ */
 public interface ISortType<T> {
 
 	public ICompare<T> getComparer();

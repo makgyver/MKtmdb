@@ -26,8 +26,21 @@ import mk.tmdb.entity.Keyword;
 import mk.tmdb.entity.movie.MovieReduced;
 import mk.tmdb.entity.person.PersonThumbnail;
 
+/**
+ * Class that offers sort methods.
+ * 
+ * @author Mirko Polato
+ *
+ */
 public class Sorter {
 
+	/**
+	 * Sorts the given set of movies.
+	 * 
+	 * @param movies The set of movies
+	 * @param sort The sort type
+	 * @return A sorted array
+	 */
 	public static MovieReduced[] sortMovies(Set<MovieReduced> movies, MovieSortType sort) {
 		
 		MovieReduced[] moviesArray = movies.toArray(new MovieReduced[0]);
@@ -37,6 +50,13 @@ public class Sorter {
 		return moviesArray;
 	}
 	
+	/**
+	 * Sorts the given set of people.
+	 * 
+	 * @param people The set of people
+	 * @param sort The sort type
+	 * @return A sorted array
+	 */
 	public static PersonThumbnail[] sortPeople(Set<PersonThumbnail> people, PeopleSortType sort) {
 		
 		PersonThumbnail[] peopleArray = people.toArray(new PersonThumbnail[0]);
@@ -46,6 +66,13 @@ public class Sorter {
 		return peopleArray;
 	}
 	
+	/**
+	 * Sorts the given set of keywords.
+	 * 
+	 * @param keys The set of keywords
+	 * @param sort The sort type
+	 * @return A sorted array
+	 */
 	public static Keyword[] sortKeywords(Set<Keyword> keys, KeywordSortType sort) {
 		
 		Keyword[] keysArray = keys.toArray(new Keyword[0]);
@@ -55,12 +82,25 @@ public class Sorter {
 		return keysArray;
 	}
 
+	/**
+	 * Parametric heap sort (Outer loop).
+	 * 
+	 * @param array The array to sort
+	 * @param sort The sort type
+	 */
 	private static <T> void heapSort(T array[], ISortType<T> sort) {
 		for(int i = array.length; i > 1; i--){
 			internalHeapSort(array, i - 1, sort.getComparer());
 		}
 	}
 	
+	/**
+	 * Parametric heap sort.
+	 * 
+	 * @param array The array to sort
+	 * @param ubound The array length
+	 * @param comp The comparer
+	 */
 	private static <T> void internalHeapSort(T array[], int ubound, ICompare<T> comp){
 
 		int lChild, rChild, mChild;

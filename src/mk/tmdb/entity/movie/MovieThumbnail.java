@@ -93,7 +93,7 @@ public class MovieThumbnail extends Entity {
 	/**
 	 * The movie release date.
 	 */
-	protected Date releaseDate = new Date();
+	protected Date releaseDate = null;
 	
 	//endregion
 	
@@ -247,6 +247,15 @@ public class MovieThumbnail extends Entity {
 		} catch (ParseException e) {
 			Log.print(e);
 		}
+	}
+	
+	/**
+	 * Checks if the release date is set.
+	 * 
+	 * @return Whether the release date is set or not
+	 */
+	public boolean isReleaseDateSet() {
+		return this.releaseDate != null;
 	}
 	
 	//endregion

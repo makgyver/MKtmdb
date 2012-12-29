@@ -20,7 +20,13 @@
 
 package mk.tmdb.utils.sort;
 
-
+/**
+ * This interface imposes a partial ordering on the objects of each class that implements it. 
+ * 
+ * @author Mirko Polato
+ *
+ * @param <T> Parametric type
+ */
 public interface ICompare<T> {
 	
     public boolean compare(T param1, T param2);

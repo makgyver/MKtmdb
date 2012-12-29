@@ -22,6 +22,12 @@ package mk.tmdb.utils.sort;
 
 import mk.tmdb.entity.movie.MovieReduced;
 
+/**
+ * Enumeration with the possible sort type for Movies.
+ * 
+ * @author Mirko Polato
+ *
+ */
 public enum MovieSortType implements ISortType<MovieReduced> {
 	
 	ASC_ID(new ICompare<MovieReduced>() {
@@ -52,17 +58,55 @@ public enum MovieSortType implements ISortType<MovieReduced> {
 		}
 	}),
 	
+	ASC_ORIGINAL_TITLE(new ICompare<MovieReduced>() {
+		@Override
+		public boolean compare(MovieReduced movie1, MovieReduced movie2) {
+			return movie1.getOriginalTitle().compareTo(movie2.getOriginalTitle()) < 0;
+		}
+	}),
+	
+	DESC_ORIGINAL_TITLE(new ICompare<MovieReduced>() {
+		@Override
+		public boolean compare(MovieReduced movie1, MovieReduced movie2) {
+			return movie1.getOriginalTitle().compareTo(movie2.getOriginalTitle()) >= 0;
+		}
+	}),
+	
 	ASC_RELEASE(new ICompare<MovieReduced>() {
 		@Override
 		public boolean compare(MovieReduced movie1, MovieReduced movie2) {
-			return movie1.getReleaseDate().compareTo(movie2.getReleaseDate()) < 0;
+			if (movie1.isReleaseDateSet()) {
+				if (movie2.isReleaseDateSet()) {
+					return movie1.getReleaseDate().compareTo(movie2.getReleaseDate()) < 0;
+				} else {
+					return true;
+				}
+			} else {
+				if (movie2.isReleaseDateSet()) {
+					return false;
+				} else {
+					return true;
+				}
+			}
 		}
 	}),
 	
 	DESC_RELEASE(new ICompare<MovieReduced>() {
 		@Override
 		public boolean compare(MovieReduced movie1, MovieReduced movie2) {
-			return movie1.getReleaseDate().compareTo(movie2.getReleaseDate()) >= 0;
+			if (movie1.isReleaseDateSet()) {
+				if (movie2.isReleaseDateSet()) {
+					return movie1.getReleaseDate().compareTo(movie2.getReleaseDate()) >= 0;
+				} else {
+					return true;
+				}
+			} else {
+				if (movie2.isReleaseDateSet()) {
+					return false;
+				} else {
+					return true;
+				}
+			}
 		}
 	}),
 	

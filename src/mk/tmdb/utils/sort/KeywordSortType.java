@@ -22,6 +22,12 @@ package mk.tmdb.utils.sort;
 
 import mk.tmdb.entity.Keyword;
 
+/**
+ * Enumeration with the possible sort type for Keywords.
+ * 
+ * @author mirkopolato
+ *
+ */
 public enum KeywordSortType implements ISortType<Keyword> {
 	
 	ASC_ID(new ICompare<Keyword>() {

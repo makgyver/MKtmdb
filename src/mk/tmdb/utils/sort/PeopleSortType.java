@@ -22,6 +22,12 @@ package mk.tmdb.utils.sort;
 
 import mk.tmdb.entity.person.PersonThumbnail;
 
+/**
+ * Enumeration with the possible sort type for People.
+ * 
+ * @author Mirko Polato
+ *
+ */
 public enum PeopleSortType implements ISortType<PersonThumbnail> {
 	
 	ASC_ID(new ICompare<PersonThumbnail>() {
