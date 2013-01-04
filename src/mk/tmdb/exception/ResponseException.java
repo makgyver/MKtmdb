@@ -20,7 +20,7 @@
 
 package mk.tmdb.exception;
 
-import mk.tmdb.utils.Status;
+import mk.tmdb.utils.TMDbStatus;
 
 /**
  * Signals that the server response is not a success. For more information 
@@ -36,14 +36,14 @@ public class ResponseException extends Exception {
 	/**
 	 * The response status.
 	 */
-	private Status status;
+	private TMDbStatus status;
 	
 	/**
 	 * Default constructor: creates a new instance of ResponseException with the status FAILED.
 	 */
 	public ResponseException() {
-		super(Status.FAILED.getMessage());
-		this.status = Status.FAILED;  
+		super(TMDbStatus.FAILED.getMessage());
+		this.status = TMDbStatus.FAILED;  
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class ResponseException extends Exception {
 	 * 
 	 * @param status The response status.
 	 */
-	public ResponseException(Status status) {
+	public ResponseException(TMDbStatus status) {
 		super(status.getMessage());
 		this.status = status;
 	}
@@ -70,7 +70,7 @@ public class ResponseException extends Exception {
 	 * 
 	 * @return The response status
 	 */
-	public Status getStatus() {
+	public TMDbStatus getStatus() {
 		return status;
 	}
 	

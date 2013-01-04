@@ -20,12 +20,12 @@
 
 package mk.tmdb.exception;
 
-import mk.tmdb.core.Configuration;
+import mk.tmdb.core.TMDbConfiguration;
 
 /**
  * Signals that the Configuration information was not loaded. 
- * To avoid this exception call the method {@link Configuration#load() Configuration.load()} or
- * {@link Configuration#forceLoad() Configuration.forceLoad()}. 
+ * To avoid this exception call the method {@link TMDbConfiguration#load() Configuration.load()} or
+ * {@link TMDbConfiguration#forceLoad() Configuration.forceLoad()}. 
  * 
  * @author Mirko Polato
  *

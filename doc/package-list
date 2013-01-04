@@ -8,3 +8,4 @@ mk.tmdb.entity.role
 mk.tmdb.entity.trailer
 mk.tmdb.exception
 mk.tmdb.utils
+mk.tmdb.utils.sort

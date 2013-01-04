@@ -22,9 +22,9 @@ package mk.tmdb.utils.sort;
 
 import java.util.Set;
 
-import mk.tmdb.entity.Keyword;
-import mk.tmdb.entity.movie.MovieReduced;
-import mk.tmdb.entity.person.PersonThumbnail;
+import mk.tmdb.entity.TMDbKeyword;
+import mk.tmdb.entity.movie.TMDbMovieReduced;
+import mk.tmdb.entity.person.TMDbPersonThumbnail;
 
 /**
  * Class that offers sort methods.
@@ -41,9 +41,9 @@ public class Sorter {
 	 * @param sort The sort type
 	 * @return A sorted array
 	 */
-	public static MovieReduced[] sortMovies(Set<MovieReduced> movies, MovieSortType sort) {
+	public static TMDbMovieReduced[] sortMovies(Set<TMDbMovieReduced> movies, MovieSortType sort) {
 		
-		MovieReduced[] moviesArray = movies.toArray(new MovieReduced[0]);
+		TMDbMovieReduced[] moviesArray = movies.toArray(new TMDbMovieReduced[0]);
 		
 		heapSort(moviesArray, sort);
 		
@@ -57,9 +57,9 @@ public class Sorter {
 	 * @param sort The sort type
 	 * @return A sorted array
 	 */
-	public static PersonThumbnail[] sortPeople(Set<PersonThumbnail> people, PeopleSortType sort) {
+	public static TMDbPersonThumbnail[] sortPeople(Set<TMDbPersonThumbnail> people, PeopleSortType sort) {
 		
-		PersonThumbnail[] peopleArray = people.toArray(new PersonThumbnail[0]);
+		TMDbPersonThumbnail[] peopleArray = people.toArray(new TMDbPersonThumbnail[0]);
 		
 		heapSort(peopleArray, sort);
 		
@@ -73,9 +73,9 @@ public class Sorter {
 	 * @param sort The sort type
 	 * @return A sorted array
 	 */
-	public static Keyword[] sortKeywords(Set<Keyword> keys, KeywordSortType sort) {
+	public static TMDbKeyword[] sortKeywords(Set<TMDbKeyword> keys, KeywordSortType sort) {
 		
-		Keyword[] keysArray = keys.toArray(new Keyword[0]);
+		TMDbKeyword[] keysArray = keys.toArray(new TMDbKeyword[0]);
 		
 		heapSort(keysArray, sort);
 		

@@ -20,52 +20,64 @@
 
 package mk.tmdb.utils.sort;
 
-import mk.tmdb.entity.Keyword;
+import mk.tmdb.entity.TMDbKeyword;
 
 /**
  * Enumeration with the possible sort type for Keywords.
  * 
- * @author mirkopolato
+ * @author Mirko Polato
  *
  */
-public enum KeywordSortType implements ISortType<Keyword> {
+public enum KeywordSortType implements ISortType<TMDbKeyword> {
 	
-	ASC_ID(new ICompare<Keyword>() {
+	/**
+	 * Sort by ID in ascendent order.
+	 */
+	ASC_ID(new ICompare<TMDbKeyword>() {
 		@Override
-		public boolean compare(Keyword word1, Keyword word2) {
+		public boolean compare(TMDbKeyword word1, TMDbKeyword word2) {
 			return word1.getId() < word2.getId();
 		}
 	}),
 	
-	DESC_ID(new ICompare<Keyword>() {
+	/**
+	 * Sort by ID in descendant order.
+	 */
+	DESC_ID(new ICompare<TMDbKeyword>() {
 		@Override
-		public boolean compare(Keyword word1, Keyword word2) {
+		public boolean compare(TMDbKeyword word1, TMDbKeyword word2) {
 			return word1.getId() >= word2.getId();
 		}
 	}),
 	
-	ASC_VALUE(new ICompare<Keyword>() {
+	/**
+	 * Sort by keyword value in ascendent order.
+	 */
+	ASC_VALUE(new ICompare<TMDbKeyword>() {
 		@Override
-		public boolean compare(Keyword word1, Keyword word2) {
+		public boolean compare(TMDbKeyword word1, TMDbKeyword word2) {
 			return word1.getValue().compareTo(word2.getValue()) < 0;
 		}
 	}),
 	
-	DESC_VALUE(new ICompare<Keyword>() {
+	/**
+	 * Sort by keyword value in descendant order.
+	 */
+	DESC_VALUE(new ICompare<TMDbKeyword>() {
 		@Override
-		public boolean compare(Keyword word1, Keyword word2) {
+		public boolean compare(TMDbKeyword word1, TMDbKeyword word2) {
 			return word1.getValue().compareTo(word2.getValue()) >= 0;
 		}
 	});
 	
 	
-	private final ICompare<Keyword> comparer;
+	private final ICompare<TMDbKeyword> comparer;
 	
-	KeywordSortType(ICompare<Keyword> comparer) {
+	KeywordSortType(ICompare<TMDbKeyword> comparer) {
 		this.comparer = comparer;
 	}
 	
-	public ICompare<Keyword> getComparer() {
+	public ICompare<TMDbKeyword> getComparer() {
 		return comparer;
 	}
 }

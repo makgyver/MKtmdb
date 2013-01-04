@@ -20,7 +20,7 @@
 
 package mk.tmdb.utils.sort;
 
-import mk.tmdb.entity.person.PersonThumbnail;
+import mk.tmdb.entity.person.TMDbPersonThumbnail;
 
 /**
  * Enumeration with the possible sort type for People.
@@ -28,44 +28,56 @@ import mk.tmdb.entity.person.PersonThumbnail;
  * @author Mirko Polato
  *
  */
-public enum PeopleSortType implements ISortType<PersonThumbnail> {
+public enum PeopleSortType implements ISortType<TMDbPersonThumbnail> {
 	
-	ASC_ID(new ICompare<PersonThumbnail>() {
+	/**
+	 * Sort by ID in ascendent order.
+	 */
+	ASC_ID(new ICompare<TMDbPersonThumbnail>() {
 		@Override
-		public boolean compare(PersonThumbnail person1, PersonThumbnail person2) {
+		public boolean compare(TMDbPersonThumbnail person1, TMDbPersonThumbnail person2) {
 			return person1.getId() < person2.getId();
 		}
 	}),
 	
-	DESC_ID(new ICompare<PersonThumbnail>() {
+	/**
+	 * Sort by ID in descendant order.
+	 */
+	DESC_ID(new ICompare<TMDbPersonThumbnail>() {
 		@Override
-		public boolean compare(PersonThumbnail person1, PersonThumbnail person2) {
+		public boolean compare(TMDbPersonThumbnail person1, TMDbPersonThumbnail person2) {
 			return person1.getId() >= person2.getId();
 		}
 	}),
 	
-	ASC_NAME(new ICompare<PersonThumbnail>() {
+	/**
+	 * Sort by name in ascendent order.
+	 */
+	ASC_NAME(new ICompare<TMDbPersonThumbnail>() {
 		@Override
-		public boolean compare(PersonThumbnail person1, PersonThumbnail person2) {
+		public boolean compare(TMDbPersonThumbnail person1, TMDbPersonThumbnail person2) {
 			return person1.getName().compareTo(person2.getName()) < 0;
 		}
 	}),
 	
-	DESC_NAME(new ICompare<PersonThumbnail>() {
+	/**
+	 * Sort by name in descendant order.
+	 */
+	DESC_NAME(new ICompare<TMDbPersonThumbnail>() {
 		@Override
-		public boolean compare(PersonThumbnail person1, PersonThumbnail person2) {
+		public boolean compare(TMDbPersonThumbnail person1, TMDbPersonThumbnail person2) {
 			return person1.getName().compareTo(person2.getName()) >= 0;
 		}
 	});
 	
 	
-	private final ICompare<PersonThumbnail> comparer;
+	private final ICompare<TMDbPersonThumbnail> comparer;
 	
-	PeopleSortType(ICompare<PersonThumbnail> comparer) {
+	PeopleSortType(ICompare<TMDbPersonThumbnail> comparer) {
 		this.comparer = comparer;
 	}
 	
-	public ICompare<PersonThumbnail> getComparer() {
+	public ICompare<TMDbPersonThumbnail> getComparer() {
 		return comparer;
 	}
 }
