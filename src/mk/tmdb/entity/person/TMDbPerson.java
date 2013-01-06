@@ -31,7 +31,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import mk.tmdb.core.TMDbConstants;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -164,7 +164,7 @@ public class TMDbPerson extends TMDbPersonThumbnail {
 		try {
 			this.birthday = (Date)formatter.parse(birthday);
 		} catch (ParseException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 		}
 	}
 	
@@ -196,7 +196,7 @@ public class TMDbPerson extends TMDbPersonThumbnail {
 		try {
 			this.deathday = (Date)formatter.parse(deathday);
 		} catch (ParseException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 		}
 	}
 	
@@ -280,7 +280,7 @@ public class TMDbPerson extends TMDbPersonThumbnail {
 			try {
 				setHomepage(new URL(json.getString(TMDbConstants.HOMEPAGE)));
 			} catch (MalformedURLException e) {
-				TMDbLog.print(e);
+				Log.print(e);
 			}
 		}
 		

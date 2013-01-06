@@ -21,7 +21,7 @@
 package mk.tmdb.entity;
 
 import mk.tmdb.core.TMDbConstants;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 /**
@@ -138,7 +138,7 @@ public class TMDbLanguage extends TMDbEntity {
 			if (json.has(TMDbConstants.ENGLISH_NAME)) setEnglishName(json.getString(TMDbConstants.ENGLISH_NAME));
 			
 		} catch (Exception e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			return false;
 		}
 		

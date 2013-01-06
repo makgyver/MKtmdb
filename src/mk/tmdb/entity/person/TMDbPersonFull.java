@@ -26,8 +26,8 @@ import java.util.Set;
 
 import mk.tmdb.entity.TMDbCredit;
 import mk.tmdb.entity.image.TMDbProfile;
-import mk.tmdb.exception.ResponseException;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.exception.TMDbResponseException;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 /**
@@ -74,8 +74,8 @@ public class TMDbPersonFull extends TMDbPerson {
 		if (loadAll)
 			try {
 				getFullInformation();
-			} catch (ResponseException e) {
-				TMDbLog.print(e);
+			} catch (TMDbResponseException e) {
+				Log.print(e);
 			}
 	}
 	
@@ -99,8 +99,8 @@ public class TMDbPersonFull extends TMDbPerson {
 		if(loadAll)
 			try {
 				getFullInformation();
-			} catch (ResponseException e) {
-				TMDbLog.print(e);
+			} catch (TMDbResponseException e) {
+				Log.print(e);
 			}
 	}
 	
@@ -143,9 +143,9 @@ public class TMDbPersonFull extends TMDbPerson {
 	/**
 	 * Gets all the information.
 	 * 
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	private void getFullInformation() throws ResponseException {
+	private void getFullInformation() throws TMDbResponseException {
 		setCredits(getCredits(id));
 		setImages(getImages(id));
 	}

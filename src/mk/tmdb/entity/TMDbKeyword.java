@@ -26,10 +26,10 @@ import java.util.Set;
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.movie.TMDbMovieReduced;
-import mk.tmdb.exception.ResponseException;
-import mk.tmdb.utils.TMDbLog;
-import mk.tmdb.utils.TMDbResponseArray;
-import mk.tmdb.utils.TMDbResponseObject;
+import mk.tmdb.exception.TMDbResponseException;
+import mk.tmdb.response.TMDbResponseArray;
+import mk.tmdb.response.TMDbResponseObject;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 /**
@@ -121,7 +121,7 @@ public class TMDbKeyword extends TMDbEntity {
 			setValue(json.getString(TMDbConstants.NAME));
 			
 		} catch (Exception e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			return false;
 		}
 		
@@ -135,14 +135,14 @@ public class TMDbKeyword extends TMDbEntity {
 	 * 
 	 * @param keywordID The keyword ID
 	 * @return The keyword information
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static TMDbKeyword getInformation(int keywordID) throws ResponseException {
+	public static TMDbKeyword getInformation(int keywordID) throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getKeywordInformation(keywordID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			return new TMDbKeyword(response.getData());
 		}
@@ -154,9 +154,9 @@ public class TMDbKeyword extends TMDbEntity {
 	 * 
 	 * @param keywordID The keyword ID
 	 * @return The list of movies that has the specified keyword
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAssociatedMovies(int keywordID) throws ResponseException {
+	public static Set<TMDbMovieReduced> getAssociatedMovies(int keywordID) throws TMDbResponseException {
 		return getAssociatedMovies(keywordID, 1);
 	}
 	
@@ -167,14 +167,14 @@ public class TMDbKeyword extends TMDbEntity {
 	 * @param keywordID The keyword ID
 	 * @param page The page number to retrieve
 	 * @return The list of movies that has the specified keyword
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAssociatedMovies(int keywordID, int page) throws ResponseException {
+	public static Set<TMDbMovieReduced> getAssociatedMovies(int keywordID, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getMoviesByKeyword(keywordID, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -192,14 +192,14 @@ public class TMDbKeyword extends TMDbEntity {
 	 * 
 	 * @param keywordID The keyword ID
 	 * @return The list of movies that has the specified keyword
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllAssociatedMovies(int keywordID) throws ResponseException {
+	public static Set<TMDbMovieReduced> getAllAssociatedMovies(int keywordID) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllMoviesByKeyword(keywordID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -218,9 +218,9 @@ public class TMDbKeyword extends TMDbEntity {
 	 * 
 	 * @param name The keyword name
 	 * @return The list of keywords
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbKeyword> searchByName(String name) throws ResponseException {
+	public static Set<TMDbKeyword> searchByName(String name) throws TMDbResponseException {
 		return searchByName(name, 1);
 	}
 	
@@ -231,13 +231,13 @@ public class TMDbKeyword extends TMDbEntity {
 	 * @param name The keyword name
 	 * @param page The page number to retrieve
 	 * @return The list of keywords
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbKeyword> searchByName(String name, int page) throws ResponseException {
+	public static Set<TMDbKeyword> searchByName(String name, int page) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.searchKeywordByName(name, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbKeyword> keys = new LinkedHashSet<TMDbKeyword>();
@@ -254,13 +254,13 @@ public class TMDbKeyword extends TMDbEntity {
 	 * 
 	 * @param name The keyword name
 	 * @return The list of keywords
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbKeyword> fullSearchByName(String name) throws ResponseException {
+	public static Set<TMDbKeyword> fullSearchByName(String name) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.fullSearchKeywordByName(name);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbKeyword> keys = new LinkedHashSet<TMDbKeyword>();

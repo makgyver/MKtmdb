@@ -33,9 +33,9 @@ import java.util.Date;
  * @author Mirko Polato
  *
  */
-public final class TMDbLog {
+public final class Log {
 
-	private TMDbLog(){}
+	private Log(){}
 	
 	/**
 	 * Default stream, initially sets to the system console.
@@ -138,7 +138,7 @@ public final class TMDbLog {
 	 * @param active Whether the logger is active or not.
 	 */
 	public static void setActive(boolean active) {
-		TMDbLog.active = active;
+		Log.active = active;
 	}
 	
 }

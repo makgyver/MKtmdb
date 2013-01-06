@@ -28,12 +28,12 @@ import mk.tmdb.entity.TMDbKeyword;
  * @author Mirko Polato
  *
  */
-public enum KeywordSortType implements ISortType<TMDbKeyword> {
+public enum TMDbKeywordSortType implements ITMDbSortType<TMDbKeyword> {
 	
 	/**
 	 * Sort by ID in ascendent order.
 	 */
-	ASC_ID(new ICompare<TMDbKeyword>() {
+	ASC_ID(new ITMDbCompare<TMDbKeyword>() {
 		@Override
 		public boolean compare(TMDbKeyword word1, TMDbKeyword word2) {
 			return word1.getId() < word2.getId();
@@ -43,7 +43,7 @@ public enum KeywordSortType implements ISortType<TMDbKeyword> {
 	/**
 	 * Sort by ID in descendant order.
 	 */
-	DESC_ID(new ICompare<TMDbKeyword>() {
+	DESC_ID(new ITMDbCompare<TMDbKeyword>() {
 		@Override
 		public boolean compare(TMDbKeyword word1, TMDbKeyword word2) {
 			return word1.getId() >= word2.getId();
@@ -53,7 +53,7 @@ public enum KeywordSortType implements ISortType<TMDbKeyword> {
 	/**
 	 * Sort by keyword value in ascendent order.
 	 */
-	ASC_VALUE(new ICompare<TMDbKeyword>() {
+	ASC_VALUE(new ITMDbCompare<TMDbKeyword>() {
 		@Override
 		public boolean compare(TMDbKeyword word1, TMDbKeyword word2) {
 			return word1.getValue().compareTo(word2.getValue()) < 0;
@@ -63,7 +63,7 @@ public enum KeywordSortType implements ISortType<TMDbKeyword> {
 	/**
 	 * Sort by keyword value in descendant order.
 	 */
-	DESC_VALUE(new ICompare<TMDbKeyword>() {
+	DESC_VALUE(new ITMDbCompare<TMDbKeyword>() {
 		@Override
 		public boolean compare(TMDbKeyword word1, TMDbKeyword word2) {
 			return word1.getValue().compareTo(word2.getValue()) >= 0;
@@ -71,13 +71,13 @@ public enum KeywordSortType implements ISortType<TMDbKeyword> {
 	});
 	
 	
-	private final ICompare<TMDbKeyword> comparer;
+	private final ITMDbCompare<TMDbKeyword> comparer;
 	
-	KeywordSortType(ICompare<TMDbKeyword> comparer) {
+	TMDbKeywordSortType(ITMDbCompare<TMDbKeyword> comparer) {
 		this.comparer = comparer;
 	}
 	
-	public ICompare<TMDbKeyword> getComparer() {
+	public ITMDbCompare<TMDbKeyword> getComparer() {
 		return comparer;
 	}
 }

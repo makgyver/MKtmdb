@@ -28,9 +28,9 @@ import net.sf.json.JSONObject;
 import mk.tmdb.core.TMDbConfiguration;
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.entity.TMDbEntity;
-import mk.tmdb.exception.ConfigurationNotLoadedException;
-import mk.tmdb.exception.ImageSizeNotSupportedException;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.exception.TMDbConfigurationNotLoadedException;
+import mk.tmdb.exception.TMDbImageSizeNotSupportedException;
+import mk.tmdb.utils.Log;
 import mk.tmdb.utils.TMDbSize;
 
 /**
@@ -224,12 +224,12 @@ public abstract class TMDbImage extends TMDbEntity {
 	 * @param size The image size
 	 * @return The image URL
 	 * @throws MalformedURLException Throws if the URL is in a wrong form.
-	 * @throws ConfigurationNotLoadedException Throws if the configuration information are not loaded.
-	 * @throws ImageSizeNotSupportedException Throws if the given image size is not supported.
+	 * @throws TMDbConfigurationNotLoadedException Throws if the configuration information are not loaded.
+	 * @throws TMDbImageSizeNotSupportedException Throws if the given image size is not supported.
 	 */
 	public URL getUrl(TMDbSize size) throws MalformedURLException, 
-										ConfigurationNotLoadedException, 
-										ImageSizeNotSupportedException {
+										TMDbConfigurationNotLoadedException, 
+										TMDbImageSizeNotSupportedException {
 		
 		return new URL(TMDbConfiguration.getUrl() + 
 				   	   size + 
@@ -255,7 +255,7 @@ public abstract class TMDbImage extends TMDbEntity {
 			setCount(json.getInt(TMDbConstants.COUNT));
 			
 		} catch (Exception e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			return false;
 		}
 		

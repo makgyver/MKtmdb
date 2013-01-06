@@ -25,9 +25,9 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import mk.tmdb.exception.ConfigurationNotLoadedException;
-import mk.tmdb.exception.ResponseException;
-import mk.tmdb.utils.TMDbResponseObject;
+import mk.tmdb.exception.TMDbConfigurationNotLoadedException;
+import mk.tmdb.exception.TMDbResponseException;
+import mk.tmdb.response.TMDbResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -92,10 +92,10 @@ public class TMDbConfiguration {
 	 * Gets the base URL.
 	 * 
 	 * @return The base URL
-	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
+	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static String getUrl() throws ConfigurationNotLoadedException {
-		if (!loaded) throw new ConfigurationNotLoadedException();
+	public static String getUrl() throws TMDbConfigurationNotLoadedException {
+		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return url;
 	}
 
@@ -103,10 +103,10 @@ public class TMDbConfiguration {
 	 * Gets the secure (https) base URL.
 	 * 
 	 * @return The secure base URL
-	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
+	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static String getSecureUrl() throws ConfigurationNotLoadedException {
-		if (!loaded) throw new ConfigurationNotLoadedException();
+	public static String getSecureUrl() throws TMDbConfigurationNotLoadedException {
+		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return secureUrl;
 	}
 
@@ -114,10 +114,10 @@ public class TMDbConfiguration {
 	 * Gets the poster sizes.
 	 * 
 	 * @return The poster sisez
-	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
+	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getPosterSizes() throws ConfigurationNotLoadedException {
-		if (!loaded) throw new ConfigurationNotLoadedException();
+	public static Set<String> getPosterSizes() throws TMDbConfigurationNotLoadedException {
+		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return posterSizes;
 	}
 
@@ -125,10 +125,10 @@ public class TMDbConfiguration {
 	 * Gets the backdrop sizes.
 	 * 
 	 * @return The backdrop sizes
-	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
+	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getBackdropSizes() throws ConfigurationNotLoadedException {
-		if (!loaded) throw new ConfigurationNotLoadedException();
+	public static Set<String> getBackdropSizes() throws TMDbConfigurationNotLoadedException {
+		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return backdropSizes;
 	}
 
@@ -136,10 +136,10 @@ public class TMDbConfiguration {
 	 * Gets the profile sizes.
 	 * 
 	 * @return The profile sizes.
-	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
+	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getProfileSizes() throws ConfigurationNotLoadedException {
-		if (!loaded) throw new ConfigurationNotLoadedException();
+	public static Set<String> getProfileSizes() throws TMDbConfigurationNotLoadedException {
+		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return profileSizes;
 	}
 
@@ -147,10 +147,10 @@ public class TMDbConfiguration {
 	 * Gets the logo sizes.
 	 * 
 	 * @return The logo sizes
-	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
+	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getLogoSizes() throws ConfigurationNotLoadedException {
-		if (!loaded) throw new ConfigurationNotLoadedException();
+	public static Set<String> getLogoSizes() throws TMDbConfigurationNotLoadedException {
+		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return logoSizes;
 	}
 
@@ -158,10 +158,10 @@ public class TMDbConfiguration {
 	 * Gets the change keys.
 	 * 
 	 * @return The change keys
-	 * @throws ConfigurationNotLoadedException Throws if the load method has not been called before
+	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getChangeKeys() throws ConfigurationNotLoadedException {
-		if (!loaded) throw new ConfigurationNotLoadedException();
+	public static Set<String> getChangeKeys() throws TMDbConfigurationNotLoadedException {
+		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return changeKeys;
 	}
 
@@ -186,16 +186,16 @@ public class TMDbConfiguration {
 	/**
 	 * Loads the configuration information (if it was not already loaded). 
 	 * 
-	 * @throws ResponseException Throws if the API call is failed for some reason.
+	 * @throws TMDbResponseException Throws if the API call is failed for some reason.
 	 */
-	public static void load() throws ResponseException {
+	public static void load() throws TMDbResponseException {
 			
 		if (loaded) return;
 		
 		TMDbResponseObject response = TMDbAPI.getConfiguration(); 
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		}
 		
 		JSONObject json = response.getData().getJSONObject(TMDbConstants.IMAGES);
@@ -235,9 +235,9 @@ public class TMDbConfiguration {
 	/**
 	 * Forces the loading of the configuration information.
 	 * 
-	 * @throws ResponseException Throws if the API call fail for some reason.
+	 * @throws TMDbResponseException Throws if the API call fail for some reason.
 	 */
-	public void forceLoad() throws ResponseException {
+	public void forceLoad() throws TMDbResponseException {
 		loaded = false;
 		load();
 	}

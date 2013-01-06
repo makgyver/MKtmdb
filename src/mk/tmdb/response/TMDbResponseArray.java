@@ -18,7 +18,7 @@
  * 
  ******************************************************************************/
 
-package mk.tmdb.utils;
+package mk.tmdb.response;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -64,11 +64,12 @@ public class TMDbResponseArray extends TMDbResponse {
 	public TMDbResponseArray(JSONObject json) {
 		super(json);
 		
-		if (json.has(TMDbConstants.PAGE)) setPage(json.getInt(TMDbConstants.PAGE));
-		if (json.has(TMDbConstants.TOTAL_PAGES)) setPages(json.getInt(TMDbConstants.TOTAL_PAGES));
-		if (json.has(TMDbConstants.TOTAL_RESULTS)) setResults(json.getInt(TMDbConstants.TOTAL_RESULTS));
-		
 		if (!hasError()) {
+			
+			if (json.has(TMDbConstants.PAGE)) setPage(json.getInt(TMDbConstants.PAGE));
+			if (json.has(TMDbConstants.TOTAL_PAGES)) setPages(json.getInt(TMDbConstants.TOTAL_PAGES));
+			if (json.has(TMDbConstants.TOTAL_RESULTS)) setResults(json.getInt(TMDbConstants.TOTAL_RESULTS));
+		
 			if (json.has(TMDbConstants.RESULT)) setData(json.getJSONArray(TMDbConstants.RESULT));
 		}
 	}

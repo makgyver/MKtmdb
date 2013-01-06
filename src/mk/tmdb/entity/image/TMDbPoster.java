@@ -26,8 +26,8 @@ import java.net.URL;
 import net.sf.json.JSONObject;
 
 import mk.tmdb.core.TMDbConfiguration;
-import mk.tmdb.exception.ConfigurationNotLoadedException;
-import mk.tmdb.exception.ImageSizeNotSupportedException;
+import mk.tmdb.exception.TMDbConfigurationNotLoadedException;
+import mk.tmdb.exception.TMDbImageSizeNotSupportedException;
 import mk.tmdb.utils.TMDbSize;
 
 /**
@@ -58,8 +58,8 @@ public class TMDbPoster extends TMDbImage {
 	
 	@Override
 	public URL getUrl(TMDbSize size) throws MalformedURLException, 
-										ConfigurationNotLoadedException, 
-										ImageSizeNotSupportedException {
+										TMDbConfigurationNotLoadedException, 
+										TMDbImageSizeNotSupportedException {
 		
 		if (TMDbConfiguration.isLoaded()) {
 			
@@ -70,11 +70,11 @@ public class TMDbPoster extends TMDbImage {
 						   	   path);
 				
 			} else {
-				throw new ImageSizeNotSupportedException();
+				throw new TMDbImageSizeNotSupportedException();
 			}
 			
 		} else {
-			throw new ConfigurationNotLoadedException();
+			throw new TMDbConfigurationNotLoadedException();
 		}
 	}
 	

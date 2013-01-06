@@ -26,10 +26,10 @@ import java.util.Set;
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.movie.TMDbMovieReduced;
-import mk.tmdb.exception.ResponseException;
-import mk.tmdb.utils.TMDbLog;
-import mk.tmdb.utils.TMDbResponseArray;
-import mk.tmdb.utils.TMDbResponseObject;
+import mk.tmdb.exception.TMDbResponseException;
+import mk.tmdb.response.TMDbResponseArray;
+import mk.tmdb.response.TMDbResponseObject;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -122,7 +122,7 @@ public class TMDbGenre extends TMDbEntity {
 			setName(json.getString(TMDbConstants.NAME));
 			
 		} catch (Exception e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			return false;
 		}
 		
@@ -135,14 +135,14 @@ public class TMDbGenre extends TMDbEntity {
 	 * Gets the genres list.
 	 * 
 	 * @return The genres list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbGenre> getList() throws ResponseException {
+	public static Set<TMDbGenre> getList() throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getGenresList();
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<TMDbGenre> genres = new LinkedHashSet<TMDbGenre>();
 			JSONArray array = response.getData().getJSONArray(TMDbConstants.GENRES);
@@ -159,9 +159,9 @@ public class TMDbGenre extends TMDbEntity {
 	 * 
 	 * @param genreID The genre ID
 	 * @return The movies associated to the genre
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAssociatedMovies(int genreID) throws ResponseException {
+	public static Set<TMDbMovieReduced> getAssociatedMovies(int genreID) throws TMDbResponseException {
 		return getAssociatedMovies(genreID, 1);
 	}
 	
@@ -171,14 +171,14 @@ public class TMDbGenre extends TMDbEntity {
 	 * @param genreID The genre ID
 	 * @param page The page number to retrieve
 	 * @return The movies associated to the genre
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAssociatedMovies(int genreID, int page) throws ResponseException {
+	public static Set<TMDbMovieReduced> getAssociatedMovies(int genreID, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getMoviesByGenre(genreID, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
 			Set<JSONObject> array = response.getData();
@@ -195,14 +195,14 @@ public class TMDbGenre extends TMDbEntity {
 	 * 
 	 * @param genreID The genre ID
 	 * @return The movies associated to the genre.
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllAssociatedMovies(int genreID) throws ResponseException {
+	public static Set<TMDbMovieReduced> getAllAssociatedMovies(int genreID) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllMoviesByGenre(genreID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
 			Set<JSONObject> array = response.getData();

@@ -21,7 +21,7 @@
 package mk.tmdb.entity;
 
 import mk.tmdb.core.TMDbConstants;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 /**
@@ -122,7 +122,7 @@ public class TMDbCountry extends TMDbEntity {
 			if (json.has(TMDbConstants.NAME)) setName(json.getString(TMDbConstants.NAME));
 			
 		} catch (Exception e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			return false;
 		}
 		

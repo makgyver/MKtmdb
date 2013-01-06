@@ -18,47 +18,17 @@
  * 
  ******************************************************************************/
 
-package mk.tmdb.utils;
+package mk.tmdb.utils.sort;
 
-public class TMDbPair<L,R> {
+/**
+ * This interface imposes to implements the getComparer method on the objects of each class that implements it.
+ * 
+ * @author Mirko Polato
+ *
+ * @param <T> Parametric type
+ */
+public interface ITMDbSortType<T> {
 
-	private final L first;
-	private final R second;
-
-	public TMDbPair(L left, R right) {
-		this.first = left;
-		this.second = right;
-	}
-
-	public L getFirst() { 
-		return first; 
-	}
+	public ITMDbCompare<T> getComparer();
 	
-	public R getSecond() { 
-		return second; 
-	}
-	
-	@Override
-	public String toString() {
-		return "(" + first.toString() + ", " + second.toString() + ")";
-	}
-	
-	@Override
-	public boolean equals(Object object) {
-		try
-		{
-			if (object != null) {
-				@SuppressWarnings("unchecked")
-				TMDbPair<L,R> pair = (TMDbPair<L, R>) object;
-				return first.equals(pair.getFirst()) && second.equals(pair.getSecond());
-			} else {
-				return false;
-			}
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-	}
-
 }

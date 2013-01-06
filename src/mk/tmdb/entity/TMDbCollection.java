@@ -31,9 +31,9 @@ import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.image.TMDbBackdrop;
 import mk.tmdb.entity.image.TMDbPoster;
 import mk.tmdb.entity.movie.TMDbMovieThumbnail;
-import mk.tmdb.exception.ResponseException;
-import mk.tmdb.utils.TMDbResponseArray;
-import mk.tmdb.utils.TMDbResponseObject;
+import mk.tmdb.exception.TMDbResponseException;
+import mk.tmdb.response.TMDbResponseArray;
+import mk.tmdb.response.TMDbResponseObject;
 
 /**
  * Class that represents a movie collection. 
@@ -260,13 +260,13 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @param collectionID The collection ID
 	 * @return The collection
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static TMDbCollection getInformation(int collectionID) throws ResponseException {
+	public static TMDbCollection getInformation(int collectionID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getCollectionInformation(collectionID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			return new TMDbCollection(response.getData());
 		}
@@ -277,13 +277,13 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @param collectionID The collection ID
 	 * @return The posters of the collection
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPoster> getPosters(int collectionID) throws ResponseException {
+	public static Set<TMDbPoster> getPosters(int collectionID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getCollectionImages(collectionID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			JSONArray array = response.getData().getJSONArray(TMDbConstants.POSTERS);
 			Set<TMDbPoster> images = new LinkedHashSet<TMDbPoster>(); 
@@ -299,13 +299,13 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @param collectionID The collection ID
 	 * @return The backdrops of the collection
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbBackdrop> getBackrops(int collectionID) throws ResponseException {
+	public static Set<TMDbBackdrop> getBackrops(int collectionID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getCollectionImages(collectionID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			JSONArray array = response.getData().getJSONArray(TMDbConstants.BACKDROPS);
 			Set<TMDbBackdrop> images = new LinkedHashSet<TMDbBackdrop>(); 
@@ -325,9 +325,9 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @param name The collection name
 	 * @return The list of collection that match with the given name
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCollection> searchByName(String name) throws ResponseException {
+	public static Set<TMDbCollection> searchByName(String name) throws TMDbResponseException {
 		return searchByName(name, 1);
 	}
 	
@@ -337,14 +337,14 @@ public class TMDbCollection extends TMDbEntity {
 	 * @param name The collection name
 	 * @param page The page number to retrieve
 	 * @return The list of collection that match with the given name
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCollection> searchByName(String name, int page) throws ResponseException {
+	public static Set<TMDbCollection> searchByName(String name, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchCollectionByName(name, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbCollection> collections = new LinkedHashSet<TMDbCollection>();
@@ -361,14 +361,14 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @param name The collection name
 	 * @return The list of collection that match with the given name
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCollection> fullSearchByName(String name) throws ResponseException {
+	public static Set<TMDbCollection> fullSearchByName(String name) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.fullSearchCollectionByName(name);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbCollection> collections = new LinkedHashSet<TMDbCollection>();

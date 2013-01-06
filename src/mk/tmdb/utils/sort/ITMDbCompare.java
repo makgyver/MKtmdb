@@ -27,7 +27,7 @@ package mk.tmdb.utils.sort;
  *
  * @param <T> Parametric type
  */
-public interface ICompare<T> {
+public interface ITMDbCompare<T> {
 	
     public boolean compare(T param1, T param2);
     

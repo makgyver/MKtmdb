@@ -24,7 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import mk.tmdb.core.TMDbConstants;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 /**
@@ -72,7 +72,7 @@ public class TMDbYoutubeTrailer extends TMDbTrailer {
 		try {
 			setLink(new URL(YOUTUBE_URL + json.getString(TMDbConstants.LINK)));
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 		}
 		
 		return true;

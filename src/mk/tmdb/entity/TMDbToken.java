@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import mk.tmdb.core.TMDbConstants;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 /**
@@ -87,7 +87,7 @@ public class TMDbToken extends TMDbEntity {
 		try {
 			this.expirationDate = (Date)formatter.parse(exp);
 		} catch (ParseException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 		}
 	}
 

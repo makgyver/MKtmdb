@@ -18,53 +18,61 @@
  * 
  ******************************************************************************/
 
-package mk.tmdb.exception;
+package mk.tmdb.response;
+
+import net.sf.json.JSONObject;
 
 /**
- * Signals that the image size is not supported by that Image type.
+ * Class that represents a response simple object.
  * 
  * @author Mirko Polato
  *
  */
-public class ImageSizeNotSupportedException extends Exception {
-	
-	private static final long serialVersionUID = 1L;
+public class TMDbResponseObject extends TMDbResponse {
+
+	/**
+	 * The JSON object response
+	 */
+	private JSONObject data;
 	
 	/**
-	 * The mistake string.
+	 * Creates a new ResponseObject instance based on the given JSON object.
+	 *  
+	 * @param json The JSON response
 	 */
-	private String mistake;
-	
-	/**
-	 * Default constructor: creates a new instance of ImageSizeNotSupportedException.
-	 */
-	public ImageSizeNotSupportedException() {
-		super("Image size not supported");
-		mistake = "Image size not supported";
+	public TMDbResponseObject(JSONObject json) {
+		super(json);
+		
+		if (hasError()) setData(null);
+		else setData(json);
 	}
 	
 	/**
-	 * Creates a new instance of ImageSizeNotSupportedException with the given mistake message.
+	 * Initializes the response status to the given one.
 	 * 
-	 * @param exception The mistake message
+	 * @param status The response status
 	 */
-	public ImageSizeNotSupportedException(String exception) {
-		super(exception);
-		mistake = exception;
+	public TMDbResponseObject(TMDbStatus status) {
+		super(status);
+		setData(null);
 	}
 	
 	/**
-	 * Gets the mistake message.
+	 * Set the data to the given JSON object.
 	 * 
-	 * @return The mistake message
+	 * @param json The new data
 	 */
-	public String getError() {
-		return mistake;
+	private void setData(JSONObject json) {
+		this.data = json;
 	}
-	
-	@Override
-	public String toString() {
-		return "ImageSizeNotSupportedException: " + mistake;
+
+	/**
+	 * Gets the JSON object response.
+	 * 
+	 * @return The data response
+	 */
+	public JSONObject getData() {
+		return data;
 	}
-	
+
 }

@@ -24,7 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import mk.tmdb.core.TMDbConstants;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 /**
@@ -202,7 +202,7 @@ public class TMDbCompany extends TMDbCompanyThumbnail {
 			try {
 				setHomepage(new URL(json.getString(TMDbConstants.HOMEPAGE)));
 			} catch (MalformedURLException e) {
-				TMDbLog.print(e);
+				Log.print(e);
 			}
 		if (json.has(TMDbConstants.PARENT_COMPANY)) setParentCompany(json.getString(TMDbConstants.PARENT_COMPANY));
 		if (json.has(TMDbConstants.HEADQUARTERS)) setHeadquarters(json.getString(TMDbConstants.HEADQUARTERS));

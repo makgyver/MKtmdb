@@ -18,61 +18,53 @@
  * 
  ******************************************************************************/
 
-package mk.tmdb.utils;
-
-import net.sf.json.JSONObject;
+package mk.tmdb.exception;
 
 /**
- * Class that represents a response simple object.
+ * Signals that the image size is not supported by that Image type.
  * 
  * @author Mirko Polato
  *
  */
-public class TMDbResponseObject extends TMDbResponse {
-
-	/**
-	 * The JSON object response
-	 */
-	private JSONObject data;
+public class TMDbImageSizeNotSupportedException extends Exception {
+	
+	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Creates a new ResponseObject instance based on the given JSON object.
-	 *  
-	 * @param json The JSON response
+	 * The mistake string.
 	 */
-	public TMDbResponseObject(JSONObject json) {
-		super(json);
-		
-		if (hasError()) setData(null);
-		else setData(json);
-	}
+	private String mistake;
 	
 	/**
-	 * Initializes the response status to the given one.
-	 * 
-	 * @param status The response status
+	 * Default constructor: creates a new instance of ImageSizeNotSupportedException.
 	 */
-	public TMDbResponseObject(TMDbStatus status) {
-		super(status);
-		setData(null);
+	public TMDbImageSizeNotSupportedException() {
+		super("Image size not supported");
+		mistake = "Image size not supported";
 	}
 	
 	/**
-	 * Set the data to the given JSON object.
+	 * Creates a new instance of ImageSizeNotSupportedException with the given mistake message.
 	 * 
-	 * @param json The new data
+	 * @param exception The mistake message
 	 */
-	private void setData(JSONObject json) {
-		this.data = json;
+	public TMDbImageSizeNotSupportedException(String exception) {
+		super(exception);
+		mistake = exception;
 	}
-
+	
 	/**
-	 * Gets the JSON object response.
+	 * Gets the mistake message.
 	 * 
-	 * @return The data response
+	 * @return The mistake message
 	 */
-	public JSONObject getData() {
-		return data;
+	public String getError() {
+		return mistake;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "ImageSizeNotSupportedException: " + mistake;
+	}
+	
 }

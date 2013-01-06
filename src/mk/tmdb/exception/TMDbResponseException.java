@@ -18,50 +18,51 @@
  * 
  ******************************************************************************/
 
-package mk.tmdb.utils;
+package mk.tmdb.exception;
 
-import mk.tmdb.core.TMDbConstants;
-import net.sf.json.JSONObject;
-
+import mk.tmdb.response.TMDbStatus;
 
 /**
- * Abstract class that contains the basic information about a server response.
+ * Signals that the server response is not a success. For more information 
+ * about the error check the status response by calling {@link #getStatus() getStatus} method.
  * 
  * @author Mirko Polato
  *
  */
-public abstract class TMDbResponse {
+public class TMDbResponseException extends Exception {
 
-	/**
-	 * The response status (default sets to NONE)
-	 */
-	protected TMDbStatus status = TMDbStatus.NONE;
+	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Initializes the response basic information based on the given JSON object.
-	 *  
-	 * @param json The JSON response
+	 * The response status.
 	 */
-	public TMDbResponse(JSONObject json) {
-		if (json.has(TMDbConstants.STATUS_CODE)) setStatus(TMDbStatus.getStatusByCode(json.getInt(TMDbConstants.STATUS_CODE)));
+	private TMDbStatus status;
+	
+	/**
+	 * Default constructor: creates a new instance of ResponseException with the status FAILED.
+	 */
+	public TMDbResponseException() {
+		super(TMDbStatus.FAILED.getMessage());
+		this.status = TMDbStatus.FAILED;  
 	}
 	
 	/**
-	 * Initializes the response status with the given one.
+	 * Creates a new instance of ImageSizeNotSupportedException with the given status.
 	 * 
-	 * @param status The response status
+	 * @param status The response status.
 	 */
-	public TMDbResponse(TMDbStatus status) {
+	public TMDbResponseException(TMDbStatus status) {
+		super(status.getMessage());
 		this.status = status;
 	}
 	
 	/**
-	 * Gets whether the response status is an error.
+	 * Gets the mistake message.
 	 * 
-	 * @return Whether the response status is an error.
+	 * @return The mistake message.
 	 */
-	public boolean hasError() {
-		return status.getCode() > TMDbStatus.SUCCESS.getCode();
+	public String getError() {
+		return status.getMessage();
 	}
 	
 	/**
@@ -72,18 +73,9 @@ public abstract class TMDbResponse {
 	public TMDbStatus getStatus() {
 		return status;
 	}
-
-	/**
-	 * Sets the response status.
-	 * 
-	 * @param status The new response status
-	 */
-	protected void setStatus(TMDbStatus status) {
-		this.status = status;
-	}
 	
 	@Override
 	public String toString() {
-		return status.getMessage();
+		return "ResponseException: " + status.getMessage();
 	}
 }

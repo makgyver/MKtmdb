@@ -32,7 +32,7 @@ import mk.tmdb.entity.TMDbCountry;
 import mk.tmdb.entity.TMDbGenre;
 import mk.tmdb.entity.TMDbLanguage;
 import mk.tmdb.entity.company.TMDbCompanyThumbnail;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -478,7 +478,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 				setHomepage(new URL(json.getString(TMDbConstants.HOMEPAGE)));
 			}
 			catch (MalformedURLException e) {
-				TMDbLog.print(e);
+				Log.print(e);
 			}
 		}
 		

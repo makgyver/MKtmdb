@@ -28,12 +28,12 @@ import mk.tmdb.entity.movie.TMDbMovieReduced;
  * @author Mirko Polato
  *
  */
-public enum MovieSortType implements ISortType<TMDbMovieReduced> {
+public enum TMDbMovieSortType implements ITMDbSortType<TMDbMovieReduced> {
 	
 	/**
 	 * Sort by ID in ascendent order.
 	 */
-	ASC_ID(new ICompare<TMDbMovieReduced>() {
+	ASC_ID(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getId() < movie2.getId();
@@ -43,7 +43,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by ID in descendant order.
 	 */
-	DESC_ID(new ICompare<TMDbMovieReduced>() {
+	DESC_ID(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getId() >= movie2.getId();
@@ -53,7 +53,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by title in ascendent order.
 	 */
-	ASC_TITLE(new ICompare<TMDbMovieReduced>() {
+	ASC_TITLE(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getTitle().compareTo(movie2.getTitle()) < 0;
@@ -63,7 +63,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by title in descendant order.
 	 */
-	DESC_TITLE(new ICompare<TMDbMovieReduced>() {
+	DESC_TITLE(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getTitle().compareTo(movie2.getTitle()) >= 0;
@@ -73,7 +73,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by original title in ascendent order.
 	 */
-	ASC_ORIGINAL_TITLE(new ICompare<TMDbMovieReduced>() {
+	ASC_ORIGINAL_TITLE(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getOriginalTitle().compareTo(movie2.getOriginalTitle()) < 0;
@@ -83,7 +83,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by original title in descendant order.
 	 */
-	DESC_ORIGINAL_TITLE(new ICompare<TMDbMovieReduced>() {
+	DESC_ORIGINAL_TITLE(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getOriginalTitle().compareTo(movie2.getOriginalTitle()) >= 0;
@@ -93,7 +93,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by release date in ascendent order.
 	 */
-	ASC_RELEASE(new ICompare<TMDbMovieReduced>() {
+	ASC_RELEASE(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			if (movie1.isReleaseDateSet()) {
@@ -115,7 +115,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by release date in descendant order.
 	 */
-	DESC_RELEASE(new ICompare<TMDbMovieReduced>() {
+	DESC_RELEASE(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			if (movie1.isReleaseDateSet()) {
@@ -137,7 +137,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by popularity in ascendent order.
 	 */
-	ASC_POPULARITY(new ICompare<TMDbMovieReduced>() {
+	ASC_POPULARITY(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getPopularity() < movie2.getPopularity();
@@ -147,7 +147,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by popularity in descendant order.
 	 */
-	DESC_POPULARITY(new ICompare<TMDbMovieReduced>() {
+	DESC_POPULARITY(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getPopularity() >= movie2.getPopularity();
@@ -157,7 +157,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by vote average in ascendent order.
 	 */
-	ASC_VOTE_AVG(new ICompare<TMDbMovieReduced>() {
+	ASC_VOTE_AVG(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getVoteAverage() < movie2.getVoteAverage();
@@ -167,7 +167,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by vote average in descendant order.
 	 */
-	DESC_VOTE_AVG(new ICompare<TMDbMovieReduced>() {
+	DESC_VOTE_AVG(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getVoteAverage() >= movie2.getVoteAverage();
@@ -177,7 +177,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by vote count in ascendent order.
 	 */
-	ASC_VOTE_COUNT(new ICompare<TMDbMovieReduced>() {
+	ASC_VOTE_COUNT(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getVoteCount() < movie2.getVoteCount();
@@ -187,7 +187,7 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	/**
 	 * Sort by vote count in descendant order.
 	 */
-	DESC_VOTE_COUNT(new ICompare<TMDbMovieReduced>() {
+	DESC_VOTE_COUNT(new ITMDbCompare<TMDbMovieReduced>() {
 		@Override
 		public boolean compare(TMDbMovieReduced movie1, TMDbMovieReduced movie2) {
 			return movie1.getVoteCount() >= movie2.getVoteCount();
@@ -195,13 +195,13 @@ public enum MovieSortType implements ISortType<TMDbMovieReduced> {
 	});
 	
 	
-	private final ICompare<TMDbMovieReduced> comparer;
+	private final ITMDbCompare<TMDbMovieReduced> comparer;
 	
-	MovieSortType(ICompare<TMDbMovieReduced> comparer) {
+	TMDbMovieSortType(ITMDbCompare<TMDbMovieReduced> comparer) {
 		this.comparer = comparer;
 	}
 	
-	public ICompare<TMDbMovieReduced> getComparer() {
+	public ITMDbCompare<TMDbMovieReduced> getComparer() {
 		return comparer;
 	}
 }

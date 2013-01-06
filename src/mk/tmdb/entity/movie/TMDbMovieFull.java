@@ -31,8 +31,8 @@ import mk.tmdb.entity.image.TMDbPoster;
 import mk.tmdb.entity.person.TMDbMovieCast;
 import mk.tmdb.entity.person.TMDbMovieCrew;
 import mk.tmdb.entity.trailer.TMDbTrailer;
-import mk.tmdb.exception.ResponseException;
-import mk.tmdb.utils.TMDbLog;
+import mk.tmdb.exception.TMDbResponseException;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 
 /**
@@ -109,8 +109,8 @@ public class TMDbMovieFull extends TMDbMovie {
 		if (loadAll)
 			try {
 				getFullInformation();
-			} catch (ResponseException e) {
-				TMDbLog.print(e);
+			} catch (TMDbResponseException e) {
+				Log.print(e);
 			}
 	}
 	
@@ -134,8 +134,8 @@ public class TMDbMovieFull extends TMDbMovie {
 		if (loadAll)
 			try {
 				getFullInformation();
-			} catch (ResponseException e) {
-				TMDbLog.print(e);
+			} catch (TMDbResponseException e) {
+				Log.print(e);
 			}
 	}
 	
@@ -279,9 +279,9 @@ public class TMDbMovieFull extends TMDbMovie {
 	/**
 	 * Gets all the information.
 	 * 
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	private void getFullInformation() throws ResponseException {
+	private void getFullInformation() throws TMDbResponseException {
 		
 		setCast(getCastInformation(id));
 		setCrew(getCrewInformation(id));

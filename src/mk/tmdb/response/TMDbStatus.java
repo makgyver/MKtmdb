@@ -18,7 +18,7 @@
  * 
  ******************************************************************************/
 
-package mk.tmdb.utils;
+package mk.tmdb.response;
 
 /**
  * Enumeration with the possible response status codes.

@@ -32,7 +32,7 @@ import mk.tmdb.entity.person.TMDbPersonThumbnail;
  * @author Mirko Polato
  *
  */
-public class Sorter {
+public class TMDbSorter {
 
 	/**
 	 * Sorts the given set of movies.
@@ -41,7 +41,7 @@ public class Sorter {
 	 * @param sort The sort type
 	 * @return A sorted array
 	 */
-	public static TMDbMovieReduced[] sortMovies(Set<TMDbMovieReduced> movies, MovieSortType sort) {
+	public static TMDbMovieReduced[] sortMovies(Set<TMDbMovieReduced> movies, TMDbMovieSortType sort) {
 		
 		TMDbMovieReduced[] moviesArray = movies.toArray(new TMDbMovieReduced[0]);
 		
@@ -57,7 +57,7 @@ public class Sorter {
 	 * @param sort The sort type
 	 * @return A sorted array
 	 */
-	public static TMDbPersonThumbnail[] sortPeople(Set<TMDbPersonThumbnail> people, PeopleSortType sort) {
+	public static TMDbPersonThumbnail[] sortPeople(Set<TMDbPersonThumbnail> people, TMDbPeopleSortType sort) {
 		
 		TMDbPersonThumbnail[] peopleArray = people.toArray(new TMDbPersonThumbnail[0]);
 		
@@ -73,7 +73,7 @@ public class Sorter {
 	 * @param sort The sort type
 	 * @return A sorted array
 	 */
-	public static TMDbKeyword[] sortKeywords(Set<TMDbKeyword> keys, KeywordSortType sort) {
+	public static TMDbKeyword[] sortKeywords(Set<TMDbKeyword> keys, TMDbKeywordSortType sort) {
 		
 		TMDbKeyword[] keysArray = keys.toArray(new TMDbKeyword[0]);
 		
@@ -88,7 +88,7 @@ public class Sorter {
 	 * @param array The array to sort
 	 * @param sort The sort type
 	 */
-	private static <T> void heapSort(T array[], ISortType<T> sort) {
+	private static <T> void heapSort(T array[], ITMDbSortType<T> sort) {
 		for(int i = array.length; i > 1; i--){
 			internalHeapSort(array, i - 1, sort.getComparer());
 		}
@@ -101,7 +101,7 @@ public class Sorter {
 	 * @param ubound The array length
 	 * @param comp The comparer
 	 */
-	private static <T> void internalHeapSort(T array[], int ubound, ICompare<T> comp){
+	private static <T> void internalHeapSort(T array[], int ubound, ITMDbCompare<T> comp){
 
 		int lChild, rChild, mChild;
 		

@@ -27,9 +27,9 @@ import java.util.Set;
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.movie.TMDbMovieReduced;
-import mk.tmdb.exception.ResponseException;
-import mk.tmdb.utils.TMDbResponseArray;
-import mk.tmdb.utils.TMDbResponseObject;
+import mk.tmdb.exception.TMDbResponseException;
+import mk.tmdb.response.TMDbResponseArray;
+import mk.tmdb.response.TMDbResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -351,14 +351,14 @@ public class TMDbMovieList extends TMDbEntity {
 	 * 
 	 * @param listID The list ID
 	 * @return The TMDb APIx response object
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static TMDbMovieList getList(String listID) throws ResponseException {
+	public static TMDbMovieList getList(String listID) throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getList(listID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			return new TMDbMovieList(response.getData());
 		}
@@ -370,9 +370,9 @@ public class TMDbMovieList extends TMDbEntity {
 	 * 
 	 * @param name The list name or description
 	 * @return The list of movie lists
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieList> searchByName(String name) throws ResponseException {
+	public static Set<TMDbMovieList> searchByName(String name) throws TMDbResponseException {
 		return searchByName(name, 1);
 	}
 	
@@ -383,13 +383,13 @@ public class TMDbMovieList extends TMDbEntity {
 	 * @param name The list name or description
 	 * @param page The page number to retrieve
 	 * @return The list of movie lists
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieList> searchByName(String name, int page) throws ResponseException {
+	public static Set<TMDbMovieList> searchByName(String name, int page) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.searchListByName(name, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbMovieList> lists = new LinkedHashSet<TMDbMovieList>();
@@ -406,13 +406,13 @@ public class TMDbMovieList extends TMDbEntity {
 	 * 
 	 * @param name The list name or description
 	 * @return The list of movie lists
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieList> fullSearchByName(String name) throws ResponseException {
+	public static Set<TMDbMovieList> fullSearchByName(String name) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.fullSearchListByName(name);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbMovieList> lists = new LinkedHashSet<TMDbMovieList>();

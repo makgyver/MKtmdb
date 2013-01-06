@@ -30,9 +30,9 @@ import mk.tmdb.entity.TMDbCredit;
 import mk.tmdb.entity.TMDbEntity;
 import mk.tmdb.entity.TMDbCredit.Type;
 import mk.tmdb.entity.image.TMDbProfile;
-import mk.tmdb.exception.ResponseException;
-import mk.tmdb.utils.TMDbResponseArray;
-import mk.tmdb.utils.TMDbResponseObject;
+import mk.tmdb.exception.TMDbResponseException;
+import mk.tmdb.response.TMDbResponseArray;
+import mk.tmdb.response.TMDbResponseObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -198,14 +198,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * Gets the latest person added to the TMDb.
 	 * 
 	 * @return The latest person added to the TMDb
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static TMDbPerson getLatest() throws ResponseException {
+	public static TMDbPerson getLatest() throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getLatestPerson();
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			return new TMDbPerson(response.getData());
 		}
@@ -216,14 +216,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * 
 	 * @param personID The person ID
 	 * @return The general person information
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static TMDbPerson getInformation(int personID) throws ResponseException {
+	public static TMDbPerson getInformation(int personID) throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getPersonInformation(personID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			return new TMDbPerson(response.getData());
 		}
@@ -234,14 +234,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * 
 	 * @param persondID The person ID
 	 * @return The credits list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCredit> getCredits(int persondID) throws ResponseException {
+	public static Set<TMDbCredit> getCredits(int persondID) throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getPersonCredits(persondID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 		
 			Set<TMDbCredit> credits = new LinkedHashSet<TMDbCredit>();
@@ -267,13 +267,13 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * 
 	 * @param personID The person ID
 	 * @return The images list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbProfile> getImages(int personID) throws ResponseException {
+	public static Set<TMDbProfile> getImages(int personID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getPersonImages(personID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			JSONArray imgs = response.getData().getJSONArray(TMDbConstants.PROFILES);
@@ -295,14 +295,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * Returns the results of the first page.
 	 * 
 	 * @return List of people ids that have been edited
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged() throws ResponseException {
+	public static Set<Integer> getChanged() throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons();
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -326,14 +326,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param start The date where the search starts 
 	 * @param end The date where the search ends
 	 * @return List of people ids that have been edited
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(Date start, Date end) throws ResponseException {
+	public static Set<Integer> getChanged(Date start, Date end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(start, end);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -357,14 +357,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param start The date where the search starts 
 	 * @param end The date where the search ends
 	 * @return List of people ids that have been edited
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(String start, String end) throws ResponseException {
+	public static Set<Integer> getChanged(String start, String end) throws TMDbResponseException {
 	
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(start, end);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -387,14 +387,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * 
 	 * @param page The page number to retrieve
 	 * @return List of people ids that have been edited
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(int page) throws ResponseException {
+	public static Set<Integer> getChanged(int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -419,14 +419,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param end The date where the search ends
 	 * @param page The page number to retrieve
 	 * @return List of people ids that have been edited
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(String start, String end, int page) throws ResponseException {
+	public static Set<Integer> getChanged(String start, String end, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(start, end, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -451,14 +451,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param end The date where the search ends
 	 * @param page The page number to retrieve
 	 * @return List of people ids that have been edited
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(Date start, Date end, int page) throws ResponseException {
+	public static Set<Integer> getChanged(Date start, Date end, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(start, end, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -479,14 +479,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * October 5, 2012 and will only show people that have been edited since.
 	 * 
 	 * @return List of people ids that have been edited
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getAllChanged() throws ResponseException {
+	public static Set<Integer> getAllChanged() throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllChangedPersons();
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -509,14 +509,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param start The date where the search starts 
 	 * @param end The date where the search ends
 	 * @return List of people ids that have been edited
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getAllChanged(String start, String end) throws ResponseException {
+	public static Set<Integer> getAllChanged(String start, String end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllChangedPersons(start, end);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -539,14 +539,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param start The date where the search starts 
 	 * @param end The date where the search ends
 	 * @return List of people ids that have been edited
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getAllChanged(Date start, Date end) throws ResponseException {
+	public static Set<Integer> getAllChanged(Date start, Date end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllChangedPersons(start, end);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<JSONObject> array = response.getData();
@@ -569,9 +569,9 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * 
 	 * @param name The person name
 	 * @return The people that match with the given name
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> searchByName(String name) throws ResponseException {
+	public static Set<TMDbPersonThumbnail> searchByName(String name) throws TMDbResponseException {
 		return searchByName(name, 1);
 	}
 	
@@ -582,13 +582,13 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param name The person name
 	 * @param page The page number to retrieve
 	 * @return The people that match with the given name
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> searchByName(String name, int page) throws ResponseException {
+	public static Set<TMDbPersonThumbnail> searchByName(String name, int page) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.searchPersonByName(name, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbPersonThumbnail> people = new LinkedHashSet<TMDbPersonThumbnail>();
@@ -607,9 +607,9 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param name The person name
 	 * @param adult Whether the person is in movies for adults only or not
 	 * @return The people that match with the given name
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> searchByName(String name, boolean adult) throws ResponseException {
+	public static Set<TMDbPersonThumbnail> searchByName(String name, boolean adult) throws TMDbResponseException {
 		return searchByName(name, adult, 1);
 	}
 	
@@ -621,13 +621,13 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param adult Whether the person is in movies for adults only or not
 	 * @param page The page number to retrieve
 	 * @return The people that match with the given name
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> searchByName(String name, boolean adult, int page) throws ResponseException {
+	public static Set<TMDbPersonThumbnail> searchByName(String name, boolean adult, int page) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.searchPersonByName(name, adult, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbPersonThumbnail> people = new LinkedHashSet<TMDbPersonThumbnail>();
@@ -645,13 +645,13 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * 
 	 * @param name The person name
 	 * @return The people that match with the given name
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> fullSearchByName(String name) throws ResponseException {
+	public static Set<TMDbPersonThumbnail> fullSearchByName(String name) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.fullSearchPersonByName(name);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbPersonThumbnail> people = new LinkedHashSet<TMDbPersonThumbnail>();
@@ -670,13 +670,13 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @param name The person name
 	 * @param adult Whether the person is in movies for adults only or not
 	 * @return The people that match with the given name
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> fullSearchByName(String name, boolean adult) throws ResponseException {
+	public static Set<TMDbPersonThumbnail> fullSearchByName(String name, boolean adult) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.fullSearchPersonByName(name, adult);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			Set<JSONObject> array = response.getData();
 			Set<TMDbPersonThumbnail> people = new LinkedHashSet<TMDbPersonThumbnail>();

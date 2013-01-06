@@ -33,10 +33,10 @@ import java.util.Date;
 
 import mk.tmdb.entity.TMDbAccount;
 import mk.tmdb.entity.TMDbToken;
-import mk.tmdb.utils.TMDbLog;
-import mk.tmdb.utils.TMDbResponseArray;
-import mk.tmdb.utils.TMDbResponseObject;
-import mk.tmdb.utils.TMDbStatus;
+import mk.tmdb.response.TMDbResponseArray;
+import mk.tmdb.response.TMDbResponseObject;
+import mk.tmdb.response.TMDbStatus;
+import mk.tmdb.utils.Log;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
@@ -80,14 +80,14 @@ public final class TMDbAPI {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setReadTimeout(timeout);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			for (String line = null; (line = reader.readLine()) != null;) {
 			    result.append(line).append("\n");
 			}
 			reader.close();
 			
 		} catch (SocketTimeoutException ste) {
-			TMDbLog.print(ste);
+			Log.print(ste);
 			
 			JSONObject json = new JSONObject();
 			json.put(TMDbConstants.STATUS_CODE, TMDbStatus.TIMEOUT);
@@ -96,7 +96,7 @@ public final class TMDbAPI {
 			result.append(json.toString());
 			
 		} catch (Exception e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			JSONObject json = new JSONObject();
 			json.put(TMDbConstants.STATUS_CODE, TMDbStatus.UNKNOWN_ERROR.getCode());
@@ -129,14 +129,14 @@ public final class TMDbAPI {
 			wr.flush();
 			wr.close();
 			
-			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			for (String line = null; (line = reader.readLine()) != null;) {
 			    result.append(line).append("\n");
 			}
 			reader.close();
 			
 		} catch (SocketTimeoutException ste) {
-			TMDbLog.print(ste);
+			Log.print(ste);
 			
 			JSONObject jsonErr = new JSONObject();
 			jsonErr.put(TMDbConstants.STATUS_CODE, TMDbStatus.TIMEOUT);
@@ -145,7 +145,7 @@ public final class TMDbAPI {
 			result.append(jsonErr.toString());
 			
 		} catch (Exception e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			JSONObject jsonErr = new JSONObject();
 			jsonErr.put(TMDbConstants.STATUS_CODE, TMDbStatus.UNKNOWN_ERROR);
@@ -186,7 +186,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getConfigurationUrl())));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -210,7 +210,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getAuthTokenUrl())));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -229,7 +229,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getAuthSessionUrl(token.getValue()))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -251,7 +251,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getGuestSessionUrl())));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -273,7 +273,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getAccountInfoUrl(sessionID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -304,7 +304,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getAccountFavsListsUrl(account.getId(), account.getSessionID(), page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -331,7 +331,7 @@ public final class TMDbAPI {
             return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -362,7 +362,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getAccountFavsMoviesUrl(account.getId(), account.getSessionID(), page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -389,7 +389,7 @@ public final class TMDbAPI {
             return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -412,7 +412,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallPost(TMDbURLCreator.addMovieToFavsUrl(account.getId(), account.getSessionID()), json)));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -435,7 +435,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallPost(TMDbURLCreator.removeMovieFromFavsUrl(account.getId(), account.getSessionID()), json)));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -473,7 +473,7 @@ public final class TMDbAPI {
             return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -493,7 +493,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getRatedMoviesUrl(account.getId(), account.getSessionID(), page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -524,7 +524,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getWatchlistUrl(account.getId(), account.getSessionID(), page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -551,7 +551,7 @@ public final class TMDbAPI {
             return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -574,7 +574,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallPost(TMDbURLCreator.addMovieToWatchlistUrl(account.getId(), account.getSessionID()), json)));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -597,7 +597,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallPost(TMDbURLCreator.removeMovieFromWatchlistUrl(account.getId(), account.getSessionID()), json)));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -618,7 +618,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getMovieInfoUrl(movieID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -638,7 +638,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getAlternativeMovieTitlesUrl(movieID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -655,7 +655,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getCastInfoUrl(movieID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -672,7 +672,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getMovieImagesUrl(movieID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -689,7 +689,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getMovieKeywordsUrl(movieID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -706,7 +706,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getMovieReleasesDatesUrl(movieID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -723,7 +723,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getMovieTrailersUrl(movieID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -740,7 +740,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getMovieTranslationsUrl(movieID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -770,7 +770,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getSimilarMoviesUrl(movieID, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -796,7 +796,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -816,7 +816,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getMovieChangesUrl(movieID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -838,7 +838,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getMovieChangesUrl(movieID, start, end))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -860,7 +860,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getMovieChangesUrl(movieID, start, end))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -890,7 +890,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getListsBelongsToMovieUrl(movieID, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -915,7 +915,7 @@ public final class TMDbAPI {
 			
 			return result;
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -931,7 +931,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getLatestMovieUrl())));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -961,7 +961,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getUpcomingMoviesListUrl(page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -988,7 +988,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1018,7 +1018,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getInTheatresMoviesUrl(page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1045,7 +1045,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1073,7 +1073,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getPopularMoviesUrl(page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1099,7 +1099,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1129,7 +1129,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getTopRatedMoviesUrl(page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1156,7 +1156,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1183,7 +1183,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallPost(TMDbURLCreator.setMovieRateUrl(sessionID, movieID, guest), json)));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1206,7 +1206,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getPersonInfoUrl(personID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1223,7 +1223,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getPersonCreditsUrl(personID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1240,7 +1240,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getPersonImagesUrl(personID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1261,7 +1261,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getPersonChangesUrl(personID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1284,7 +1284,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getPersonChangesUrl(personID, start, end))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1307,7 +1307,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getPersonChangesUrl(personID, start, end))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1323,7 +1323,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getLatestPerson())));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1347,7 +1347,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getCollectionInfoUrl(collectionID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1364,7 +1364,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getCollectionImagesUrl(collectionID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1385,7 +1385,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getListUrl(listID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1406,7 +1406,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getCompanyInfoUrl(companyID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1436,7 +1436,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getMoviesListByCompanyUrl(companyID, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1463,7 +1463,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1483,7 +1483,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getGenresListUrl())));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1515,7 +1515,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getMoviesListByGenreUrl(genreID, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1543,7 +1543,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1564,7 +1564,7 @@ public final class TMDbAPI {
 			return new TMDbResponseObject(toJSON(makeApiCallGet(TMDbURLCreator.getKeywordInformation(keywordID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseObject(TMDbStatus.MALFORMED_URL);
 		}
@@ -1582,7 +1582,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getMoviesListByKeyword(keywordID))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1601,7 +1601,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getMoviesListByKeyword(keywordID, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1628,7 +1628,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1662,7 +1662,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchMovieByTitleUrl(movieTitle, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1689,7 +1689,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1721,7 +1721,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchMovieByTitleAndYearUrl(movieTitle, year, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1749,7 +1749,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1781,7 +1781,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchMovieByTitleUrl(movieTitle, adult, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1809,7 +1809,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1843,7 +1843,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchMovieByTitleUrl(movieTitle, year, adult, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1872,7 +1872,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1902,7 +1902,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchPeopleByNameUrl(name, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1934,7 +1934,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchPeopleByNameUrl(name, adult, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1961,7 +1961,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -1989,7 +1989,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2019,7 +2019,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchCompanyByNameUrl(name, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2046,7 +2046,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2076,7 +2076,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchKeywordByNameUrl(name, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2103,7 +2103,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2134,7 +2134,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchListByNameUrl(name, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2161,7 +2161,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2192,7 +2192,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.searchCollectionByNameUrl(name, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2219,7 +2219,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2276,7 +2276,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getChangedMoviesUrl(page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2299,7 +2299,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getChangedPersonsUrl(page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2329,7 +2329,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2359,7 +2359,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2418,7 +2418,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getChangedMoviesUrl(start, end, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2443,7 +2443,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getChangedPersonsUrl(start, end, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2475,7 +2475,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2507,7 +2507,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2566,7 +2566,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getChangedMoviesUrl(start, end, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2591,7 +2591,7 @@ public final class TMDbAPI {
 			return new TMDbResponseArray(toJSON(makeApiCallGet(TMDbURLCreator.getChangedPersonsUrl(start, end, page))));
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2623,7 +2623,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}
@@ -2655,7 +2655,7 @@ public final class TMDbAPI {
 			return result;
 			
 		} catch (MalformedURLException e) {
-			TMDbLog.print(e);
+			Log.print(e);
 			
 			return new TMDbResponseArray(TMDbStatus.MALFORMED_URL);
 		}

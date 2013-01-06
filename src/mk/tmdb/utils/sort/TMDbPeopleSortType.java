@@ -28,12 +28,12 @@ import mk.tmdb.entity.person.TMDbPersonThumbnail;
  * @author Mirko Polato
  *
  */
-public enum PeopleSortType implements ISortType<TMDbPersonThumbnail> {
+public enum TMDbPeopleSortType implements ITMDbSortType<TMDbPersonThumbnail> {
 	
 	/**
 	 * Sort by ID in ascendent order.
 	 */
-	ASC_ID(new ICompare<TMDbPersonThumbnail>() {
+	ASC_ID(new ITMDbCompare<TMDbPersonThumbnail>() {
 		@Override
 		public boolean compare(TMDbPersonThumbnail person1, TMDbPersonThumbnail person2) {
 			return person1.getId() < person2.getId();
@@ -43,7 +43,7 @@ public enum PeopleSortType implements ISortType<TMDbPersonThumbnail> {
 	/**
 	 * Sort by ID in descendant order.
 	 */
-	DESC_ID(new ICompare<TMDbPersonThumbnail>() {
+	DESC_ID(new ITMDbCompare<TMDbPersonThumbnail>() {
 		@Override
 		public boolean compare(TMDbPersonThumbnail person1, TMDbPersonThumbnail person2) {
 			return person1.getId() >= person2.getId();
@@ -53,7 +53,7 @@ public enum PeopleSortType implements ISortType<TMDbPersonThumbnail> {
 	/**
 	 * Sort by name in ascendent order.
 	 */
-	ASC_NAME(new ICompare<TMDbPersonThumbnail>() {
+	ASC_NAME(new ITMDbCompare<TMDbPersonThumbnail>() {
 		@Override
 		public boolean compare(TMDbPersonThumbnail person1, TMDbPersonThumbnail person2) {
 			return person1.getName().compareTo(person2.getName()) < 0;
@@ -63,7 +63,7 @@ public enum PeopleSortType implements ISortType<TMDbPersonThumbnail> {
 	/**
 	 * Sort by name in descendant order.
 	 */
-	DESC_NAME(new ICompare<TMDbPersonThumbnail>() {
+	DESC_NAME(new ITMDbCompare<TMDbPersonThumbnail>() {
 		@Override
 		public boolean compare(TMDbPersonThumbnail person1, TMDbPersonThumbnail person2) {
 			return person1.getName().compareTo(person2.getName()) >= 0;
@@ -71,13 +71,13 @@ public enum PeopleSortType implements ISortType<TMDbPersonThumbnail> {
 	});
 	
 	
-	private final ICompare<TMDbPersonThumbnail> comparer;
+	private final ITMDbCompare<TMDbPersonThumbnail> comparer;
 	
-	PeopleSortType(ICompare<TMDbPersonThumbnail> comparer) {
+	TMDbPeopleSortType(ITMDbCompare<TMDbPersonThumbnail> comparer) {
 		this.comparer = comparer;
 	}
 	
-	public ICompare<TMDbPersonThumbnail> getComparer() {
+	public ITMDbCompare<TMDbPersonThumbnail> getComparer() {
 		return comparer;
 	}
 }

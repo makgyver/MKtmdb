@@ -27,9 +27,9 @@ import java.util.Set;
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.core.TMDbAPI;
 import mk.tmdb.entity.movie.TMDbMovieReduced;
-import mk.tmdb.exception.ResponseException;
-import mk.tmdb.utils.TMDbResponseArray;
-import mk.tmdb.utils.TMDbResponseObject;
+import mk.tmdb.exception.TMDbResponseException;
+import mk.tmdb.response.TMDbResponseArray;
+import mk.tmdb.response.TMDbResponseObject;
 import net.sf.json.JSONObject;
 
 /**
@@ -350,14 +350,14 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param sessionID The session ID
 	 * @return A new user account
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static TMDbAccount getInformation(String sessionID) throws ResponseException {
+	public static TMDbAccount getInformation(String sessionID) throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getAccountInformation(sessionID);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			TMDbAccount account = new TMDbAccount(response.getData());
 			account.setSessionID(sessionID);
@@ -373,9 +373,9 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param account The user account
 	 * @return The favorite movies list
-	 * @throws ResponseException Throws whether the server response is not a success. 
+	 * @throws TMDbResponseException Throws whether the server response is not a success. 
 	 */
-	public static Set<TMDbMovieReduced> getFavoriteMovies(TMDbAccount account) throws ResponseException {
+	public static Set<TMDbMovieReduced> getFavoriteMovies(TMDbAccount account) throws TMDbResponseException {
 		return getFavoriteMovies(account, 1);
 	}
 	
@@ -386,14 +386,14 @@ public class TMDbAccount extends TMDbEntity {
 	 * @param account The user account
 	 * @param page The page number to retrieve
 	 * @return The favorite movies list
-	 * @throws ResponseException Throws whether the server response is not a success. 
+	 * @throws TMDbResponseException Throws whether the server response is not a success. 
 	 */
-	public static Set<TMDbMovieReduced> getFavoriteMovies(TMDbAccount account, int page) throws ResponseException {
+	public static Set<TMDbMovieReduced> getFavoriteMovies(TMDbAccount account, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getFavoriteMovies(account, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
@@ -412,13 +412,13 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param account The user account
 	 * @return The entire favorite movies list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllFavoriteMovies(TMDbAccount account) throws ResponseException {
+	public static Set<TMDbMovieReduced> getAllFavoriteMovies(TMDbAccount account) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.getAllFavoriteMovies(account);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
@@ -466,9 +466,9 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param account The user account
 	 * @return The favorite lists list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieList> getFavoriteLists(TMDbAccount account) throws ResponseException {
+	public static Set<TMDbMovieList> getFavoriteLists(TMDbAccount account) throws TMDbResponseException {
 		return getFavoriteLists(account, 1);
 	}
 	
@@ -479,14 +479,14 @@ public class TMDbAccount extends TMDbEntity {
 	 * @param account The user account
 	 * @param page The page number to retrieve
 	 * @return The favorite lists list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieList> getFavoriteLists(TMDbAccount account, int page) throws ResponseException {
+	public static Set<TMDbMovieList> getFavoriteLists(TMDbAccount account, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getFavoriteLists(account, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<TMDbMovieList> lists = new LinkedHashSet<TMDbMovieList>();
@@ -505,13 +505,13 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param account The user account
 	 * @return The entire favorite lists list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieList> getAllFavoriteLists(TMDbAccount account) throws ResponseException {
+	public static Set<TMDbMovieList> getAllFavoriteLists(TMDbAccount account) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.getAllFavoriteLists(account);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<TMDbMovieList> lists = new LinkedHashSet<TMDbMovieList>();
@@ -535,9 +535,9 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param account The user account
 	 * @return The rated movies list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getRatedMovies(TMDbAccount account) throws ResponseException {
+	public static Set<TMDbMovieReduced> getRatedMovies(TMDbAccount account) throws TMDbResponseException {
 		return getRatedMovies(account, 1);
 	}
 	
@@ -548,14 +548,14 @@ public class TMDbAccount extends TMDbEntity {
 	 * @param account The user account
 	 * @param page The page number to retrieve
 	 * @return The rated movies list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getRatedMovies(TMDbAccount account, int page) throws ResponseException {
+	public static Set<TMDbMovieReduced> getRatedMovies(TMDbAccount account, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getRatedMovies(account, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
@@ -574,13 +574,13 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param account The user account
 	 * @return The rated movies list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllRatedMovies(TMDbAccount account) throws ResponseException {
+	public static Set<TMDbMovieReduced> getAllRatedMovies(TMDbAccount account) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.getAllRatedMovies(account);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
@@ -604,9 +604,9 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param account The user account
 	 * @return The movies watch list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getMovieWatchlist(TMDbAccount account) throws ResponseException {
+	public static Set<TMDbMovieReduced> getMovieWatchlist(TMDbAccount account) throws TMDbResponseException {
 		return getMovieWatchlist(account, 1);
 	}
 	
@@ -617,14 +617,14 @@ public class TMDbAccount extends TMDbEntity {
 	 * @param account The user account
 	 * @param page The page number to retrieve
 	 * @return The movies watch list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getMovieWatchlist(TMDbAccount account, int page) throws ResponseException {
+	public static Set<TMDbMovieReduced> getMovieWatchlist(TMDbAccount account, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getMovieWatchList(account, page);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
@@ -643,13 +643,13 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param account The user account
 	 * @return The movies watch list
-	 * @throws ResponseException Throws whether the server response is not a success.
+	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllMovieWatchlist(TMDbAccount account) throws ResponseException {
+	public static Set<TMDbMovieReduced> getAllMovieWatchlist(TMDbAccount account) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.getAllMovieWatchList(account);
 		
 		if (response.hasError()) {
-			throw new ResponseException(response.getStatus());
+			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
 			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();

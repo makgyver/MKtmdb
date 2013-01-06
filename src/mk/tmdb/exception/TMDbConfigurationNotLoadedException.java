@@ -30,7 +30,7 @@ import mk.tmdb.core.TMDbConfiguration;
  * @author Mirko Polato
  *
  */
-public class ConfigurationNotLoadedException extends Exception {
+public class TMDbConfigurationNotLoadedException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -42,7 +42,7 @@ public class ConfigurationNotLoadedException extends Exception {
 	/**
 	 * Default constructor: creates a new instance of ConfigurationNotLoadedException.
 	 */
-	public ConfigurationNotLoadedException() {
+	public TMDbConfigurationNotLoadedException() {
 		super("Configuration not loaded");
 		mistake = "Configuration not loaded";
 	}
@@ -52,7 +52,7 @@ public class ConfigurationNotLoadedException extends Exception {
 	 * 
 	 * @param exception The mistake message
 	 */
-	public ConfigurationNotLoadedException(String exception) {
+	public TMDbConfigurationNotLoadedException(String exception) {
 		super(exception);
 		mistake = exception;
 	}

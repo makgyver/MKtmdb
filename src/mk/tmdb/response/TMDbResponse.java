@@ -18,51 +18,50 @@
  * 
  ******************************************************************************/
 
-package mk.tmdb.exception;
+package mk.tmdb.response;
 
-import mk.tmdb.utils.TMDbStatus;
+import mk.tmdb.core.TMDbConstants;
+import net.sf.json.JSONObject;
+
 
 /**
- * Signals that the server response is not a success. For more information 
- * about the error check the status response by calling {@link #getStatus() getStatus} method.
+ * Abstract class that contains the basic information about a server response.
  * 
  * @author Mirko Polato
  *
  */
-public class ResponseException extends Exception {
+public abstract class TMDbResponse {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * The response status (default sets to NONE)
+	 */
+	protected TMDbStatus status = TMDbStatus.NONE;
 	
 	/**
-	 * The response status.
+	 * Initializes the response basic information based on the given JSON object.
+	 *  
+	 * @param json The JSON response
 	 */
-	private TMDbStatus status;
-	
-	/**
-	 * Default constructor: creates a new instance of ResponseException with the status FAILED.
-	 */
-	public ResponseException() {
-		super(TMDbStatus.FAILED.getMessage());
-		this.status = TMDbStatus.FAILED;  
+	public TMDbResponse(JSONObject json) {
+		if (json.has(TMDbConstants.STATUS_CODE)) setStatus(TMDbStatus.getStatusByCode(json.getInt(TMDbConstants.STATUS_CODE)));
 	}
 	
 	/**
-	 * Creates a new instance of ImageSizeNotSupportedException with the given status.
+	 * Initializes the response status with the given one.
 	 * 
-	 * @param status The response status.
+	 * @param status The response status
 	 */
-	public ResponseException(TMDbStatus status) {
-		super(status.getMessage());
+	public TMDbResponse(TMDbStatus status) {
 		this.status = status;
 	}
 	
 	/**
-	 * Gets the mistake message.
+	 * Gets whether the response status is an error.
 	 * 
-	 * @return The mistake message.
+	 * @return Whether the response status is an error.
 	 */
-	public String getError() {
-		return status.getMessage();
+	public boolean hasError() {
+		return status.getCode() > TMDbStatus.SUCCESS.getCode();
 	}
 	
 	/**
@@ -73,9 +72,18 @@ public class ResponseException extends Exception {
 	public TMDbStatus getStatus() {
 		return status;
 	}
+
+	/**
+	 * Sets the response status.
+	 * 
+	 * @param status The new response status
+	 */
+	protected void setStatus(TMDbStatus status) {
+		this.status = status;
+	}
 	
 	@Override
 	public String toString() {
-		return "ResponseException: " + status.getMessage();
+		return status.getMessage();
 	}
 }
