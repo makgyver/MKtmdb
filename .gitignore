@@ -21,3 +21,5 @@ lib/*
 .DS_Store
 
 .project
+
+.classpath
