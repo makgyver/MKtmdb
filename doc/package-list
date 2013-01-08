@@ -7,5 +7,6 @@ mk.tmdb.entity.person
 mk.tmdb.entity.role
 mk.tmdb.entity.trailer
 mk.tmdb.exception
+mk.tmdb.response
 mk.tmdb.utils
 mk.tmdb.utils.sort
