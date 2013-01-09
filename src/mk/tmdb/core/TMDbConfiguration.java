@@ -22,8 +22,8 @@ package mk.tmdb.core;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.exception.TMDbConfigurationNotLoadedException;
 import mk.tmdb.exception.TMDbResponseException;
@@ -55,27 +55,27 @@ public class TMDbConfiguration {
 	/**
 	 * List of poster sizes.
 	 */
-	private static Set<String> posterSizes = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private static List<String> posterSizes = Collections.synchronizedList(new LinkedList<String>());
 	
 	/**
 	 * List of backdrop sizes.
 	 */
-	private static Set<String> backdropSizes = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private static List<String> backdropSizes = Collections.synchronizedList(new LinkedList<String>());
 	
 	/**
 	 * List of profile sizes.
 	 */
-	private static Set<String> profileSizes = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private static List<String> profileSizes = Collections.synchronizedList(new LinkedList<String>());
 	
 	/**
 	 * List of logo sizes.
 	 */
-	private static Set<String> logoSizes = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private static List<String> logoSizes = Collections.synchronizedList(new LinkedList<String>());
 	
 	/**
 	 * List of change keys.
 	 */
-	private static Set<String> changeKeys = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private static List<String> changeKeys = Collections.synchronizedList(new LinkedList<String>());
 	
 	/**
 	 * Whether the configuration information has been loaded or not.
@@ -116,7 +116,7 @@ public class TMDbConfiguration {
 	 * @return The poster sisez
 	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getPosterSizes() throws TMDbConfigurationNotLoadedException {
+	public static List<String> getPosterSizes() throws TMDbConfigurationNotLoadedException {
 		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return posterSizes;
 	}
@@ -127,7 +127,7 @@ public class TMDbConfiguration {
 	 * @return The backdrop sizes
 	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getBackdropSizes() throws TMDbConfigurationNotLoadedException {
+	public static List<String> getBackdropSizes() throws TMDbConfigurationNotLoadedException {
 		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return backdropSizes;
 	}
@@ -138,7 +138,7 @@ public class TMDbConfiguration {
 	 * @return The profile sizes.
 	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getProfileSizes() throws TMDbConfigurationNotLoadedException {
+	public static List<String> getProfileSizes() throws TMDbConfigurationNotLoadedException {
 		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return profileSizes;
 	}
@@ -149,7 +149,7 @@ public class TMDbConfiguration {
 	 * @return The logo sizes
 	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getLogoSizes() throws TMDbConfigurationNotLoadedException {
+	public static List<String> getLogoSizes() throws TMDbConfigurationNotLoadedException {
 		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return logoSizes;
 	}
@@ -160,7 +160,7 @@ public class TMDbConfiguration {
 	 * @return The change keys
 	 * @throws TMDbConfigurationNotLoadedException Throws if the load method has not been called before
 	 */
-	public static Set<String> getChangeKeys() throws TMDbConfigurationNotLoadedException {
+	public static List<String> getChangeKeys() throws TMDbConfigurationNotLoadedException {
 		if (!loaded) throw new TMDbConfigurationNotLoadedException();
 		return changeKeys;
 	}

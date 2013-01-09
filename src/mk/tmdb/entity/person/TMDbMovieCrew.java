@@ -21,8 +21,8 @@
 package mk.tmdb.entity.person;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.entity.role.TMDbCrew;
 import net.sf.json.JSONObject;
@@ -43,7 +43,7 @@ public class TMDbMovieCrew extends TMDbPersonThumbnail {
 	/**
 	 * The list of role in the crew.
 	 */
-	private Set<TMDbCrew> crew = Collections.synchronizedSet(new LinkedHashSet<TMDbCrew>());
+	private List<TMDbCrew> crew = Collections.synchronizedList(new LinkedList<TMDbCrew>());
 	
 	/**
 	 * Creates a new instance of MovieCrew based on the origin JSON object.
@@ -72,7 +72,7 @@ public class TMDbMovieCrew extends TMDbPersonThumbnail {
 	 * 
 	 * @return The roles list in the crew of the movie
 	 */
-	public Set<TMDbCrew> getCrew() {
+	public List<TMDbCrew> getCrew() {
 		return crew;
 	}
 
@@ -81,7 +81,7 @@ public class TMDbMovieCrew extends TMDbPersonThumbnail {
 	 * 
 	 * @param crew The new list of roles
 	 */
-	public void setCast(Set<TMDbCrew> crew) {
+	public void setCast(List<TMDbCrew> crew) {
 		this.crew.clear();
 		this.crew.addAll(crew);
 	}

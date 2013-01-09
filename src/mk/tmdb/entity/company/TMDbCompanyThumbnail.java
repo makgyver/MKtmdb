@@ -20,8 +20,8 @@
 
 package mk.tmdb.entity.company;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.core.TMDbAPI;
@@ -187,7 +187,7 @@ public class TMDbCompanyThumbnail extends TMDbEntity {
 	 * @return The list of movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAssociatedMovies(int companyID) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAssociatedMovies(int companyID) throws TMDbResponseException {
 		return getAssociatedMovies(companyID, 1);
 	}
 	
@@ -200,15 +200,15 @@ public class TMDbCompanyThumbnail extends TMDbEntity {
 	 * @return The list of movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAssociatedMovies(int companyID, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAssociatedMovies(int companyID, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getMoviesByCompany(companyID, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -224,15 +224,15 @@ public class TMDbCompanyThumbnail extends TMDbEntity {
 	 * @return The list of movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllAssociatedMovies(int companyID) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllAssociatedMovies(int companyID) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllMoviesByCompany(companyID);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -249,7 +249,7 @@ public class TMDbCompanyThumbnail extends TMDbEntity {
 	 * @return The list of company that match the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCompanyThumbnail> searchByName(String name) throws TMDbResponseException {
+	public static List<TMDbCompanyThumbnail> searchByName(String name) throws TMDbResponseException {
 		return searchByName(name, 1);
 	}
 	
@@ -262,14 +262,14 @@ public class TMDbCompanyThumbnail extends TMDbEntity {
 	 * @return The list of company that match the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCompanyThumbnail> searchByName(String name, int page) throws TMDbResponseException {
+	public static List<TMDbCompanyThumbnail> searchByName(String name, int page) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.searchCompanyByName(name, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbCompanyThumbnail> companies = new LinkedHashSet<TMDbCompanyThumbnail>();
+			List<JSONObject> array = response.getData();
+			List<TMDbCompanyThumbnail> companies = new LinkedList<TMDbCompanyThumbnail>();
 			for(JSONObject json : array) {
 				companies.add(new TMDbCompanyThumbnail(json));
 			}
@@ -285,14 +285,14 @@ public class TMDbCompanyThumbnail extends TMDbEntity {
 	 * @return The list of company that match the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCompanyThumbnail> fullSearchByName(String name) throws TMDbResponseException {
+	public static List<TMDbCompanyThumbnail> fullSearchByName(String name) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.fullSearchCompanyByName(name);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbCompanyThumbnail> companies = new LinkedHashSet<TMDbCompanyThumbnail>();
+			List<JSONObject> array = response.getData();
+			List<TMDbCompanyThumbnail> companies = new LinkedList<TMDbCompanyThumbnail>();
 			for(JSONObject json : array) {
 				companies.add(new TMDbCompanyThumbnail(json));
 			}

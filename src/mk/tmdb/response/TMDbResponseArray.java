@@ -21,8 +21,8 @@
 package mk.tmdb.response;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.core.TMDbConstants;
 import net.sf.json.JSONArray;
@@ -49,7 +49,7 @@ public class TMDbResponseArray extends TMDbResponse {
 	/**
 	 * The JSON objects list contained in the response.
 	 */
-	private Set<JSONObject> data = Collections.synchronizedSet(new LinkedHashSet<JSONObject>());
+	private List<JSONObject> data = Collections.synchronizedList(new LinkedList<JSONObject>());
 	
 	/**
 	 * The total number of the retrieved results.
@@ -88,7 +88,7 @@ public class TMDbResponseArray extends TMDbResponse {
 	 * 
 	 * @return the list of JSON object
 	 */
-	public Set<JSONObject> getData() {
+	public List<JSONObject> getData() {
 		return data;
 	}
 	

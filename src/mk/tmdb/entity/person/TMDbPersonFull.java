@@ -21,8 +21,8 @@
 package mk.tmdb.entity.person;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.entity.TMDbCredit;
 import mk.tmdb.entity.image.TMDbProfile;
@@ -46,12 +46,12 @@ public class TMDbPersonFull extends TMDbPerson {
 	/**
 	 * The profile images of the person.
 	 */
-	private Set<TMDbProfile> images = Collections.synchronizedSet(new LinkedHashSet<TMDbProfile>());
+	private List<TMDbProfile> images = Collections.synchronizedList(new LinkedList<TMDbProfile>());
 	
 	/**
 	 * The person credits list.
 	 */
-	private Set<TMDbCredit> credits = Collections.synchronizedSet(new LinkedHashSet<TMDbCredit>());
+	private List<TMDbCredit> credits = Collections.synchronizedList(new LinkedList<TMDbCredit>());
 	
 	/**
 	 * Creates a new instance of PersonFull based on the origin JSON object.
@@ -109,7 +109,7 @@ public class TMDbPersonFull extends TMDbPerson {
 	 * 
 	 * @return The person images list
 	 */
-	public Set<TMDbProfile> getImages() {
+	public List<TMDbProfile> getImages() {
 		return images;
 	}
 
@@ -118,7 +118,7 @@ public class TMDbPersonFull extends TMDbPerson {
 	 * 
 	 * @param images The new person images list
 	 */
-	public void setImages(Set<TMDbProfile> images) {
+	public void setImages(List<TMDbProfile> images) {
 		this.images = images;
 	}
 
@@ -127,7 +127,7 @@ public class TMDbPersonFull extends TMDbPerson {
 	 * 
 	 * @return The credits list of the person
 	 */
-	public Set<TMDbCredit> getCredits() {
+	public List<TMDbCredit> getCredits() {
 		return credits;
 	}
 
@@ -136,7 +136,7 @@ public class TMDbPersonFull extends TMDbPerson {
 	 * 
 	 * @param credits The new credits list
 	 */
-	public void setCredits(Set<TMDbCredit> credits) {
+	public void setCredits(List<TMDbCredit> credits) {
 		this.credits = credits;
 	}
 

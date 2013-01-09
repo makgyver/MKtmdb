@@ -21,8 +21,8 @@
 package mk.tmdb.entity;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.core.TMDbAPI;
@@ -82,22 +82,22 @@ public class TMDbAccount extends TMDbEntity {
 	/**
 	 * The favorite movies list for this account.
 	 */
-	private Set<TMDbMovieReduced> favoriteMovies = Collections.synchronizedSet(new LinkedHashSet<TMDbMovieReduced>());
+	private List<TMDbMovieReduced> favoriteMovies = Collections.synchronizedList(new LinkedList<TMDbMovieReduced>());
 
 	/**
 	 * The favorite lists list for this account.
 	 */
-	private Set<TMDbMovieList> favoriteLists = Collections.synchronizedSet(new LinkedHashSet<TMDbMovieList>());
+	private List<TMDbMovieList> favoriteLists = Collections.synchronizedList(new LinkedList<TMDbMovieList>());
 	
 	/**
 	 * The rated movies list for this account.
 	 */
-	private Set<TMDbMovieReduced> ratedMovies = Collections.synchronizedSet(new LinkedHashSet<TMDbMovieReduced>());
+	private List<TMDbMovieReduced> ratedMovies = Collections.synchronizedList(new LinkedList<TMDbMovieReduced>());
 	
 	/**
 	 * The watch list for this account.
 	 */
-	private Set<TMDbMovieReduced> watchlist = Collections.synchronizedSet(new LinkedHashSet<TMDbMovieReduced>());
+	private List<TMDbMovieReduced> watchlist = Collections.synchronizedList(new LinkedList<TMDbMovieReduced>());
 	
 	//endregion
 	
@@ -253,7 +253,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @return The watch list.
 	 */
-	public Set<TMDbMovieReduced> getWatchlist() {
+	public List<TMDbMovieReduced> getWatchlist() {
 		return watchlist;
 	}
 
@@ -262,7 +262,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param watchlist The new watch list
 	 */
-	public void setWatchlist(Set<TMDbMovieReduced> watchlist) {
+	public void setWatchlist(List<TMDbMovieReduced> watchlist) {
 		this.watchlist.addAll(watchlist);
 	}
 
@@ -271,7 +271,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @return The favorite movies list
 	 */
-	public Set<TMDbMovieReduced> getFavoriteMovies() {
+	public List<TMDbMovieReduced> getFavoriteMovies() {
 		return this.favoriteMovies;
 	}
 	
@@ -280,7 +280,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param favoriteMovies The new favorite movies list
 	 */
-	public void setFavoriteMovies(Set<TMDbMovieReduced> favoriteMovies) {
+	public void setFavoriteMovies(List<TMDbMovieReduced> favoriteMovies) {
 		this.favoriteMovies.addAll(favoriteMovies);
 	}
 	
@@ -289,7 +289,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @return The favorite lists list
 	 */
-	public Set<TMDbMovieList> getFavoriteLists() {
+	public List<TMDbMovieList> getFavoriteLists() {
 		return this.favoriteLists;
 	}
 
@@ -298,7 +298,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param favoriteLists The new favorite lists list
 	 */
-	public void setFavoriteLists(Set<TMDbMovieList> favoriteLists) {
+	public void setFavoriteLists(List<TMDbMovieList> favoriteLists) {
 		this.favoriteLists.clear();
 		this.favoriteLists.addAll(favoriteLists);
 	}
@@ -308,7 +308,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @return The top rated movies list
 	 */
-	public Set<TMDbMovieReduced> getRatedMovies() {
+	public List<TMDbMovieReduced> getRatedMovies() {
 		return this.ratedMovies;
 	}
 	
@@ -317,7 +317,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * 
 	 * @param ratedMovies The new top rated movies list
 	 */
-	public void setRatedMovies(Set<TMDbMovieReduced> ratedMovies) {
+	public void setRatedMovies(List<TMDbMovieReduced> ratedMovies) {
 		this.ratedMovies.clear();
 		this.ratedMovies.addAll(ratedMovies);
 	}
@@ -375,7 +375,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The favorite movies list
 	 * @throws TMDbResponseException Throws whether the server response is not a success. 
 	 */
-	public static Set<TMDbMovieReduced> getFavoriteMovies(TMDbAccount account) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getFavoriteMovies(TMDbAccount account) throws TMDbResponseException {
 		return getFavoriteMovies(account, 1);
 	}
 	
@@ -388,7 +388,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The favorite movies list
 	 * @throws TMDbResponseException Throws whether the server response is not a success. 
 	 */
-	public static Set<TMDbMovieReduced> getFavoriteMovies(TMDbAccount account, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getFavoriteMovies(TMDbAccount account, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getFavoriteMovies(account, page);
 		
@@ -396,8 +396,8 @@ public class TMDbAccount extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> data = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
 				movies.add(new TMDbMovieReduced(json));
@@ -414,15 +414,15 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The entire favorite movies list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllFavoriteMovies(TMDbAccount account) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllFavoriteMovies(TMDbAccount account) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.getAllFavoriteMovies(account);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> data = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
 				movies.add(new TMDbMovieReduced(json));
@@ -468,7 +468,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The favorite lists list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieList> getFavoriteLists(TMDbAccount account) throws TMDbResponseException {
+	public static List<TMDbMovieList> getFavoriteLists(TMDbAccount account) throws TMDbResponseException {
 		return getFavoriteLists(account, 1);
 	}
 	
@@ -481,7 +481,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The favorite lists list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieList> getFavoriteLists(TMDbAccount account, int page) throws TMDbResponseException {
+	public static List<TMDbMovieList> getFavoriteLists(TMDbAccount account, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getFavoriteLists(account, page);
 		
@@ -489,8 +489,8 @@ public class TMDbAccount extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieList> lists = new LinkedHashSet<TMDbMovieList>();
-			Set<JSONObject> data = response.getData();
+			List<TMDbMovieList> lists = new LinkedList<TMDbMovieList>();
+			List<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
 				lists.add(new TMDbMovieList(json));
@@ -507,15 +507,15 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The entire favorite lists list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieList> getAllFavoriteLists(TMDbAccount account) throws TMDbResponseException {
+	public static List<TMDbMovieList> getAllFavoriteLists(TMDbAccount account) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.getAllFavoriteLists(account);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieList> lists = new LinkedHashSet<TMDbMovieList>();
-			Set<JSONObject> data = response.getData();
+			List<TMDbMovieList> lists = new LinkedList<TMDbMovieList>();
+			List<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
 				lists.add(new TMDbMovieList(json));
@@ -537,7 +537,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The rated movies list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getRatedMovies(TMDbAccount account) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getRatedMovies(TMDbAccount account) throws TMDbResponseException {
 		return getRatedMovies(account, 1);
 	}
 	
@@ -550,7 +550,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The rated movies list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getRatedMovies(TMDbAccount account, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getRatedMovies(TMDbAccount account, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getRatedMovies(account, page);
 		
@@ -558,8 +558,8 @@ public class TMDbAccount extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> data = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
 				movies.add(new TMDbMovieReduced(json));
@@ -576,15 +576,15 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The rated movies list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllRatedMovies(TMDbAccount account) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllRatedMovies(TMDbAccount account) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.getAllRatedMovies(account);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> data = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
 				movies.add(new TMDbMovieReduced(json));
@@ -606,7 +606,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The movies watch list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getMovieWatchlist(TMDbAccount account) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getMovieWatchlist(TMDbAccount account) throws TMDbResponseException {
 		return getMovieWatchlist(account, 1);
 	}
 	
@@ -619,7 +619,7 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The movies watch list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getMovieWatchlist(TMDbAccount account, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getMovieWatchlist(TMDbAccount account, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getMovieWatchList(account, page);
 		
@@ -627,8 +627,8 @@ public class TMDbAccount extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> data = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
 				movies.add(new TMDbMovieReduced(json));
@@ -645,15 +645,15 @@ public class TMDbAccount extends TMDbEntity {
 	 * @return The movies watch list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllMovieWatchlist(TMDbAccount account) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllMovieWatchlist(TMDbAccount account) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.getAllMovieWatchList(account);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> data = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> data = response.getData();
 			
 			for (JSONObject json : data) {
 				movies.add(new TMDbMovieReduced(json));

@@ -21,8 +21,8 @@
 package mk.tmdb.entity.movie;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.entity.TMDbKeyword;
 import mk.tmdb.entity.TMDbLanguage;
@@ -54,37 +54,37 @@ public class TMDbMovieFull extends TMDbMovie {
 	/**
 	 * The movie backdrops.
 	 */
-	private Set<TMDbBackdrop> backdrops = Collections.synchronizedSet(new LinkedHashSet<TMDbBackdrop>());
+	private List<TMDbBackdrop> backdrops = Collections.synchronizedList(new LinkedList<TMDbBackdrop>());
 	
 	/**
 	 * The movie posters.
 	 */
-	private Set<TMDbPoster> posters = Collections.synchronizedSet(new LinkedHashSet<TMDbPoster>());
+	private List<TMDbPoster> posters = Collections.synchronizedList(new LinkedList<TMDbPoster>());
 	
 	/**
 	 * The movie keywords.
 	 */
-	private Set<TMDbKeyword> keywords = Collections.synchronizedSet(new LinkedHashSet<TMDbKeyword>());
+	private List<TMDbKeyword> keywords = Collections.synchronizedList(new LinkedList<TMDbKeyword>());
 	
 	/**
 	 * The movie translations.
 	 */
-	private Set<TMDbLanguage> translations = Collections.synchronizedSet(new LinkedHashSet<TMDbLanguage>());
+	private List<TMDbLanguage> translations = Collections.synchronizedList(new LinkedList<TMDbLanguage>());
 	
 	/**
 	 * The movie trailers.
 	 */
-	private Set<TMDbTrailer> trailers = Collections.synchronizedSet(new LinkedHashSet<TMDbTrailer>());
+	private List<TMDbTrailer> trailers = Collections.synchronizedList(new LinkedList<TMDbTrailer>());
 	
 	/**
 	 * The movie cast.
 	 */
-	private Set<TMDbMovieCast> cast = Collections.synchronizedSet(new LinkedHashSet<TMDbMovieCast>());
+	private List<TMDbMovieCast> cast = Collections.synchronizedList(new LinkedList<TMDbMovieCast>());
 	
 	/**
 	 * The movie crew.
 	 */
-	private Set<TMDbMovieCrew> crew = Collections.synchronizedSet(new LinkedHashSet<TMDbMovieCrew>());
+	private List<TMDbMovieCrew> crew = Collections.synchronizedList(new LinkedList<TMDbMovieCrew>());
 	
 	//endregion
 	
@@ -146,7 +146,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @return The movie backdrops
 	 */
-	public Set<TMDbBackdrop> getBackdrops() {
+	public List<TMDbBackdrop> getBackdrops() {
 		return backdrops;
 	}
 
@@ -155,7 +155,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @param backdrops The movie backdrops
 	 */
-	public void setBackdrops(Set<TMDbBackdrop> backdrops) {
+	public void setBackdrops(List<TMDbBackdrop> backdrops) {
 		this.backdrops.clear();
 		this.backdrops.addAll(backdrops);
 	}
@@ -165,7 +165,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @return The movie posters
 	 */
-	public Set<TMDbPoster> getPosters() {
+	public List<TMDbPoster> getPosters() {
 		return posters;
 	}
 
@@ -174,7 +174,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @param posters The movie posers
 	 */
-	public void setPosters(Set<TMDbPoster> posters) {
+	public void setPosters(List<TMDbPoster> posters) {
 		this.posters.clear();
 		this.posters.addAll(posters);
 	}
@@ -184,7 +184,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @return The movie keywords
 	 */
-	public Set<TMDbKeyword> getKeywords() {
+	public List<TMDbKeyword> getKeywords() {
 		return keywords;
 	}
 
@@ -193,7 +193,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @param keywords The movie keywords
 	 */
-	public void setKeywords(Set<TMDbKeyword> keywords) {
+	public void setKeywords(List<TMDbKeyword> keywords) {
 		this.keywords.clear();
 		this.keywords.addAll(keywords);
 	}
@@ -203,7 +203,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @return The movie translations
 	 */
-	public Set<TMDbLanguage> getTranslations() {
+	public List<TMDbLanguage> getTranslations() {
 		return translations;
 	}
 
@@ -212,7 +212,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @param translations The movie translations
 	 */
-	public void setTranslations(Set<TMDbLanguage> translations) {
+	public void setTranslations(List<TMDbLanguage> translations) {
 		this.translations.clear();
 		this.translations.addAll(translations);
 	}
@@ -222,7 +222,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @return The movie trailers
 	 */
-	public Set<TMDbTrailer> getTrailers() {
+	public List<TMDbTrailer> getTrailers() {
 		return trailers;
 	}
 
@@ -231,7 +231,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @param trailers The movie trailers
 	 */
-	public void setTrailers(Set<TMDbTrailer> trailers) {
+	public void setTrailers(List<TMDbTrailer> trailers) {
 		this.trailers.clear();
 		this.trailers.addAll(trailers);
 	}
@@ -241,7 +241,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @return The movie cast
 	 */
-	public Set<TMDbMovieCast> getCast() {
+	public List<TMDbMovieCast> getCast() {
 		return cast;
 	}
 
@@ -250,7 +250,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @param cast The new movie cast
 	 */
-	public void setCast(Set<TMDbMovieCast> cast) {
+	public void setCast(List<TMDbMovieCast> cast) {
 		this.cast.clear();
 		this.cast.addAll(cast);
 	}
@@ -260,7 +260,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @return The movie crew
 	 */
-	public Set<TMDbMovieCrew> getCrew() {
+	public List<TMDbMovieCrew> getCrew() {
 		return crew;
 	}
 
@@ -269,7 +269,7 @@ public class TMDbMovieFull extends TMDbMovie {
 	 * 
 	 * @param crew The new movie crew
 	 */
-	public void setCrew(Set<TMDbMovieCrew> crew) {
+	public void setCrew(List<TMDbMovieCrew> crew) {
 		this.crew.clear();
 		this.crew.addAll(crew);
 	}

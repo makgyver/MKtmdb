@@ -20,8 +20,8 @@
 
 package mk.tmdb.entity;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.core.TMDbAPI;
@@ -156,7 +156,7 @@ public class TMDbKeyword extends TMDbEntity {
 	 * @return The list of movies that has the specified keyword
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAssociatedMovies(int keywordID) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAssociatedMovies(int keywordID) throws TMDbResponseException {
 		return getAssociatedMovies(keywordID, 1);
 	}
 	
@@ -169,7 +169,7 @@ public class TMDbKeyword extends TMDbEntity {
 	 * @return The list of movies that has the specified keyword
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAssociatedMovies(int keywordID, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAssociatedMovies(int keywordID, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getMoviesByKeyword(keywordID, page);
 		
@@ -177,8 +177,8 @@ public class TMDbKeyword extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -194,7 +194,7 @@ public class TMDbKeyword extends TMDbEntity {
 	 * @return The list of movies that has the specified keyword
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllAssociatedMovies(int keywordID) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllAssociatedMovies(int keywordID) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllMoviesByKeyword(keywordID);
 		
@@ -202,8 +202,8 @@ public class TMDbKeyword extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -220,7 +220,7 @@ public class TMDbKeyword extends TMDbEntity {
 	 * @return The list of keywords
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbKeyword> searchByName(String name) throws TMDbResponseException {
+	public static List<TMDbKeyword> searchByName(String name) throws TMDbResponseException {
 		return searchByName(name, 1);
 	}
 	
@@ -233,14 +233,14 @@ public class TMDbKeyword extends TMDbEntity {
 	 * @return The list of keywords
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbKeyword> searchByName(String name, int page) throws TMDbResponseException {
+	public static List<TMDbKeyword> searchByName(String name, int page) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.searchKeywordByName(name, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbKeyword> keys = new LinkedHashSet<TMDbKeyword>();
+			List<JSONObject> array = response.getData();
+			List<TMDbKeyword> keys = new LinkedList<TMDbKeyword>();
 			for(JSONObject json : array) {
 				keys.add(new TMDbKeyword(json));
 			}
@@ -256,14 +256,14 @@ public class TMDbKeyword extends TMDbEntity {
 	 * @return The list of keywords
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbKeyword> fullSearchByName(String name) throws TMDbResponseException {
+	public static List<TMDbKeyword> fullSearchByName(String name) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.fullSearchKeywordByName(name);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbKeyword> keys = new LinkedHashSet<TMDbKeyword>();
+			List<JSONObject> array = response.getData();
+			List<TMDbKeyword> keys = new LinkedList<TMDbKeyword>();
 			for(JSONObject json : array) {
 				keys.add(new TMDbKeyword(json));
 			}

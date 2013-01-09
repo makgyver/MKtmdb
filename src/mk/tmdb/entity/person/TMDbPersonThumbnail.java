@@ -21,8 +21,8 @@
 package mk.tmdb.entity.person;
 
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.core.TMDbAPI;
@@ -236,7 +236,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return The credits list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCredit> getCredits(int persondID) throws TMDbResponseException {
+	public static List<TMDbCredit> getCredits(int persondID) throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getPersonCredits(persondID);
 		
@@ -244,7 +244,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 		
-			Set<TMDbCredit> credits = new LinkedHashSet<TMDbCredit>();
+			List<TMDbCredit> credits = new LinkedList<TMDbCredit>();
 			
 			JSONArray castArray = response.getData().getJSONArray(TMDbConstants.CAST);
 			
@@ -269,7 +269,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return The images list
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbProfile> getImages(int personID) throws TMDbResponseException {
+	public static List<TMDbProfile> getImages(int personID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getPersonImages(personID);
 		
 		if (response.hasError()) {
@@ -277,7 +277,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 		} else {
 			
 			JSONArray imgs = response.getData().getJSONArray(TMDbConstants.PROFILES);
-			Set<TMDbProfile> images = new LinkedHashSet<TMDbProfile>();
+			List<TMDbProfile> images = new LinkedList<TMDbProfile>();
 			for (Object obj : imgs) {
 			    images.add(new TMDbProfile((JSONObject) obj));
 			}
@@ -297,7 +297,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return List of people ids that have been edited
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged() throws TMDbResponseException {
+	public static List<Integer> getChanged() throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons();
 		
@@ -305,8 +305,8 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -328,7 +328,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return List of people ids that have been edited
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(Date start, Date end) throws TMDbResponseException {
+	public static List<Integer> getChanged(Date start, Date end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(start, end);
 		
@@ -336,8 +336,8 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -359,7 +359,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return List of people ids that have been edited
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(String start, String end) throws TMDbResponseException {
+	public static List<Integer> getChanged(String start, String end) throws TMDbResponseException {
 	
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(start, end);
 		
@@ -367,8 +367,8 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -389,7 +389,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return List of people ids that have been edited
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(int page) throws TMDbResponseException {
+	public static List<Integer> getChanged(int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(page);
 		
@@ -397,8 +397,8 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -421,7 +421,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return List of people ids that have been edited
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(String start, String end, int page) throws TMDbResponseException {
+	public static List<Integer> getChanged(String start, String end, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(start, end, page);
 		
@@ -429,8 +429,8 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -453,7 +453,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return List of people ids that have been edited
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(Date start, Date end, int page) throws TMDbResponseException {
+	public static List<Integer> getChanged(Date start, Date end, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedPersons(start, end, page);
 		
@@ -461,8 +461,8 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -481,7 +481,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return List of people ids that have been edited
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getAllChanged() throws TMDbResponseException {
+	public static List<Integer> getAllChanged() throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllChangedPersons();
 		
@@ -489,8 +489,8 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -511,7 +511,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return List of people ids that have been edited
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getAllChanged(String start, String end) throws TMDbResponseException {
+	public static List<Integer> getAllChanged(String start, String end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllChangedPersons(start, end);
 		
@@ -519,8 +519,8 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -541,7 +541,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return List of people ids that have been edited
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getAllChanged(Date start, Date end) throws TMDbResponseException {
+	public static List<Integer> getAllChanged(Date start, Date end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllChangedPersons(start, end);
 		
@@ -549,8 +549,8 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -571,7 +571,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return The people that match with the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> searchByName(String name) throws TMDbResponseException {
+	public static List<TMDbPersonThumbnail> searchByName(String name) throws TMDbResponseException {
 		return searchByName(name, 1);
 	}
 	
@@ -584,14 +584,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return The people that match with the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> searchByName(String name, int page) throws TMDbResponseException {
+	public static List<TMDbPersonThumbnail> searchByName(String name, int page) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.searchPersonByName(name, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbPersonThumbnail> people = new LinkedHashSet<TMDbPersonThumbnail>();
+			List<JSONObject> array = response.getData();
+			List<TMDbPersonThumbnail> people = new LinkedList<TMDbPersonThumbnail>();
 			for(JSONObject json : array) {
 				people.add(new TMDbPersonThumbnail(json));
 			}
@@ -609,7 +609,7 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return The people that match with the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> searchByName(String name, boolean adult) throws TMDbResponseException {
+	public static List<TMDbPersonThumbnail> searchByName(String name, boolean adult) throws TMDbResponseException {
 		return searchByName(name, adult, 1);
 	}
 	
@@ -623,14 +623,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return The people that match with the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> searchByName(String name, boolean adult, int page) throws TMDbResponseException {
+	public static List<TMDbPersonThumbnail> searchByName(String name, boolean adult, int page) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.searchPersonByName(name, adult, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbPersonThumbnail> people = new LinkedHashSet<TMDbPersonThumbnail>();
+			List<JSONObject> array = response.getData();
+			List<TMDbPersonThumbnail> people = new LinkedList<TMDbPersonThumbnail>();
 			for(JSONObject json : array) {
 				people.add(new TMDbPersonThumbnail(json));
 			}
@@ -647,14 +647,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return The people that match with the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> fullSearchByName(String name) throws TMDbResponseException {
+	public static List<TMDbPersonThumbnail> fullSearchByName(String name) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.fullSearchPersonByName(name);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbPersonThumbnail> people = new LinkedHashSet<TMDbPersonThumbnail>();
+			List<JSONObject> array = response.getData();
+			List<TMDbPersonThumbnail> people = new LinkedList<TMDbPersonThumbnail>();
 			for(JSONObject json : array) {
 				people.add(new TMDbPersonThumbnail(json));
 			}
@@ -672,14 +672,14 @@ public class TMDbPersonThumbnail extends TMDbEntity {
 	 * @return The people that match with the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPersonThumbnail> fullSearchByName(String name, boolean adult) throws TMDbResponseException {
+	public static List<TMDbPersonThumbnail> fullSearchByName(String name, boolean adult) throws TMDbResponseException {
 		TMDbResponseArray response = TMDbAPI.fullSearchPersonByName(name, adult);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbPersonThumbnail> people = new LinkedHashSet<TMDbPersonThumbnail>();
+			List<JSONObject> array = response.getData();
+			List<TMDbPersonThumbnail> people = new LinkedList<TMDbPersonThumbnail>();
 			for(JSONObject json : array) {
 				people.add(new TMDbPersonThumbnail(json));
 			}

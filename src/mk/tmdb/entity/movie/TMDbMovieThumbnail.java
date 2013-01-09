@@ -24,8 +24,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.core.TMDbAPI;
@@ -367,7 +367,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movies currently in theatre
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getInTheatreMovies() throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getInTheatreMovies() throws TMDbResponseException {
 		return getInTheatreMovies(1);
 	}
 
@@ -379,7 +379,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movies currently in theatre
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getInTheatreMovies(int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getInTheatreMovies(int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getInTheatresMovies(page);
 		
@@ -387,8 +387,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> inTheatre = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> inTheatre = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				inTheatre.add(new TMDbMovieReduced(json));
 			}
@@ -403,7 +403,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movies currently in theatre
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllInTheatreMovies() throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllInTheatreMovies() throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllInTheatresMovies();
 		
@@ -411,8 +411,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> inTheatre = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> inTheatre = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				inTheatre.add(new TMDbMovieReduced(json));
 			}
@@ -428,7 +428,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of coming soon movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getUpcomingMovies() throws TMDbResponseException  {
+	public static List<TMDbMovieReduced> getUpcomingMovies() throws TMDbResponseException  {
 		return getUpcomingMovies(1);
 	}
 
@@ -440,7 +440,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of coming soon movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getUpcomingMovies(int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getUpcomingMovies(int page) throws TMDbResponseException {
 
 		TMDbResponseArray response = TMDbAPI.getUpcomingMovies(page);
 		
@@ -448,8 +448,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> upcoming = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> upcoming = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				upcoming.add(new TMDbMovieReduced(json));
 			}
@@ -464,7 +464,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of coming soon movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllUpcomingMovies() throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllUpcomingMovies() throws TMDbResponseException {
 
 		TMDbResponseArray response = TMDbAPI.getAllUpcomingMovies();
 		
@@ -472,8 +472,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> upcoming = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> upcoming = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				upcoming.add(new TMDbMovieReduced(json));
 			}
@@ -489,7 +489,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of popular movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getPopularMovies() throws TMDbResponseException  {
+	public static List<TMDbMovieReduced> getPopularMovies() throws TMDbResponseException  {
 		return getPopularMovies(1);
 	}
 
@@ -501,7 +501,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of popular movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getPopularMovies(int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getPopularMovies(int page) throws TMDbResponseException {
 
 		TMDbResponseArray response = TMDbAPI.getPopularMovies(page);
 		
@@ -509,8 +509,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> popular = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> popular = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				popular.add(new TMDbMovieReduced(json));
 			}
@@ -525,7 +525,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of popular movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllPopularMovies() throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllPopularMovies() throws TMDbResponseException {
 
 		TMDbResponseArray response = TMDbAPI.getAllPopularMovies();
 		
@@ -533,8 +533,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> popular = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> popular = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				popular.add(new TMDbMovieReduced(json));
 			}
@@ -550,7 +550,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of top rated movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getTopRatedMovies() throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getTopRatedMovies() throws TMDbResponseException {
 		return getTopRatedMovies(1);
 	}
 
@@ -562,7 +562,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of top rated movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getTopRatedMovies(int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getTopRatedMovies(int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getTopRatedMovies(page);
 		
@@ -570,8 +570,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> tops = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> tops = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				tops.add(new TMDbMovieReduced(json));
 			}
@@ -586,7 +586,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of top rated movies
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllTopRatedMovies() throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllTopRatedMovies() throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllTopRatedMovies();
 		
@@ -594,8 +594,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> tops = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> tops = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				tops.add(new TMDbMovieReduced(json));
 			}
@@ -629,7 +629,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of keywords
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbKeyword> getKeywords(int movieID) throws TMDbResponseException {
+	public static List<TMDbKeyword> getKeywords(int movieID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getMovieKeywords(movieID);
 		
 		if (response.hasError()) {
@@ -637,7 +637,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 		} else {
 			
 			JSONArray allkeys = response.getData().getJSONArray(TMDbConstants.KEYWORDS);
-			Set<TMDbKeyword> keywords = new LinkedHashSet<TMDbKeyword>();
+			List<TMDbKeyword> keywords = new LinkedList<TMDbKeyword>();
 			for (Object obj : allkeys) {
 			    keywords.add(new TMDbKeyword((JSONObject) obj));
 			}
@@ -653,7 +653,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of translation languages of the movie.
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbLanguage> getTranslations(int movieID) throws TMDbResponseException {
+	public static List<TMDbLanguage> getTranslations(int movieID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getMovieTranslations(movieID);
 		
 		if (response.hasError()) {
@@ -661,7 +661,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 		} else {
 			
 			JSONArray allTrans = response.getData().getJSONArray(TMDbConstants.TRANSLATIONS);
-			Set<TMDbLanguage> translations = new LinkedHashSet<TMDbLanguage>();
+			List<TMDbLanguage> translations = new LinkedList<TMDbLanguage>();
 			for (Object obj : allTrans) {
 			    translations.add(new TMDbLanguage((JSONObject) obj));
 			}
@@ -677,7 +677,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie trailers
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbTrailer> getTrailers(int movieID) throws TMDbResponseException {
+	public static List<TMDbTrailer> getTrailers(int movieID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getMovieTrailers(movieID);
 		
 		if (response.hasError()) {
@@ -685,7 +685,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 		} else {
 		
 			JSONArray utube = response.getData().getJSONArray(TMDbConstants.YOUTUBE);
-			Set<TMDbTrailer> trailers = new LinkedHashSet<TMDbTrailer>();
+			List<TMDbTrailer> trailers = new LinkedList<TMDbTrailer>();
 			for (Object obj : utube) {
 			    trailers.add(new TMDbYoutubeTrailer((JSONObject) obj));
 			}
@@ -712,7 +712,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The movie cast information
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieCast> getCastInformation(int movieID) throws TMDbResponseException {
+	public static List<TMDbMovieCast> getCastInformation(int movieID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getCastInformation(movieID);
 		
 		if (response.hasError()) {
@@ -720,7 +720,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 		} else {
 		
 			JSONArray castArray = response.getData().getJSONArray(TMDbConstants.CAST);
-			Set<TMDbMovieCast> cast = new LinkedHashSet<TMDbMovieCast>();
+			List<TMDbMovieCast> cast = new LinkedList<TMDbMovieCast>();
 			for (Object obj : castArray) {
 				cast.add(new TMDbMovieCast((JSONObject) obj, movieID));
 			}
@@ -736,7 +736,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The movie crew information
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieCrew> getCrewInformation(int movieID) throws TMDbResponseException {
+	public static List<TMDbMovieCrew> getCrewInformation(int movieID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getCastInformation(movieID);
 		
 		if (response.hasError()) {
@@ -744,7 +744,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 		} else {
 		
 			JSONArray crewArray = response.getData().getJSONArray(TMDbConstants.CREW);
-			Set<TMDbMovieCrew> crew = new LinkedHashSet<TMDbMovieCrew>();
+			List<TMDbMovieCrew> crew = new LinkedList<TMDbMovieCrew>();
 			for (Object obj : crewArray) {
 				crew.add(new TMDbMovieCrew((JSONObject) obj, movieID));
 			}
@@ -760,7 +760,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie posters
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPoster> getPosters(int movieID) throws TMDbResponseException {
+	public static List<TMDbPoster> getPosters(int movieID) throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getMovieImages(movieID);
 		
@@ -770,7 +770,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			
 			JSONArray allPosters = response.getData().getJSONArray(TMDbConstants.POSTERS);
 			
-			Set<TMDbPoster> images = new LinkedHashSet<TMDbPoster>();
+			List<TMDbPoster> images = new LinkedList<TMDbPoster>();
 			for (Object obj : allPosters) {
 			    images.add(new TMDbPoster((JSONObject) obj));
 			}
@@ -786,7 +786,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie backdrops
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbBackdrop> getBackdrops(int movieID) throws TMDbResponseException {
+	public static List<TMDbBackdrop> getBackdrops(int movieID) throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getMovieImages(movieID);
 		
@@ -794,7 +794,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbBackdrop> images = new LinkedHashSet<TMDbBackdrop>();
+			List<TMDbBackdrop> images = new LinkedList<TMDbBackdrop>();
 			
 			JSONArray allBackdrops = response.getData().getJSONArray(TMDbConstants.BACKDROPS);
 			for (Object obj : allBackdrops) {
@@ -817,7 +817,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of movie ids that have been edited. 
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged() throws TMDbResponseException {
+	public static List<Integer> getChanged() throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedMovies();
 		
@@ -825,8 +825,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -849,7 +849,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of movie ids that have been edited. 
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(Date start, Date end) throws TMDbResponseException {
+	public static List<Integer> getChanged(Date start, Date end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedMovies(start, end);
 		
@@ -857,8 +857,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -881,7 +881,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of movie ids that have been edited. 
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(String start, String end) throws TMDbResponseException {
+	public static List<Integer> getChanged(String start, String end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedMovies(start, end);
 		
@@ -889,8 +889,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -912,7 +912,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of movie ids that have been edited. 
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(int page) throws TMDbResponseException {
+	public static List<Integer> getChanged(int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedMovies(page);
 		
@@ -920,8 +920,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -945,7 +945,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of movie ids that have been edited. 
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(Date start, Date end, int page) throws TMDbResponseException {
+	public static List<Integer> getChanged(Date start, Date end, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedMovies(start, end, page);
 		
@@ -953,8 +953,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -978,7 +978,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of movie ids that have been edited. 
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getChanged(String start, String end, int page) throws TMDbResponseException {
+	public static List<Integer> getChanged(String start, String end, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getChangedMovies(start, end, page);
 		
@@ -986,8 +986,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -1008,7 +1008,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of movie ids that have been edited. 
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getAllChanged() throws TMDbResponseException {
+	public static List<Integer> getAllChanged() throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllChangedMovies();
 		
@@ -1016,8 +1016,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -1040,7 +1040,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of movie ids that have been edited. 
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getAllChanged(Date start, Date end) throws TMDbResponseException {
+	public static List<Integer> getAllChanged(Date start, Date end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllChangedMovies(start, end);
 		
@@ -1048,8 +1048,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -1072,7 +1072,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of movie ids that have been edited. 
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Integer> getAllChanged(String start, String end) throws TMDbResponseException {
+	public static List<Integer> getAllChanged(String start, String end) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllChangedMovies(start, end);
 		
@@ -1080,8 +1080,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<JSONObject> array = response.getData();
-			Set<Integer> ids = new LinkedHashSet<Integer>();
+			List<JSONObject> array = response.getData();
+			List<Integer> ids = new LinkedList<Integer>();
 			for (JSONObject json : array) {
 			    ids.add(json.getInt(TMDbConstants.ID));
 			}
@@ -1097,7 +1097,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The movie alternative titles
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Pair<TMDbCountry, String>> getAlternativeTitles(int movieID) throws TMDbResponseException {
+	public static List<Pair<TMDbCountry, String>> getAlternativeTitles(int movieID) throws TMDbResponseException {
 		
 		TMDbResponseObject response = TMDbAPI.getAlternativeMovieTitles(movieID);
 		
@@ -1106,7 +1106,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 		} else {
 			
 			JSONArray array = response.getData().getJSONArray(TMDbConstants.TITLES);
-			Set<Pair<TMDbCountry, String>> titles = new LinkedHashSet<Pair<TMDbCountry, String>>();
+			List<Pair<TMDbCountry, String>> titles = new LinkedList<Pair<TMDbCountry, String>>();
 			for (Object obj : array) {
 				JSONObject json = (JSONObject) obj;
 			    titles.add(new Pair<TMDbCountry, String>(new TMDbCountry(json), json.getString(TMDbConstants.TITLE)));
@@ -1123,7 +1123,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The movie release dates
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<Pair<TMDbCountry, Date>> getReleaseDates(int movieID) throws TMDbResponseException {
+	public static List<Pair<TMDbCountry, Date>> getReleaseDates(int movieID) throws TMDbResponseException {
 		
 		// Certification skipped
 		
@@ -1134,7 +1134,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 		} else {
 			
 			JSONArray array = response.getData().getJSONArray(TMDbConstants.COUNTRIES);
-			Set<Pair<TMDbCountry, Date>> dates = new LinkedHashSet<Pair<TMDbCountry, Date>>();
+			List<Pair<TMDbCountry, Date>> dates = new LinkedList<Pair<TMDbCountry, Date>>();
 			for (Object obj : array) {
 				JSONObject json = (JSONObject) obj;
 				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -1156,7 +1156,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of similar movies to the specified one
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getSimilarMovies(int movieID) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getSimilarMovies(int movieID) throws TMDbResponseException {
 		return getSimilarMovies(movieID, 1);
 	}
 	
@@ -1168,7 +1168,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of similar movies to the specified one
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getSimilarMovies(int movieID, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getSimilarMovies(int movieID, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getSimilarMovies(movieID, page);
 		
@@ -1176,8 +1176,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> sims = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> sims = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				sims.add(new TMDbMovieReduced(json));
 			}
@@ -1193,7 +1193,7 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return List of similar movies to the specified one
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> getAllSimilarMovies(int movieID) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> getAllSimilarMovies(int movieID) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.getAllSimilarMovies(movieID);
 		
@@ -1201,8 +1201,8 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			
-			Set<TMDbMovieReduced> sims = new LinkedHashSet<TMDbMovieReduced>();
-			Set<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> sims = new LinkedList<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
 			for (JSONObject json : array) {
 				sims.add(new TMDbMovieReduced(json));
 			}
@@ -1270,15 +1270,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> searchByTitle(String movieTitle) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> searchByTitle(String movieTitle) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchMovieByTitle(movieTitle);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1296,15 +1296,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> searchByTitle(String movieTitle, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> searchByTitle(String movieTitle, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchMovieByTitle(movieTitle, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1322,15 +1322,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> searchByTitle(String movieTitle, boolean adult) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> searchByTitle(String movieTitle, boolean adult) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchMovieByTitle(movieTitle, adult);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1349,15 +1349,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> searchByTitle(String movieTitle, boolean adult, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> searchByTitle(String movieTitle, boolean adult, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchMovieByTitle(movieTitle, adult, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1373,15 +1373,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> fullSearchByTitle(String movieTitle) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> fullSearchByTitle(String movieTitle) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.fullSearchMovieByTitle(movieTitle);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1398,15 +1398,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> fullSearchByTitle(String movieTitle, boolean adult) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> fullSearchByTitle(String movieTitle, boolean adult) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.fullSearchMovieByTitle(movieTitle, adult);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1424,15 +1424,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> searchByTitleAndYear(String movieTitle, int year) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> searchByTitleAndYear(String movieTitle, int year) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchMovieByTitleAndYear(movieTitle, year);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1451,15 +1451,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> searchByTitleAndYear(String movieTitle, int year, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> searchByTitleAndYear(String movieTitle, int year, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchMovieByTitleAndYear(movieTitle, year, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1478,15 +1478,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> searchByTitleAndYear(String movieTitle, int year, boolean adult) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> searchByTitleAndYear(String movieTitle, int year, boolean adult) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchMovieByTitleAndYear(movieTitle, year, adult);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1506,15 +1506,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> searchByTitleAndYear(String movieTitle, int year, boolean adult, int page) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> searchByTitleAndYear(String movieTitle, int year, boolean adult, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchMovieByTitleAndYear(movieTitle, year, adult, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1531,15 +1531,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> fullSearchByTitleAndYear(String movieTitle, int year) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> fullSearchByTitleAndYear(String movieTitle, int year) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.fullSearchMovieByTitleAndYear(movieTitle, year);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}
@@ -1557,15 +1557,15 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 	 * @return The list of movie that match the given title
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbMovieReduced> fullSearchByTitleAndYear(String movieTitle, int year, boolean adult) throws TMDbResponseException {
+	public static List<TMDbMovieReduced> fullSearchByTitleAndYear(String movieTitle, int year, boolean adult) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.fullSearchMovieByTitleAndYear(movieTitle, year, adult);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbMovieReduced> movies = new LinkedHashSet<TMDbMovieReduced>();
+			List<JSONObject> array = response.getData();
+			List<TMDbMovieReduced> movies = new LinkedList<TMDbMovieReduced>();
 			for(JSONObject json : array) {
 				movies.add(new TMDbMovieReduced(json));
 			}

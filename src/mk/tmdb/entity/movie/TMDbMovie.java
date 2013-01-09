@@ -23,8 +23,8 @@ package mk.tmdb.entity.movie;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.entity.TMDbCollection;
@@ -96,22 +96,22 @@ public class TMDbMovie extends TMDbMovieReduced {
 	/**
 	 * The movie genres.
 	 */
-	protected Set<TMDbGenre> genres = Collections.synchronizedSet(new LinkedHashSet<TMDbGenre>());
+	protected List<TMDbGenre> genres = Collections.synchronizedList(new LinkedList<TMDbGenre>());
 	
 	/**
 	 * The movie companies.
 	 */
-	protected Set<TMDbCompanyThumbnail> companies = Collections.synchronizedSet(new LinkedHashSet<TMDbCompanyThumbnail>());
+	protected List<TMDbCompanyThumbnail> companies = Collections.synchronizedList(new LinkedList<TMDbCompanyThumbnail>());
 	
 	/**
 	 * The movie countries.
 	 */
-	protected Set<TMDbCountry> countries = Collections.synchronizedSet(new LinkedHashSet<TMDbCountry>());
+	protected List<TMDbCountry> countries = Collections.synchronizedList(new LinkedList<TMDbCountry>());
 	
 	/**
 	 * The movie languages.
 	 */
-	protected Set<TMDbLanguage> languages = Collections.synchronizedSet(new LinkedHashSet<TMDbLanguage>());
+	protected List<TMDbLanguage> languages = Collections.synchronizedList(new LinkedList<TMDbLanguage>());
 	
 	//endregion
 	
@@ -195,7 +195,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 	 * 
 	 * @return The movie genres
 	 */
-	public Set<TMDbGenre> getGenres() {
+	public List<TMDbGenre> getGenres() {
 		return genres;
 	}
 	
@@ -204,7 +204,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 	 * 
 	 * @param genres The new list of movie genres
 	 */
-	public void setGenres(Set<TMDbGenre> genres) {
+	public void setGenres(List<TMDbGenre> genres) {
 		this.genres.clear();
 		this.genres.addAll(genres);
 	}
@@ -268,7 +268,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 	 * 
 	 * @return The companies of the movies
 	 */
-	public Set<TMDbCompanyThumbnail> getCompanies() {
+	public List<TMDbCompanyThumbnail> getCompanies() {
 		return companies;
 	}
 	
@@ -277,7 +277,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 	 * 
 	 * @param countries The new countries of the movie
 	 */
-	public void setCountries(Set<TMDbCountry> countries) {
+	public void setCountries(List<TMDbCountry> countries) {
 		this.countries.clear();
 		this.countries.addAll(countries);
 	}
@@ -287,7 +287,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 	 * 
 	 * @return The country of the movie
 	 */
-	public Set<TMDbCountry> getCountries() {
+	public List<TMDbCountry> getCountries() {
 		return countries;
 	}
 	
@@ -296,7 +296,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 	 * 
 	 * @param companies The new companies of the movie
 	 */
-	public void setCompanies(Set<TMDbCompanyThumbnail> companies) {
+	public void setCompanies(List<TMDbCompanyThumbnail> companies) {
 		this.companies.clear();
 		this.companies.addAll(companies);
 	}
@@ -333,7 +333,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 	 * 
 	 * @return The languages of the movie
 	 */
-	public Set<TMDbLanguage> getLanguages() {
+	public List<TMDbLanguage> getLanguages() {
 		return languages;
 	}
 	
@@ -342,7 +342,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 	 * 
 	 * @param languages The new languages of the movie
 	 */
-	public void setLanguages(Set<TMDbLanguage> languages) {
+	public void setLanguages(List<TMDbLanguage> languages) {
 		this.languages.clear();
 		this.languages.addAll(languages);
 	}
@@ -484,7 +484,7 @@ public class TMDbMovie extends TMDbMovieReduced {
 		
 		if (json.has(TMDbConstants.GENRES)) {
 			JSONArray genresList = json.getJSONArray(TMDbConstants.GENRES);
-			genres = Collections.synchronizedSet(new LinkedHashSet<TMDbGenre>());
+			genres = Collections.synchronizedList(new LinkedList<TMDbGenre>());
 			for (Object obj : genresList) {
 			    genres.add(new TMDbGenre((JSONObject) obj));
 			}

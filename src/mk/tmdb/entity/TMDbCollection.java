@@ -21,8 +21,8 @@
 package mk.tmdb.entity;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -68,17 +68,17 @@ public class TMDbCollection extends TMDbEntity {
 	/**
 	 * The movies list belongs this collection.
 	 */
-	private Set<TMDbMovieThumbnail> movies = Collections.synchronizedSet(new LinkedHashSet<TMDbMovieThumbnail>());
+	private List<TMDbMovieThumbnail> movies = Collections.synchronizedList(new LinkedList<TMDbMovieThumbnail>());
 	
 	/**
 	 * The posters list of this collection.
 	 */
-	private Set<TMDbPoster> posters = Collections.synchronizedSet(new LinkedHashSet<TMDbPoster>());
+	private List<TMDbPoster> posters = Collections.synchronizedList(new LinkedList<TMDbPoster>());
 	
 	/**
 	 * The backdrops list of this collection.
 	 */
-	private Set<TMDbBackdrop> backdrops = Collections.synchronizedSet(new LinkedHashSet<TMDbBackdrop>());
+	private List<TMDbBackdrop> backdrops = Collections.synchronizedList(new LinkedList<TMDbBackdrop>());
 	
 	//endregion
 	
@@ -180,7 +180,7 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @return The movies belong to this collection
 	 */
-	public Set<TMDbMovieThumbnail> getMovies() {
+	public List<TMDbMovieThumbnail> getMovies() {
 		return movies;
 	}
 
@@ -189,7 +189,7 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @param movies The new movies list belong to this collection
 	 */
-	public void setMovies(Set<TMDbMovieThumbnail> movies) {
+	public void setMovies(List<TMDbMovieThumbnail> movies) {
 		this.movies = movies;
 	}
 	
@@ -198,7 +198,7 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @return The posters of the collection
 	 */
-	public Set<TMDbPoster> getPosters() {
+	public List<TMDbPoster> getPosters() {
 		return posters;
 	}
 
@@ -207,7 +207,7 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @param posters The new posters of the collection
 	 */
-	public void setPosters(Set<TMDbPoster> posters) {
+	public void setPosters(List<TMDbPoster> posters) {
 		this.posters = posters;
 	}
 
@@ -216,7 +216,7 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @return The backdrops of the collection
 	 */
-	public Set<TMDbBackdrop> getBackdrops() {
+	public List<TMDbBackdrop> getBackdrops() {
 		return backdrops;
 	}
 
@@ -225,7 +225,7 @@ public class TMDbCollection extends TMDbEntity {
 	 * 
 	 * @param backdrops The new backdrops of the collection
 	 */
-	public void setBackdrops(Set<TMDbBackdrop> backdrops) {
+	public void setBackdrops(List<TMDbBackdrop> backdrops) {
 		this.backdrops = backdrops;
 	}
 
@@ -279,14 +279,14 @@ public class TMDbCollection extends TMDbEntity {
 	 * @return The posters of the collection
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbPoster> getPosters(int collectionID) throws TMDbResponseException {
+	public static List<TMDbPoster> getPosters(int collectionID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getCollectionImages(collectionID);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			JSONArray array = response.getData().getJSONArray(TMDbConstants.POSTERS);
-			Set<TMDbPoster> images = new LinkedHashSet<TMDbPoster>(); 
+			List<TMDbPoster> images = new LinkedList<TMDbPoster>(); 
 			for(Object obj : array) {
 				images.add(new TMDbPoster((JSONObject) obj));
 			}
@@ -301,14 +301,14 @@ public class TMDbCollection extends TMDbEntity {
 	 * @return The backdrops of the collection
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbBackdrop> getBackrops(int collectionID) throws TMDbResponseException {
+	public static List<TMDbBackdrop> getBackrops(int collectionID) throws TMDbResponseException {
 		TMDbResponseObject response = TMDbAPI.getCollectionImages(collectionID);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
 			JSONArray array = response.getData().getJSONArray(TMDbConstants.BACKDROPS);
-			Set<TMDbBackdrop> images = new LinkedHashSet<TMDbBackdrop>(); 
+			List<TMDbBackdrop> images = new LinkedList<TMDbBackdrop>(); 
 			for(Object obj : array) {
 				images.add(new TMDbBackdrop((JSONObject) obj));
 			}
@@ -327,7 +327,7 @@ public class TMDbCollection extends TMDbEntity {
 	 * @return The list of collection that match with the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCollection> searchByName(String name) throws TMDbResponseException {
+	public static List<TMDbCollection> searchByName(String name) throws TMDbResponseException {
 		return searchByName(name, 1);
 	}
 	
@@ -339,15 +339,15 @@ public class TMDbCollection extends TMDbEntity {
 	 * @return The list of collection that match with the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCollection> searchByName(String name, int page) throws TMDbResponseException {
+	public static List<TMDbCollection> searchByName(String name, int page) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.searchCollectionByName(name, page);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbCollection> collections = new LinkedHashSet<TMDbCollection>();
+			List<JSONObject> array = response.getData();
+			List<TMDbCollection> collections = new LinkedList<TMDbCollection>();
 			for(JSONObject json : array) {
 				collections.add(new TMDbCollection(json));
 			}
@@ -363,15 +363,15 @@ public class TMDbCollection extends TMDbEntity {
 	 * @return The list of collection that match with the given name
 	 * @throws TMDbResponseException Throws whether the server response is not a success.
 	 */
-	public static Set<TMDbCollection> fullSearchByName(String name) throws TMDbResponseException {
+	public static List<TMDbCollection> fullSearchByName(String name) throws TMDbResponseException {
 		
 		TMDbResponseArray response = TMDbAPI.fullSearchCollectionByName(name);
 		
 		if (response.hasError()) {
 			throw new TMDbResponseException(response.getStatus());
 		} else {
-			Set<JSONObject> array = response.getData();
-			Set<TMDbCollection> collections = new LinkedHashSet<TMDbCollection>();
+			List<JSONObject> array = response.getData();
+			List<TMDbCollection> collections = new LinkedList<TMDbCollection>();
 			for(JSONObject json : array) {
 				collections.add(new TMDbCollection(json));
 			}

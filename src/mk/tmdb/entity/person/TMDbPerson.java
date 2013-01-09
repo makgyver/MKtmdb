@@ -27,8 +27,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.core.TMDbConstants;
 import mk.tmdb.utils.Log;
@@ -50,7 +50,7 @@ public class TMDbPerson extends TMDbPersonThumbnail {
 	/**
 	 * The aliases (Also-Known-As) of the person
 	 */
-	private Set<String> aka = Collections.synchronizedSet(new LinkedHashSet<String>());
+	private List<String> aka = Collections.synchronizedList(new LinkedList<String>());
 	
 	/**
 	 * The person biography.
@@ -105,7 +105,7 @@ public class TMDbPerson extends TMDbPersonThumbnail {
 	 * 
 	 * @return The aliases of the person.
 	 */
-	public Set<String> getAka() {
+	public List<String> getAka() {
 		return aka;
 	}
 	
@@ -114,7 +114,7 @@ public class TMDbPerson extends TMDbPersonThumbnail {
 	 * 
 	 * @param aka The new aliases list of the person.
 	 */
-	public void setAka(Set<String> aka) {
+	public void setAka(List<String> aka) {
 		this.aka = aka;
 	}
 	

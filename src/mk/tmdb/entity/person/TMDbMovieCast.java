@@ -21,8 +21,8 @@
 package mk.tmdb.entity.person;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import mk.tmdb.entity.role.TMDbCast;
 import net.sf.json.JSONObject;
@@ -43,7 +43,7 @@ public class TMDbMovieCast extends TMDbPersonThumbnail {
 	/**
 	 * The list of role in the cast.
 	 */
-	private Set<TMDbCast> cast = Collections.synchronizedSet(new LinkedHashSet<TMDbCast>());
+	private List<TMDbCast> cast = Collections.synchronizedList(new LinkedList<TMDbCast>());
 	
 	/**
 	 * Creates a new instance of MovieCast based on the origin JSON object.
@@ -72,7 +72,7 @@ public class TMDbMovieCast extends TMDbPersonThumbnail {
 	 * 
 	 * @return The roles list in the cast of the movie
 	 */
-	public Set<TMDbCast> getCast() {
+	public List<TMDbCast> getCast() {
 		return cast;
 	}
 
@@ -81,7 +81,7 @@ public class TMDbMovieCast extends TMDbPersonThumbnail {
 	 * 
 	 * @param cast The new list of roles
 	 */
-	public void setCast(Set<TMDbCast> cast) {
+	public void setCast(List<TMDbCast> cast) {
 		this.cast.clear();
 		this.cast.addAll(cast);
 	}

@@ -20,7 +20,7 @@
 
 package mk.tmdb.utils.sort;
 
-import java.util.Set;
+import java.util.List;
 
 import mk.tmdb.entity.TMDbKeyword;
 import mk.tmdb.entity.movie.TMDbMovieReduced;
@@ -41,7 +41,7 @@ public class TMDbSorter {
 	 * @param sort The sort type
 	 * @return A sorted array
 	 */
-	public static TMDbMovieReduced[] sortMovies(Set<TMDbMovieReduced> movies, TMDbMovieSortType sort) {
+	public static TMDbMovieReduced[] sortMovies(List<TMDbMovieReduced> movies, TMDbMovieSortType sort) {
 		
 		TMDbMovieReduced[] moviesArray = movies.toArray(new TMDbMovieReduced[0]);
 		
@@ -57,7 +57,7 @@ public class TMDbSorter {
 	 * @param sort The sort type
 	 * @return A sorted array
 	 */
-	public static TMDbPersonThumbnail[] sortPeople(Set<TMDbPersonThumbnail> people, TMDbPeopleSortType sort) {
+	public static TMDbPersonThumbnail[] sortPeople(List<TMDbPersonThumbnail> people, TMDbPeopleSortType sort) {
 		
 		TMDbPersonThumbnail[] peopleArray = people.toArray(new TMDbPersonThumbnail[0]);
 		
@@ -73,7 +73,7 @@ public class TMDbSorter {
 	 * @param sort The sort type
 	 * @return A sorted array
 	 */
-	public static TMDbKeyword[] sortKeywords(Set<TMDbKeyword> keys, TMDbKeywordSortType sort) {
+	public static TMDbKeyword[] sortKeywords(List<TMDbKeyword> keys, TMDbKeywordSortType sort) {
 		
 		TMDbKeyword[] keysArray = keys.toArray(new TMDbKeyword[0]);
 		
