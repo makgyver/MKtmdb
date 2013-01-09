@@ -92,6 +92,7 @@ public final class TMDbConstants {
 	public static final String JOB = "job";
 	public static final String KEYWORD = "keyword";
 	public static final String KEYWORDS = "keywords";
+	public static final String LANGUAGE = "language";
 	public static final String LANGUAGES = "spoken_languages";
 	public static final String LATEST = "latest";
 	public static final String LINK = "source";

@@ -24,6 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * This class provides methods for creating well formed query URL.
@@ -65,6 +66,42 @@ public class TMDbURLCreator {
 		apiKey = key;
 	}
 
+	//endregion
+	
+	//region Language
+	
+	/**
+	 * The request language.
+	 */
+	private static Locale language = Locale.US;
+	
+	/**
+	 * Gets the language.
+	 * 
+	 * @return The language
+	 */
+	public static String getLangauge() {
+		return language.getISO3Language().substring(0, 2);
+	}
+	
+	/**
+	 * Sets the language.
+	 * 
+	 * @param lang The new language
+	 */
+	public static void setLanguage(Locale lang) {
+		language = lang;
+	}
+	
+	/**
+	 * Gets the langauge parameter.
+	 * 
+	 * @return The language parameter
+	 */
+	private static String getLangParam() {
+		return param(pair(TMDbConstants.LANGUAGE, getLangauge()));
+	}
+	
 	//endregion
 	
 	//region Utilities
@@ -198,7 +235,8 @@ public class TMDbURLCreator {
 				  accountID + TMDbConstants.SLASH +
 				  TMDbConstants.LISTS +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.SESSION_ID, sessionID)));
+				  param(pair(TMDbConstants.SESSION_ID, sessionID)) +
+				  getLangParam());
 	}
 	
 	/**
@@ -218,7 +256,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.LISTS +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.SESSION_ID, sessionID)) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	/**
@@ -236,7 +275,8 @@ public class TMDbURLCreator {
 				  accountID + TMDbConstants.SLASH +
 				  TMDbConstants.FAVORITE_MOVIES +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.SESSION_ID, sessionID)));
+				  param(pair(TMDbConstants.SESSION_ID, sessionID)) + 
+				  getLangParam());
 	}
 	
 	/**
@@ -256,7 +296,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.FAVORITE_MOVIES +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.SESSION_ID, sessionID)) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}	
 	
 	/**
@@ -310,7 +351,8 @@ public class TMDbURLCreator {
 				  accountID + TMDbConstants.SLASH +
 				  TMDbConstants.RATED_MOVIES +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.SESSION_ID, sessionID)));
+				  param(pair(TMDbConstants.SESSION_ID, sessionID)) +
+				  getLangParam());
 	}
 
 	/**
@@ -330,7 +372,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.RATED_MOVIES +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.SESSION_ID, sessionID)) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 	
 	/**
@@ -348,7 +391,8 @@ public class TMDbURLCreator {
 				  accountID + TMDbConstants.SLASH +
 				  TMDbConstants.WATCHLIST +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.SESSION_ID, sessionID)));
+				  param(pair(TMDbConstants.SESSION_ID, sessionID)) +
+				  getLangParam());
 	}
 
 	/**
@@ -368,7 +412,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.WATCHLIST +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.SESSION_ID, sessionID)) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 	
 	/**
@@ -423,7 +468,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.VERSION +
 				  TMDbConstants.MOVIE + TMDbConstants.SLASH +
 				  movieID +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 
 	/**
@@ -455,7 +501,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.MOVIE + TMDbConstants.SLASH +
 				  movieID + TMDbConstants.SLASH +
 				  TMDbConstants.IMAGES +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) + 
+				  getLangParam());
 	}
 
 	/**
@@ -551,7 +598,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.MOVIE + TMDbConstants.SLASH +
 				  movieID + TMDbConstants.SLASH +
 				  TMDbConstants.SIMILAR +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 
 	/**
@@ -569,7 +617,8 @@ public class TMDbURLCreator {
 				  movieID + TMDbConstants.SLASH +
 				  TMDbConstants.SIMILAR +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 	
 	/**
@@ -658,7 +707,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.VERSION +
 				  TMDbConstants.MOVIES_UPCOMING +
 				  pair(TMDbConstants.API_KEY, getApiKey()) + 
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	/**
@@ -683,7 +733,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.VERSION +
 				  TMDbConstants.MOVIES_INTHEATRE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) + 
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	/**
@@ -708,7 +759,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.VERSION +
 				  TMDbConstants.POPULAR_MOVIES +
 				  pair(TMDbConstants.API_KEY, getApiKey()) + 
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	/**
@@ -733,7 +785,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.VERSION +
 				  TMDbConstants.TOPRATED_MOVIES +
 				  pair(TMDbConstants.API_KEY, getApiKey()) + 
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	/**
@@ -780,7 +833,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.VERSION +
 				  TMDbConstants.MOVIE + TMDbConstants.SLASH +
 				  TMDbConstants.LISTS +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 	
 	/**
@@ -797,7 +851,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.MOVIE + TMDbConstants.SLASH +
 				  TMDbConstants.LISTS +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 	
 	//endregion
@@ -816,7 +871,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.VERSION +
 				  TMDbConstants.COLLECTION + TMDbConstants.SLASH +
 				  collectionID +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 	
 	/**
@@ -832,7 +888,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.COLLECTION + TMDbConstants.SLASH +
 				  collectionID + TMDbConstants.SLASH +
 				  TMDbConstants.IMAGES +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 	
 	//endregion
@@ -886,7 +943,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.PERSON + TMDbConstants.SLASH +
 				  personID + TMDbConstants.SLASH +
 				  TMDbConstants.CREDITS +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 
 	/**
@@ -1011,7 +1069,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.COMPANY + TMDbConstants.SLASH +
 				  companyID + TMDbConstants.SLASH +
 				  TMDbConstants.MOVIES +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 	
 	/**
@@ -1029,7 +1088,8 @@ public class TMDbURLCreator {
 				  companyID + TMDbConstants.SLASH +
 				  TMDbConstants.MOVIES +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	//endregion
@@ -1047,7 +1107,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.VERSION +
 				  TMDbConstants.GENRE + TMDbConstants.SLASH +
 				  TMDbConstants.LIST +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 
 	/**
@@ -1063,7 +1124,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.GENRE + TMDbConstants.SLASH +
 				  genreID + TMDbConstants.SLASH +
 				  TMDbConstants.MOVIES +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 	
 	/**
@@ -1081,7 +1143,8 @@ public class TMDbURLCreator {
 				  genreID + TMDbConstants.SLASH +
 				  TMDbConstants.MOVIES +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	//endregion
@@ -1116,7 +1179,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.KEYWORD + TMDbConstants.SLASH +
 				  keywordID + TMDbConstants.SLASH +
 				  TMDbConstants.MOVIES +
-				  pair(TMDbConstants.API_KEY, getApiKey()));
+				  pair(TMDbConstants.API_KEY, getApiKey()) +
+				  getLangParam());
 	}
 	
 	/**
@@ -1134,7 +1198,8 @@ public class TMDbURLCreator {
 				  keywordID + TMDbConstants.SLASH +
 				  TMDbConstants.MOVIES +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 	
 	//endregion
@@ -1154,7 +1219,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.SEARCH +
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.QUERY, movieTitle)));
+				  param(pair(TMDbConstants.QUERY, movieTitle)) +
+				  getLangParam());
 	}
 	
 	/**
@@ -1172,7 +1238,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.QUERY, movieTitle)) + 
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	/**
@@ -1190,7 +1257,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.QUERY, movieTitle))+
-				  param(pair(TMDbConstants.YEAR, String.valueOf(year))));
+				  param(pair(TMDbConstants.YEAR, String.valueOf(year))) +
+				  getLangParam());
 	}
 	
 	/**
@@ -1210,7 +1278,8 @@ public class TMDbURLCreator {
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.QUERY, movieTitle))+
 				  param(pair(TMDbConstants.YEAR, String.valueOf(year))) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	/**
@@ -1228,7 +1297,8 @@ public class TMDbURLCreator {
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.QUERY, movieTitle))+
-				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))));
+				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))) +
+				  getLangParam());
 	}
 	
 	/**
@@ -1248,7 +1318,8 @@ public class TMDbURLCreator {
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.QUERY, movieTitle))+
 				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	/**
@@ -1268,7 +1339,8 @@ public class TMDbURLCreator {
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.QUERY, movieTitle))+
 				  param(pair(TMDbConstants.YEAR, String.valueOf(year))) +
-				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))));
+				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))) +
+				  getLangParam());
 	}
 	
 	/**
@@ -1290,7 +1362,8 @@ public class TMDbURLCreator {
 				  param(pair(TMDbConstants.QUERY, movieTitle))+
 				  param(pair(TMDbConstants.YEAR, String.valueOf(year))) +
 				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))) +
-				  param(pair(TMDbConstants.PAGE, String.valueOf(page))));
+				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
+				  getLangParam());
 	}
 
 	/**
