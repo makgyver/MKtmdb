@@ -1219,7 +1219,7 @@ public class TMDbURLCreator {
 				  TMDbConstants.SEARCH +
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.QUERY, movieTitle)) +
+				  param(pair(TMDbConstants.QUERY, movieTitle.replace(" ", "+"))) +
 				  getLangParam());
 	}
 	
@@ -1237,7 +1237,7 @@ public class TMDbURLCreator {
 				  TMDbConstants.SEARCH +
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.QUERY, movieTitle)) + 
+				  param(pair(TMDbConstants.QUERY, movieTitle.replace(" ", "+"))) + 
 				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
 				  getLangParam());
 	}
@@ -1256,7 +1256,7 @@ public class TMDbURLCreator {
 				  TMDbConstants.SEARCH + 
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.QUERY, movieTitle))+
+				  param(pair(TMDbConstants.QUERY, movieTitle.replace(" ", "+")))+
 				  param(pair(TMDbConstants.YEAR, String.valueOf(year))) +
 				  getLangParam());
 	}
@@ -1276,7 +1276,7 @@ public class TMDbURLCreator {
 				  TMDbConstants.SEARCH + 
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.QUERY, movieTitle))+
+				  param(pair(TMDbConstants.QUERY, movieTitle.replace(" ", "+")))+
 				  param(pair(TMDbConstants.YEAR, String.valueOf(year))) +
 				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
 				  getLangParam());
@@ -1296,7 +1296,7 @@ public class TMDbURLCreator {
 				  TMDbConstants.SEARCH + 
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.QUERY, movieTitle))+
+				  param(pair(TMDbConstants.QUERY, movieTitle.replace(" ", "+")))+
 				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))) +
 				  getLangParam());
 	}
@@ -1316,7 +1316,7 @@ public class TMDbURLCreator {
 				  TMDbConstants.SEARCH + 
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.QUERY, movieTitle))+
+				  param(pair(TMDbConstants.QUERY, movieTitle.replace(" ", "+")))+
 				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))) +
 				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
 				  getLangParam());
@@ -1337,7 +1337,7 @@ public class TMDbURLCreator {
 				  TMDbConstants.SEARCH + 
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.QUERY, movieTitle))+
+				  param(pair(TMDbConstants.QUERY, movieTitle.replace(" ", "+")))+
 				  param(pair(TMDbConstants.YEAR, String.valueOf(year))) +
 				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))) +
 				  getLangParam());
@@ -1359,7 +1359,7 @@ public class TMDbURLCreator {
 				  TMDbConstants.SEARCH + 
 				  TMDbConstants.MOVIE +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
-				  param(pair(TMDbConstants.QUERY, movieTitle))+
+				  param(pair(TMDbConstants.QUERY, movieTitle.replace(" ", "+")))+
 				  param(pair(TMDbConstants.YEAR, String.valueOf(year))) +
 				  param(pair(TMDbConstants.INCLUDE_ADULT, String.valueOf(adult))) +
 				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +

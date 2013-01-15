@@ -290,6 +290,22 @@ public class TMDbMovieThumbnail extends TMDbEntity {
 		return mpaa != null;
 	}
 	
+	/**
+	 * Gets the movie year.
+	 * 
+	 * @return The movie year
+	 */
+	public int getYear() {
+		int year = 1900;
+		SimpleDateFormat formatNowYear = new SimpleDateFormat("yyyy");
+		
+		if (isReleaseDateSet()) {
+			year = Integer.valueOf(formatNowYear.format(releaseDate));
+		}
+		
+		return year;
+	}
+	
 	//endregion
 	
 	/**
