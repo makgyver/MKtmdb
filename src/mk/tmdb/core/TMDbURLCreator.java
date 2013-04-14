@@ -832,6 +832,7 @@ public class TMDbURLCreator {
 		return new URL(TMDbConstants.API_BASE_URL +
 				  TMDbConstants.VERSION +
 				  TMDbConstants.MOVIE + TMDbConstants.SLASH +
+				  movieID + TMDbConstants.SLASH +
 				  TMDbConstants.LISTS +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  getLangParam());
@@ -849,6 +850,7 @@ public class TMDbURLCreator {
 		return new URL(TMDbConstants.API_BASE_URL +
 				  TMDbConstants.VERSION +
 				  TMDbConstants.MOVIE + TMDbConstants.SLASH +
+				  movieID + TMDbConstants.SLASH +
 				  TMDbConstants.LISTS +
 				  pair(TMDbConstants.API_KEY, getApiKey()) +
 				  param(pair(TMDbConstants.PAGE, String.valueOf(page))) +
