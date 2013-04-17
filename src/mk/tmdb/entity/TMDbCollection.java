@@ -239,7 +239,7 @@ public class TMDbCollection extends TMDbEntity {
 		if (json.isNullObject()) return false;
 		
 		setPosterPath(json.getString(TMDbConstants.POSTER_PATH));
-		setBackdropPath(json.getString(TMDbConstants.POSTER_PATH));
+		setBackdropPath(json.getString(TMDbConstants.BACKDROP_PATH));
 		setName(json.getString(TMDbConstants.NAME));
 		setId(json.getInt(TMDbConstants.ID));
 		
