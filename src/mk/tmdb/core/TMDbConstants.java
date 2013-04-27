@@ -149,7 +149,7 @@ public final class TMDbConstants {
 	public static final String TITLE = "title";
 	public static final String TITLES = "titles";
 	public static final String TOKEN = "request_token";
-	public static final String TOPRATED_MOVIES = "movie/popular";
+	public static final String TOPRATED_MOVIES = "movie/top_rated";
 	public static final String TOTAL_PAGES = "total_pages";
 	public static final String TOTAL_RESULTS = "total_results";
 	public static final String TRAILERS = "trailers";
