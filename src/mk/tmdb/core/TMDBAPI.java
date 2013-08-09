@@ -80,7 +80,8 @@ public final class TMDbAPI {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setReadTimeout(timeout);
-			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB;     rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 (.NET CLR 3.5.30729)");
+			conn.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+			conn.setRequestProperty("Accept","*/*");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			for (String line = null; (line = reader.readLine()) != null;) {
 			    result.append(line).append("\n");
